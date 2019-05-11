@@ -7,9 +7,10 @@
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Case> Cases { get; set; }
-        public DbSet<Case> Departments { get; set; }
-        public DbSet<Case> Documents { get; set; }
-        public DbSet<Case> Users { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<DocumentType> DocumentTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
