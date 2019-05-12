@@ -10,13 +10,13 @@ namespace EOD.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DocumentController : ControllerBase
+    public class DocumentsController : ControllerBase
     {
-        private readonly IDocumentService _documentService;
+        private readonly IDocumentsService documentsService;
 
-        public DocumentController(IDocumentService documentService)
+        public DocumentsController(IDocumentsService documentsService)
         {
-            _documentService = documentService;
+            this.documentsService = documentsService;
         }
     }
 }

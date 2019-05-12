@@ -1,6 +1,6 @@
 ﻿namespace EOD.DAL.Repositories.Interfaces
 {
-    public interface IDocumentRepository
+    public interface IDocumentsRepository
     {
         
     }
