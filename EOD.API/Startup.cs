@@ -6,6 +6,7 @@
 
     using AutoMapper;
 
+    using EOD.BL.Dtos.CaseDtos;
     using EOD.BL.Dtos.UserDtos;
     using EOD.BL.Services;
     using EOD.BL.Services.Interfaces;
@@ -70,6 +71,7 @@
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ICasesRepository, CasesRepository>();
             services.AddScoped<ICasesService, CasesService>();
+            services.AddScoped<IDepartmentsRepository, DepartmentsRepository>();
             services.AddDbContext<ApplicationDbContext>();
 
         }
@@ -128,6 +130,8 @@
                     {
                         cfg.CreateMap<User, GetUserDto>();
                         cfg.CreateMap<AddUserDto, User>();
+                        cfg.CreateMap<Case, GetCaseDto>();
+                        cfg.CreateMap<AddCaseDto, Case>();
                     });
         }
     }
