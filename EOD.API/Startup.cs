@@ -4,7 +4,16 @@
     using System.Linq;
     using System.Text;
 
+    using AutoMapper;
+
+    using EOD.BL.Dtos.UserDtos;
+    using EOD.BL.Services;
+    using EOD.BL.Services.Interfaces;
     using EOD.Commons.Helpers;
+    using EOD.DAL.Config;
+    using EOD.DAL.Model;
+    using EOD.DAL.Repositories;
+    using EOD.DAL.Repositories.Interfaces;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -29,6 +38,7 @@
         {
             Bootstrap(services);
             ConfigureSwagger(services);
+            ConfigureMapper();
         }
 
 
@@ -56,6 +66,10 @@
         {
             services.AddCors(opt => opt.AddPolicy("policy", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddDbContext<ApplicationDbContext>();
+
         }
 
         private void ConfigureToken(IServiceCollection services)
@@ -103,6 +117,15 @@
                             });
                         c.AddSecurityRequirement(
                             new Dictionary<string, IEnumerable<string>> { { "Bearer", Enumerable.Empty<string>() } });
+                    });
+        }
+        private static void ConfigureMapper()
+        {
+            Mapper.Initialize(
+                cfg =>
+                    {
+                        cfg.CreateMap<User, GetUserDto>();
+                        cfg.CreateMap<AddUserDto, User>();
                     });
         }
     }
