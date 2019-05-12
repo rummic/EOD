@@ -18,7 +18,16 @@
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<UserCase>()
+                .HasKey(uc => new {uc.UserId, uc.CaseId});
+            modelBuilder.Entity<UserCase>()
+                .HasOne(uc => uc.User)
+                .WithMany(u => u.ReceivedCases)
+                .HasForeignKey(uc => uc.UserId);
+            modelBuilder.Entity<UserCase>()
+                .HasOne(uc => uc.Case)
+                .WithMany(c => c.Recipients)
+                .HasForeignKey(uc => uc.CaseId);
         }
     }
 }
