@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EOD.BL.Services.Interfaces
 {
-    public interface ICaseService
+    public interface ICasesService
     {
 
     }

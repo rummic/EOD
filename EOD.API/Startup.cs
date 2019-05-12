@@ -68,6 +68,8 @@
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ICasesRepository, CasesRepository>();
+            services.AddScoped<ICasesService, CasesService>();
             services.AddDbContext<ApplicationDbContext>();
 
         }
