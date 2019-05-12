@@ -19,6 +19,5 @@ namespace EOD.DAL.Model
         public bool IsDeleted { get; set; }
         public string Role { get; set; }
         public byte[] Salt { get; set; }
-        public ICollection<UserCase> ReceivedCases { get; set; }
     }
 }

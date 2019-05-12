@@ -12,5 +12,6 @@ namespace EOD.DAL.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
+        public Department Department { get; set; }
     }
 }
