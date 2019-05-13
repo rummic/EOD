@@ -1,4 +1,6 @@
-﻿namespace EOD.API.Controllers
+﻿using EOD.Commons.Enumerables;
+
+namespace EOD.API.Controllers
 {
     using EOD.BL.Dtos;
     using EOD.BL.Dtos.CaseDtos;
@@ -39,6 +41,7 @@
 
         [HttpGet]
         [AllowAnonymous]
+        //[Authorize(Roles = Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<List<GetCaseDto>>>> GetCases()
         {
             ResponseDto<List<GetCaseDto>> casesResponse = await _casesService.GetCases();
@@ -49,6 +52,20 @@
 
             return Ok(casesResponse);
         }
+
+        [HttpGet("Manager")]
+        [Authorize(Roles = Role.Admin)]
+        public async Task<ActionResult<ResponseDto<List<GetCaseDto>>>> GetCasesForManager()
+        {
+            ResponseDto<List<GetCaseDto>> casesResponse = await _casesService.GetCasesForManager(User);
+            if (casesResponse.HasErrors)
+            {
+                return BadRequest(casesResponse);
+            }
+
+            return Ok(casesResponse);
+        }
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -69,8 +86,7 @@
         }
 
         [HttpPut]
-        [AllowAnonymous]
-        //[Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
+        [Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<int>>> ChangeStatus(int id, string status)
         {
             if (!ModelState.IsValid)
@@ -89,8 +105,7 @@
         }
 
         [HttpDelete("{id}")]
-        [AllowAnonymous]
-        //[Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
+        [Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<bool>>> DeleteCase(int id)
         {
             ResponseDto<bool> result = await _casesService.DeleteCase(User, id);
