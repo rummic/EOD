@@ -40,6 +40,7 @@
             Bootstrap(services);
             ConfigureSwagger(services);
             ConfigureMapper();
+            ConfigureToken(services);
         }
 
 
