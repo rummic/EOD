@@ -44,7 +44,7 @@
             var response = new ResponseDto<int>();
             if (userFromDb == null)
                 response.AddError(UserErrors.NotFoundByLogin);
-            if (loggedInUser.Identity.Name != userToUpdate.Login && !loggedInUser.IsInRole(Role.Admin) && !loggedInUser.IsInRole(Role.SuperAdmin))
+            if (!loggedInUser.IsInRole(Role.SuperAdmin))
                 response.AddError(UserErrors.NotAllowed);
 
             return response;
@@ -71,16 +71,38 @@
 
             if (user == null)
             {
-                response.Errors.Add(UserErrors.NotFoundByLogin);
+                response.AddError(UserErrors.NotFoundByLogin);
                 return response;
             }
 
             if (!user.Password.IsEqualTo(loginUser.Password.GenerateSaltedHash(user.Salt)))
-                response.Errors.Add(UserErrors.InvalidPassword);
+                response.AddError(UserErrors.InvalidPassword);
 
             return response;
 
 
+        }
+
+        public static ResponseDto<int> ValidateChangePassword(User userFromDb, ChangePasswordDto passwordDto)
+        {
+            var response = new ResponseDto<int>();
+
+            if (userFromDb == null)
+            {
+                response.AddError(UserErrors.NotFoundByLogin);
+                return response;
+            }
+
+            if (!userFromDb.Password.IsEqualTo(passwordDto.CurrentPassword.GenerateSaltedHash(userFromDb.Salt)))
+            {
+                response.AddError(UserErrors.InvalidPassword);
+                return response;
+            }
+
+            if (passwordDto.NewPassword != passwordDto.ConfirmNewPassword)
+                response.AddError(UserErrors.InvalidConfirmPassword);
+
+            return response;
         }
     }
 }

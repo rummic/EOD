@@ -109,6 +109,22 @@
             return response;
         }
 
+        public async Task<ResponseDto<int>> ChangePassword(ClaimsPrincipal userIdentity, ChangePasswordDto changePasswordDto)
+        {
+            var userFromDb = await _usersRepository.GetUserByLogin(userIdentity.Identity.Name);
+            ResponseDto<int> response = UsersValidator.ValidateChangePassword(userFromDb, changePasswordDto);
+            if (response.HasErrors)
+            {
+                return response;
+            }
+
+            userFromDb.Salt = SaltCreator.CreateSalt();
+            userFromDb.Password = changePasswordDto.NewPassword.GenerateSaltedHash(userFromDb.Salt);
+            var result = await _usersRepository.UpdateUser(userFromDb);
+            response.Value = result;
+            return response;
+        }
+
         public async Task<ResponseDto<LoggedInUserDto>> Authenticate(LoginUserDto loginUserDto)
         {
             var user = await _usersRepository.GetUserByLogin(loginUserDto.Login);

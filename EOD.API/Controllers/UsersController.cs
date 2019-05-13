@@ -65,7 +65,7 @@
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<int>>> AddUser([FromBody]AddUserDto userToAdd)
         {
             if (!ModelState.IsValid)
@@ -92,6 +92,24 @@
             }
 
             ResponseDto<int> result = await _usersService.UpdateUser(User, userToUpdate);
+
+            if (result.HasErrors)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        public async Task<ActionResult<bool>> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            ResponseDto<int> result = await _usersService.ChangePassword(User, changePasswordDto);
 
             if (result.HasErrors)
             {
