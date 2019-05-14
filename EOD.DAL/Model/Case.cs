@@ -13,7 +13,6 @@ namespace EOD.DAL.Model
         public int Id { get; set; }
         public string Title { get; set; }
         public string Status { get; set; }
-        public string Comment { get; set; }
         public bool IsDeleted { get; set; }
         public Department Department { get; set; }
         public DateTime SendDate { get; set; }

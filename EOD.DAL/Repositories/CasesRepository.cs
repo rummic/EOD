@@ -1,4 +1,6 @@
-﻿namespace EOD.DAL.Repositories
+﻿using System.Linq;
+
+namespace EOD.DAL.Repositories
 {
     using EOD.DAL.Config;
     using EOD.DAL.Model;
@@ -31,6 +33,17 @@
         public async Task<IEnumerable<Case>> GetCases()
         {
             var cases = await _context.Cases
+                .Include(x => x.Department)
+                .Include(x => x.Sender)
+                .Include(x => x.Documents)
+                .ToListAsync();
+            return cases;
+        }
+
+        public async Task<IEnumerable<Case>> GetCasesForManager(User userFromDb)
+        {
+            var cases = await _context.Cases
+                .Where(x => x.Department.Manager == userFromDb && !x.IsDeleted)
                 .Include(x => x.Department)
                 .Include(x => x.Sender)
                 .Include(x => x.Documents)

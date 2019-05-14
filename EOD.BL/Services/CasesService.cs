@@ -53,11 +53,20 @@
             return response;
         }
 
+        public async Task<ResponseDto<List<GetCaseDto>>> GetCasesForManager(ClaimsPrincipal user)
+        {
+            var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
+            ResponseDto<List<GetCaseDto>> response = CasesValidator.ValidateGetCasesForManager(userFromDb);
+            var casesFromDb = await _casesRepository.GetCasesForManager(userFromDb);
+            response.Value = Mapper.Map<List<GetCaseDto>>(casesFromDb);
+            return response;
+        }
+
         public async Task<ResponseDto<int>> AddCase(ClaimsPrincipal user, AddCaseDto caseToAdd)
         {
-            //var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
+            var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
             var departmentFromDb = await _departmentsRepository.GetDepartmentById(caseToAdd.DepartmentId);
-            var response = CasesValidator.ValidateAddCase(caseToAdd, departmentFromDb);//, userFromDb);
+            var response = CasesValidator.ValidateAddCase(caseToAdd, departmentFromDb, userFromDb);
             if (response.HasErrors)
                 return response;
 
@@ -66,7 +75,7 @@
             caseToDb.IsDeleted = false;
             caseToDb.Department = departmentFromDb;
             caseToDb.SendDate = DateTime.Now;
-            //caseToDb.Sender = userFromDb;
+            caseToDb.Sender = userFromDb;
             response.Value = await _casesRepository.AddCase(caseToDb);
             return response;
         }
@@ -75,7 +84,7 @@
         {
             var caseFromDb = await _casesRepository.GetCaseById(id);
             var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
-            var response = CasesValidator.ValidateChangeStatus(caseFromDb, /*userFromDb,*/ status);
+            var response = CasesValidator.ValidateChangeStatus(caseFromDb, userFromDb, status);
             if (response.HasErrors)
             {
                 return response;
@@ -89,7 +98,7 @@
         {
             var caseFromDb = await _casesRepository.GetCaseById(id);
             var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
-            ResponseDto<bool> response = CasesValidator.ValidateDeleteCase(caseFromDb/*, userFromDb*/);
+            ResponseDto<bool> response = CasesValidator.ValidateDeleteCase(caseFromDb, userFromDb);
             if (response.HasErrors)
             {
                 return response;

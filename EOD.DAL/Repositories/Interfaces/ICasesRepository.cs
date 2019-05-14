@@ -9,6 +9,7 @@
     {
         Task<Case> GetCaseById(int id, bool withTracking = true);
         Task<IEnumerable<Case>> GetCases();
+        Task<IEnumerable<Case>> GetCasesForManager(User userFromDb);
         Task<int> AddCase(Case caseToDb);
         Task<int> ChangeStatus(Case CaseFromDb, string status);
         Task<bool> DeleteCase(Case caseFromDb);

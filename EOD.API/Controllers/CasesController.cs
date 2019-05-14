@@ -1,4 +1,6 @@
-﻿namespace EOD.API.Controllers
+﻿using EOD.Commons.Enumerables;
+
+namespace EOD.API.Controllers
 {
     using EOD.BL.Dtos;
     using EOD.BL.Dtos.CaseDtos;
@@ -39,6 +41,8 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
+        //[Authorize(Roles = Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<List<GetCaseDto>>>> GetCases()
         {
             ResponseDto<List<GetCaseDto>> casesResponse = await _casesService.GetCases();
@@ -49,6 +53,20 @@
 
             return Ok(casesResponse);
         }
+
+        [HttpGet("Manager")]
+        [Authorize(Roles = Role.Admin)]
+        public async Task<ActionResult<ResponseDto<List<GetCaseDto>>>> GetCasesForManager()
+        {
+            ResponseDto<List<GetCaseDto>> casesResponse = await _casesService.GetCasesForManager(User);
+            if (casesResponse.HasErrors)
+            {
+                return BadRequest(casesResponse);
+            }
+
+            return Ok(casesResponse);
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<ResponseDto<int>>> AddCase([FromBody] AddCaseDto caseToAdd)
