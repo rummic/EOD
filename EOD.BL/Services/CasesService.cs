@@ -57,6 +57,11 @@
         {
             var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
             ResponseDto<List<GetCaseDto>> response = CasesValidator.ValidateGetCasesForManager(userFromDb);
+            if (response.HasErrors)
+            {
+                return response;
+            }
+
             var casesFromDb = await _casesRepository.GetCasesForManager(userFromDb);
             response.Value = Mapper.Map<List<GetCaseDto>>(casesFromDb);
             return response;
@@ -68,7 +73,9 @@
             var departmentFromDb = await _departmentsRepository.GetDepartmentById(caseToAdd.DepartmentId);
             var response = CasesValidator.ValidateAddCase(caseToAdd, departmentFromDb, userFromDb);
             if (response.HasErrors)
+            { 
                 return response;
+            }
 
             var caseToDb = Mapper.Map<Case>(caseToAdd);
             caseToDb.Status = "Sent";
