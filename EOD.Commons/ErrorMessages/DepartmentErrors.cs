@@ -3,5 +3,6 @@
     public static class DepartmentErrors
     {
         public static readonly string NotFoundById = "Dział o podanym id nie istnieje.";
+        public static readonly string NameExists = "Dział o podanej nazwie już istnieje.";
     }
 }

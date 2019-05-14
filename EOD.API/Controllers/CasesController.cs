@@ -41,8 +41,7 @@ namespace EOD.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        //[Authorize(Roles = Role.SuperAdmin)]
+        [Authorize(Roles = Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<List<GetCaseDto>>>> GetCases()
         {
             ResponseDto<List<GetCaseDto>> casesResponse = await _casesService.GetCases();

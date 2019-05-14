@@ -2,6 +2,10 @@
 {
     using EOD.DAL.Model;
     using System;
+
+    using EOD.Commons.ExtensionMethods;
+    using EOD.Commons.Helpers;
+
     using Microsoft.EntityFrameworkCore;
 
     public class ApplicationDbContext : DbContext
@@ -18,6 +22,21 @@
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var salt = SaltCreator.CreateSalt();
+            var user = new User
+                           {
+                               Email = "asd@asd.com",
+                               FirstName = "Adam",
+                               IsDeleted = false,
+                               LastName = "Kowalski",
+                               Login = "superadmin",
+                               Salt = salt,
+                               Password = "admin".GenerateSaltedHash(salt),
+                               Role = "SuperAdmin",
+                               Id = 1
+                           };
+            modelBuilder.Entity<User>().HasData(user);
+
         }
     }
 }

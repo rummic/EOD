@@ -7,5 +7,9 @@
     public interface IDepartmentsRepository
     {
         Task<Department> GetDepartmentById(int id);
+
+        Task<Department> GetDepartmentByName(string name);
+
+        Task<int> AddDepartment(Department mappedDepartment);
     }
 }

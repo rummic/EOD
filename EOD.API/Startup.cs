@@ -7,6 +7,8 @@
     using AutoMapper;
 
     using EOD.BL.Dtos.CaseDtos;
+    using EOD.BL.Dtos.DepartmentDtos;
+    using EOD.BL.Dtos.DocumentDtos;
     using EOD.BL.Dtos.UserDtos;
     using EOD.BL.Services;
     using EOD.BL.Services.Interfaces;
@@ -75,6 +77,7 @@
             services.AddScoped<IDocumentsRepository, DocumentsRepository>();
             services.AddScoped<IDocumentsService, DocumentsService>();
             services.AddScoped<IDepartmentsRepository, DepartmentsRepository>();
+            services.AddScoped<IDepartmentsService, DepartmentsService>();
             services.AddDbContext<ApplicationDbContext>();
 
         }
@@ -135,6 +138,8 @@
                         cfg.CreateMap<AddUserDto, User>();
                         cfg.CreateMap<Case, GetCaseDto>();
                         cfg.CreateMap<AddCaseDto, Case>();
+                        cfg.CreateMap<AddDepartmentDto, Department>();
+                        cfg.CreateMap<Document, GetDocumentDto>();
                     });
         }
     }

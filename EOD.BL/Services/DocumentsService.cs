@@ -20,7 +20,7 @@
 
     public class DocumentsService : IDocumentsService
     {
-        private readonly string _photosFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Photos");
+        private readonly string _photosFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents");
 
 
         private readonly IDocumentsRepository _documentsRepository;

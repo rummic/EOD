@@ -18,4 +18,8 @@
     <ProjectReference Include="..\EOD.Commons\EOD.Commons.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

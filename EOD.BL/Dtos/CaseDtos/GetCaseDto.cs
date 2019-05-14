@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using EOD.BL.Dtos.DocumentDtos;
-using EOD.BL.Dtos.UserDtos;
-using EOD.DAL.Model;
-
-namespace EOD.BL.Dtos.CaseDtos
+﻿namespace EOD.BL.Dtos.CaseDtos
 {
+    using System;
+    using System.Collections.Generic;
+
+    using EOD.BL.Dtos.DocumentDtos;
+    using EOD.BL.Dtos.UserDtos;
+
     public class GetCaseDto
     {
         public string Title { get; set; }
