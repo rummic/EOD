@@ -11,6 +11,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using EOD.Commons.Enumerables;
+
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("policy")]
@@ -25,7 +27,6 @@
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
         public async Task<ActionResult<ResponseDto<GetCaseDto>>> GetCaseById(int id)
         {
             ResponseDto<GetCaseDto> caseResponse = await _casesService.GetCaseById(id);
@@ -38,7 +39,6 @@
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult<ResponseDto<List<GetCaseDto>>>> GetCases()
         {
             ResponseDto<List<GetCaseDto>> casesResponse = await _casesService.GetCases();
@@ -51,7 +51,6 @@
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<ActionResult<ResponseDto<int>>> AddCase([FromBody] AddCaseDto caseToAdd)
         {
             if (!ModelState.IsValid)
@@ -69,8 +68,7 @@
         }
 
         [HttpPut]
-        [AllowAnonymous]
-        //[Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
+        [Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<int>>> ChangeStatus(int id, string status)
         {
             if (!ModelState.IsValid)
@@ -89,8 +87,7 @@
         }
 
         [HttpDelete("{id}")]
-        [AllowAnonymous]
-        //[Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
+        [Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<bool>>> DeleteCase(int id)
         {
             ResponseDto<bool> result = await _casesService.DeleteCase(User, id);

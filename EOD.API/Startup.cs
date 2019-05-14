@@ -72,6 +72,8 @@
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ICasesRepository, CasesRepository>();
             services.AddScoped<ICasesService, CasesService>();
+            services.AddScoped<IDocumentsRepository, DocumentsRepository>();
+            services.AddScoped<IDocumentsService, DocumentsService>();
             services.AddScoped<IDepartmentsRepository, DepartmentsRepository>();
             services.AddDbContext<ApplicationDbContext>();
 
