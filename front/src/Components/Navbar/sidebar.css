@@ -1,0 +1,44 @@
+
+
+.sidebar{
+    background-color: rgba(42, 26, 184, 0.877);
+    width:20%;
+    position: fixed;
+    height: 100%;
+    float:left;
+    color: white;
+    font-size: 40px;
+}
+
+.sidebar .apiOptions{
+    font-size: 25px;
+}
+
+.sidebar .userOptions{
+    position: absolute;
+    bottom: 10px;
+    font-size: 25px;
+    width: 100%;
+}
+
+.sidebar .apiOptions ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar .userOptions ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar .apiOptions li:hover{
+    background-color: rgba(31, 20, 128, 0.877);
+}
+
+.sidebar .userOptions li:hover{
+    background-color: rgba(31, 20, 128, 0.877);
+}
+
+

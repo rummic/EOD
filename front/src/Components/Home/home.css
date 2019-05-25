@@ -1,0 +1,21 @@
+body{
+    width: 100%;
+    background-color:rgba(234, 234, 234, 1);
+    float:left;
+}
+
+.homebox{
+    margin: auto;
+    width:100%;
+    background-color: white;
+    position: fixed;
+    height: 100%;
+    margin-left: 20%;
+}
+
+.homeboxlist{
+
+}
+
+
+

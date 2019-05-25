@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Button  from 'react-bootstrap/Button';
+import {Redirect} from 'react-router-dom';
+import './home.css'
+import Sidebar from '../Navbar/sidebar';
 
 class home extends Component {
     constructor(props) {
@@ -11,13 +14,18 @@ class home extends Component {
         this.props.history.push("/home")
     }
     render(){
+      if(!sessionStorage.getItem("token")){
+        return(<Redirect to={'/login'}/>) 
+      }
   return (
-    <div className="App">
-      elo elo 
+    <div>
+    <Sidebar/>
+    <div className="homebox">
       <Button variant="primary" size="lg" block href="/login">
-    login
-  </Button>
+      login
+      </Button>
       <Button onClick={this.logout} variant="primary"> Wyloguj</Button>
+    </div>
     </div>
   )
 }}

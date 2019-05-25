@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, FormGroup } from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
+import './login.css';
 
 export function PostData(type,userData){
 
@@ -67,9 +68,8 @@ class login extends Component {
     }
 
     return (
-      <div className="fomrconatiner">
-        <div className="formbox">
-
+        <div className="loginbox">
+          <div className="login-content-box">
           <Form.Group controlId="formBasicLogin">
             <Form.Label>Login</Form.Label>
             <Form.Control type="text" required placeholder="Login" name="login" onChange={this.onChange} />
@@ -85,9 +85,8 @@ class login extends Component {
             Zaloguj
                     </Button>
 
-
+          </div>
         </div>
-      </div>
     );
   }
 }
