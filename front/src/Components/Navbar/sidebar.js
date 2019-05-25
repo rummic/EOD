@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
 import './sidebar.css'
+import { Redirect } from 'react-router-dom';
+
 
 class sidebar extends Component {
-    
+    constructor(props) {
+        super(props);
+        this.logout = this.logout.bind(this);
+    }
+
+    logout() {
+        sessionStorage.clear();    
+        this.props.history.push("/login");
+    }
+
     render(){
       if(!sessionStorage.getItem("token")){
         return(<Redirect to={'/login'}/>) 
@@ -27,7 +37,9 @@ class sidebar extends Component {
       <div className="userOptions">
       <ul>
             <li>
-                wyloguj
+            
+           <p onClick={this.logout}> wyloguj</p>
+
             </li>
             <li>
                 ustawienia konta

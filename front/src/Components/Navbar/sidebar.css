@@ -33,12 +33,23 @@
     padding: 0;
 }
 
+.sidebar .userOptions li p{
+    margin: 0;
+    color: white;
+   text-decoration: none;
+}
+
+
 .sidebar .apiOptions li:hover{
     background-color: rgba(31, 20, 128, 0.877);
+    cursor: pointer;
 }
 
 .sidebar .userOptions li:hover{
     background-color: rgba(31, 20, 128, 0.877);
+    cursor: pointer;
 }
+
+
 
 

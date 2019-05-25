@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
-import Button  from 'react-bootstrap/Button';
-import {Redirect} from 'react-router-dom';
-import './home.css'
+
 import Sidebar from '../Navbar/sidebar';
+import {Redirect, Link} from 'react-router-dom';
+import './home.css'
+
 
 class home extends Component {
-    constructor(props) {
-        super(props);
-        this.logout = this.logout.bind(this);
-    }
-    logout() {
-        sessionStorage.clear();    
-        this.props.history.push("/home")
-    }
+
     render(){
       if(!sessionStorage.getItem("token")){
         return(<Redirect to={'/login'}/>) 
       }
   return (
-    <div>
-    <Sidebar/>
+    <div className="homeb">
+    <Sidebar history={this.props.history}/>
     <div className="homebox">
-      <Button variant="primary" size="lg" block href="/login">
-      login
-      </Button>
-      <Button onClick={this.logout} variant="primary"> Wyloguj</Button>
+      <div className="homebox-options">
+        <Link to="/login"><div className="homebox-option">
+        <div className="homebox-option-content"><p>jkhjk</p></div>
+        </div></Link>
+        <Link to="/login"><div className="homebox-option">
+        <div className="homebox-option-content"><p>jkhjk</p></div>
+        </div></Link>
+      </div>
     </div>
     </div>
   )

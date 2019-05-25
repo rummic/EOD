@@ -1,7 +1,9 @@
 body{
     width: 100%;
-    background-color:rgba(234, 234, 234, 1);
-    float:left;
+}
+
+.homeb{
+    width:100%;
 }
 
 .homebox{
@@ -13,9 +15,53 @@ body{
     margin-left: 20%;
 }
 
-.homeboxlist{
+.homebox .homebox-options{
+    width: 70%;
+    position: fixed;
+    height: 80%;
+    margin-left: 5%;
+    margin-top: 50px;
 
 }
+
+
+.homebox .homebox-options .homebox-option{
+    float: left;
+    width: calc((100% / 2) - 20px);
+    height: 400px;
+    margin: 10px;
+    margin-top: 10%;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    background-color: rgba(42, 26, 184, 0.877);
+    box-shadow: inset 0px 0px 108px -1px rgba(5,0,105,1);
+
+    
+}
+
+
+.homebox .homebox-options .homebox-option .homebox-option-content{
+    display: table;
+    height: 100%;
+    width: 100%;
+    color:white;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.homebox .homebox-options .homebox-option .homebox-option-content p{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+
+
 
 
 

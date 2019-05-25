@@ -47,7 +47,7 @@ class login extends Component {
           sessionStorage.setItem('login',responseJSON.value.login);
           sessionStorage.setItem('token',responseJSON.value.token);
           sessionStorage.setItem('id',responseJSON.value.id);
-          this.props.history.push("/home")
+          this.props.history.push("/index")
 
         } else {
           document.getElementById("badLogin").innerHTML = "Błędne dane logowania";
@@ -64,7 +64,7 @@ class login extends Component {
 
   render() {
     if(sessionStorage.getItem("token")){
-      return(<Redirect to={'/home'}/>) 
+      return(<Redirect to={'/index'}/>) 
     }
 
     return (
