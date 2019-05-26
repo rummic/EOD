@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './sidebar.css'
 import { Redirect } from 'react-router-dom';
 import 'react-bootstrap';
+import { IoIosBuild,IoMdPower } from "react-icons/io";
 
 
 
@@ -22,7 +23,7 @@ class sidebar extends Component {
       }
   return (
       <div className="sidebar">
-      Sidebar
+      <div className="sidebar-logo">Sidebar</div>
       <div className="apiOptions">
         <ul>
             <li>
@@ -40,11 +41,11 @@ class sidebar extends Component {
       <ul>
             <li>
             
-           <p onClick={this.logout} >wyloguj</p>
+           <p onClick={this.logout} ><IoMdPower /> Wyloguj</p>
 
             </li>
             <li>
-            <p >ustawienia konta</p>
+            <p><IoIosBuild/> Ustawienia konta</p>
             </li>
         </ul>
       </div>
