@@ -19,7 +19,7 @@ class home extends Component {
         <Link to="/login"><div className="homebox-option">
         <div className="homebox-option-content"><div className="homebox-option-content-con"><GoFile className="option-image"/><p>Zobacz dokumenty</p></div></div>
         </div></Link>
-        <Link to="/login"><div className="homebox-option">
+        <Link to="/addfile"><div className="homebox-option">
         <div className="homebox-option-content"><div className="homebox-option-content-con"><GoFileSymlinkFile className="option-image"/><p>Dodaj dokumenty</p></div></div>
         </div></Link>
       </div>

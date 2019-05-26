@@ -24,6 +24,13 @@
     font-size: 25px;
 }
 
+.sidebar .apiOptions .apiOptions-CategorieUser{
+    margin-top: 10px;
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+}
+
 .sidebar .userOptions{
     position: absolute;
     bottom: 10px;
@@ -38,12 +45,21 @@
 }
 
 .sidebar .apiOptions li:first-child{
-    margin-top: 20px;
+    margin-top: 5px;
     padding-left: 20px;
 }
 
 .sidebar .apiOptions li{
     padding-left: 20px;
+}
+
+.sidebar .apiOptions .linker{
+    text-decoration: none;
+}
+
+.sidebar .apiOptions li p{
+    color: white;
+    text-decoration: none;
 }
 
 .sidebar .userOptions ul{
@@ -58,12 +74,16 @@
     margin-bottom: 10px;
     color: white;
     text-decoration: none;
+    
 }
 
 
 .sidebar .apiOptions li:hover{
     background-color: rgb(0, 168, 114);
     cursor: pointer;
+}
+.sidebar .apiOptions li p:hover{
+    text-decoration-line: none;
 }
 
 .sidebar .userOptions li:hover{

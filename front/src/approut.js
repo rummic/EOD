@@ -5,6 +5,7 @@ import {BrowserRouter,Route} from 'react-router-dom';
 import Home from "./Components/Home/home";
 import Login from "./Components/Login/login";
 import Index from "./Components/Home/home";
+import AddFile from "./Components/Addfile/addfile"
 
 class App extends Component {
 
@@ -16,6 +17,7 @@ class App extends Component {
       <Route path="/home" component={Home} exact/>
       <Route path="/login" component={Login}/>
       <Route path="/index" component={Index}/>
+      <Route path="/addfile" component={AddFile}/>
       
       </div>
       </BrowserRouter>

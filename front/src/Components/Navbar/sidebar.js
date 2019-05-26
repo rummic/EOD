@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './sidebar.css'
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 import 'react-bootstrap';
 import { IoIosBuild,IoMdPower } from "react-icons/io";
+import { GoFile,GoFileSymlinkFile,GoInbox,GoHome } from "react-icons/go";
 
 
 
@@ -25,15 +26,19 @@ class sidebar extends Component {
       <div className="sidebar">
       <div className="sidebar-logo">Sidebar</div>
       <div className="apiOptions">
+        <div className="apiOptions-CategorieUser">Menu główne</div>
         <ul>
             <li>
-                Opcja1
+            <Link to="/index" className="linker"><p><GoHome/> Stron główna</p></Link>
             </li>
             <li>
-                opcja2
+            <Link to="/addfile" className="linker"><p><GoFileSymlinkFile/> Dodaj Dokumenty</p></Link>
             </li>
             <li>
-                opcja3
+                <p><GoFile/> Zobacz dokumentu</p>
+            </li>
+            <li>
+                <p><GoInbox/> Skrzynka odbiorcza</p>
             </li>
         </ul>
       </div>
