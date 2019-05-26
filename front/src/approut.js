@@ -6,6 +6,7 @@ import Home from "./Components/Home/home";
 import Login from "./Components/Login/login";
 import Index from "./Components/Home/home";
 import AddFile from "./Components/Addfile/addfile"
+import UserSettings from "./Components/UserSettings/userset"
 
 class App extends Component {
 
@@ -18,6 +19,7 @@ class App extends Component {
       <Route path="/login" component={Login}/>
       <Route path="/index" component={Index}/>
       <Route path="/addfile" component={AddFile}/>
+      <Route path="/userset" component={UserSettings}/>
       
       </div>
       </BrowserRouter>

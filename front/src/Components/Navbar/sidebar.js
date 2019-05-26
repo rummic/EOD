@@ -50,7 +50,7 @@ class sidebar extends Component {
 
             </li>
             <li>
-            <p><IoIosBuild/> Ustawienia konta</p>
+            <Link to="/userset" className="linker"><p><IoIosBuild/> Ustawienia konta</p></Link>
             </li>
         </ul>
       </div>

@@ -1,0 +1,68 @@
+.UserserBox{
+    width:100%;
+
+}
+
+.UsersetBox-content{
+    margin: auto;
+    width:100%;
+    background-color: rgba(234, 234, 234, 1);
+    position: fixed;
+    height: 100%;
+    margin-left: 20%;
+}
+
+.UsersetBox-form{
+    width: 70%;
+    margin-top: 5%;
+    margin-left: 5%; 
+    background-color: white;
+    position: fixed;
+    height: 80%;
+}
+
+.UsersetBox-form-content{
+    padding: 20px;
+    margin-left: 5%;
+}
+
+.UsersetBox-form-content label{
+    text-align: left;
+    width: 30%;
+    font-size: 30px;
+}
+.UsersetBox-form-content input{
+    text-align: center;
+    width: 60%;
+    font-size: 30px;
+    border:none;
+    margin-bottom: 30px;
+}
+
+.UsersetBox-form-content input:disabled{
+    background-color: white;
+}
+
+.UsersetBox-form-button{
+    float: right;
+    margin-right: 20%;
+    margin-top: 40px;
+    padding: 10px;
+    border: 5px solid rgb(0, 168, 114);
+    background: none;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 20px;
+    color: rgb(0, 168, 114);
+
+}
+
+.UsersetBox-form-button:hover{
+    background-color:  rgb(0, 168, 114);
+    color:white;
+}
+
+#password{
+    display: none;
+}
+

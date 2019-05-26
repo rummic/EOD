@@ -67,6 +67,9 @@
     margin: 0;
     padding: 0;
 }
+.sidebar .userOptions .linker{
+    text-decoration: none;
+}
 
 .sidebar .userOptions li p{
     margin: 0;
@@ -90,6 +93,8 @@
     background-color: rgb(0, 168, 114);
     cursor: pointer;
 }
+
+
 
 
 
