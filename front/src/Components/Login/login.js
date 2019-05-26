@@ -3,27 +3,7 @@ import { Form, Button, FormGroup } from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import './login.css';
 
-export function PostData(type,userData){
 
-    let url = 'http://localhost:60148/api/Users/';
-
-    return new Promise((resolve,reject)=>{
-        fetch(url+type,{
-            method:'POST',
-            headers : { 
-                'Content-Type': 'application/json'
-               },
-            body: JSON.stringify(userData)
-        })
-        .then((response)=>response.json())
-        .then((responseJson)=>{
-            resolve(responseJson);
-        })
-        .catch((error)=>{
-            reject(error);
-        });
-    });
-}
 
 class login extends Component {
   constructor(props) {
@@ -36,26 +16,31 @@ class login extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
-
-
   login() {
-    if (this.state.login && this.state.password) {
-      PostData('Authenticate', this.state).then((result) => {
-        let responseJSON = result;
-        
-        if (responseJSON.value) {
-          sessionStorage.setItem('login',responseJSON.value.login);
-          sessionStorage.setItem('token',responseJSON.value.token);
-          sessionStorage.setItem('id',responseJSON.value.id);
-          this.props.history.push("/index")
-
-        } else {
-          document.getElementById("badLogin").innerHTML = "Błędne dane logowania";
+    fetch('https://localhost:44388/api/Users/Authenticate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "login": this.state.login,
+        "password": this.state.password
+      })
+    }).then(response => response.json())
+      .then(parseJSON => {
+        if (parseJSON.hasErrors) {
+          document.getElementById("badLogin").innerHTML = parseJSON.errors;
           document.getElementById("badLogin").style.color = "red";
         }
-      });
-    }
+        else {
+          sessionStorage.setItem('login', parseJSON.value.login);
+          sessionStorage.setItem('token', parseJSON.value.token);
+          sessionStorage.setItem('id', parseJSON.value.id);
+          this.props.history.push("/index")
+        }
+      })
   }
+
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value })

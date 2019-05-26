@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './sidebar.css'
 import { Redirect } from 'react-router-dom';
+import 'react-bootstrap';
+
 
 
 class sidebar extends Component {
@@ -38,11 +40,11 @@ class sidebar extends Component {
       <ul>
             <li>
             
-           <p onClick={this.logout}> wyloguj</p>
+           <p onClick={this.logout} >wyloguj</p>
 
             </li>
             <li>
-                ustawienia konta
+            <p >ustawienia konta</p>
             </li>
         </ul>
       </div>
