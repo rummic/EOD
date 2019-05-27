@@ -15,7 +15,7 @@ class userset extends Component {
       lastName: "",
       email: "",
       phoneNumber: "",
-      role: "User",
+      role: "",
       user: []
     };
     this.onChange = this.onChange.bind(this);
@@ -26,11 +26,11 @@ class userset extends Component {
   }
 
   componentDidMount() {
-    fetch('https://localhost:44388/api/Users/' + sessionStorage.getItem('id'), {
+    fetch('https://localhost:44388/api/Users/' + sessionStorage.getItem("id"), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `bearer ${token}`
+        "Authorization": `bearer ${token}`,
       },
     }).then(response => response.json())
       .then(parseJSON => {
@@ -39,6 +39,7 @@ class userset extends Component {
           lastName: parseJSON.value.lastName,
           email: parseJSON.value.email,
           phoneNumber: parseJSON.value.phoneNumber,
+          role: parseJSON.value.role,
         })
       })
   }
@@ -78,7 +79,7 @@ class userset extends Component {
   }
   render() {
     if (!sessionStorage.getItem("token")) {
-      return (<Redirect to={'/home'} />)
+      return (<Redirect to={'/login'} />)
     }
     return (
         <div className="UsersetBox">
