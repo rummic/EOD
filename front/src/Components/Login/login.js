@@ -36,7 +36,7 @@ class login extends Component {
           sessionStorage.setItem('login', parseJSON.value.login);
           sessionStorage.setItem('token', parseJSON.value.token);
           sessionStorage.setItem('id', parseJSON.value.id);
-          this.props.history.push("/index")
+          window.location.reload(true)
         }
       })
   }
@@ -49,9 +49,8 @@ class login extends Component {
 
   render() {
     if(sessionStorage.getItem("token")){
-      return(<Redirect to={'/index'}/>) 
+    return(<Redirect to={'/index'}/>)
     }
-
     return (
         <div className="loginbox">
           <div className="login-content-box">
