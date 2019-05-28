@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, FormGroup } from 'react-bootstrap';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './login.css';
 
 
@@ -48,12 +48,12 @@ class login extends Component {
   }
 
   render() {
-    if(sessionStorage.getItem("token")){
-    return(<Redirect to={'/index'}/>)
+    if (sessionStorage.getItem("token")) {
+      return (<Redirect to={'/index'} />)
     }
     return (
-        <div className="loginbox">
-          <div className="login-content-box">
+      <div className="loginbox">
+        <div className="login-content-box">
           <Form.Group controlId="formBasicLogin">
             <Form.Label>Login</Form.Label>
             <Form.Control type="text" required placeholder="Login" name="login" onChange={this.onChange} />
@@ -69,8 +69,8 @@ class login extends Component {
             Zaloguj
                     </Button>
 
-          </div>
         </div>
+      </div>
     );
   }
 }

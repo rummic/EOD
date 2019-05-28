@@ -50,7 +50,7 @@ class UserList extends Component {
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
                 <div>
-                  <button>Dodaj użytkownika</button>
+                  <button><Link to={{pathname: './adduser'}}>Dodaj użytkownika</Link></button>
                   <Table striped bordered hover size="sm">
                     <thead>
                       <tr>
@@ -71,7 +71,7 @@ class UserList extends Component {
                           <td>{item.login}</td>
                           <td>{item.email}</td>
                           <td>{item.role}</td>
-                          <td><button><Link to={{pathname:'./changeuserset', state: item}}>Ustawienia</Link></button></td>
+                          <td><button><Link to={{ pathname: './changerole', state: item }}>Ustawienia</Link></button></td>
                         </tr>
                       </tbody>
 

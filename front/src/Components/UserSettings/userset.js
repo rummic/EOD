@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Sidebar from '../Navbar/sidebar';
 import './userset.css'
+import changerole from '../ChangeRole/changerole';
 
 const token = sessionStorage.getItem("token");
 
@@ -63,6 +64,7 @@ class userset extends Component {
     })
       .then(response => response.json())
       .then(parseJSON => {
+        console.log(parseJSON)
         if (parseJSON.hasErrors) {
           document.getElementById("badData").innerHTML = parseJSON.errors;
           document.getElementById("badData").style.color = "red";
@@ -82,23 +84,23 @@ class userset extends Component {
       return (<Redirect to={'/login'} />)
     }
     return (
-        <div className="UsersetBox">
-        <Sidebar history={this.props.history}/>
-           <div className="UsersetBox-content"> 
-                <div className="UsersetBox-form">
-                <div className="UsersetBox-form-content">
-                <label>Imie :</label><input type="text"  disabled value={this.state.firstName} name="firstName" onChange={this.onChange}/>
-                <label>Nazwisko :</label><input type="text"  disabled value={this.state.lastName} name="lastName" onChange={this.onChange}/>
-                <label>Nick :</label><input type="text"  disabled value={sessionStorage.getItem('login')} name="login" onChange={this.onChange}/>
-                <label>Email :</label><input type="text"  value={this.state.email} name="email" onChange={this.onChange}/>
-                <label>Hasło :</label>
-                <button id="hideButton" variant="primary" onClick={this.showInput} >Zmień hasło</button>
-                <input type="password" id="password" placeholder="Podaj hasło" name="password" onChange={this.onChange}/>
-                </div>
-                <button className="UsersetBox-form-button" onClick={this.update.bind(this)}>Zmień dane</button>
+      <div className="UsersetBox">
+        <Sidebar history={this.props.history} />
+        <div className="UsersetBox-content">
+          <div className="UsersetBox-form">
+            <div className="UsersetBox-form-content">
+              <label>Imie :</label><input type="text" disabled value={this.state.firstName} name="firstName" onChange={this.onChange} />
+              <label>Nazwisko :</label><input type="text" disabled value={this.state.lastName} name="lastName" onChange={this.onChange} />
+              <label>Nick :</label><input type="text" disabled value={sessionStorage.getItem('login')} name="login" onChange={this.onChange} />
+              <label>Email :</label><input type="text" value={this.state.email} name="email" onChange={this.onChange} />
+              <label>Hasło :</label>
+              <button id="hideButton" variant="primary" onClick={this.showInput} >Zmień hasło</button>
+              <input type="password" id="password" placeholder="Podaj hasło" name="password" onChange={this.onChange} />
             </div>
+            <button className="UsersetBox-form-button" onClick={this.update.bind(this)}>Zmień dane</button>
+          </div>
         </div>
-        </div>
+      </div>
     );
   }
 }
