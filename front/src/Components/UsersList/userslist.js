@@ -1,12 +1,10 @@
-
-import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
-import Sidebar from '../Navbar/sidebar';
-import './userslist.css';
-import { Table } from 'react-bootstrap';
+import React, { Component } from "react";
+import { Redirect, Link } from "react-router-dom";
+import Sidebar from "../Navbar/sidebar";
+import "./userslist.css";
+import { Table } from "react-bootstrap";
 
 const token = sessionStorage.getItem("token");
-
 
 class UserList extends Component {
   constructor(props) {
@@ -18,30 +16,30 @@ class UserList extends Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   componentDidMount() {
-    fetch('https://localhost:44388/api/Users', {
-      method: 'GET',
+    fetch("https://localhost:44388/api/Users", {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `bearer ${token}`
-      },
-    }).then(response => response.json()
-      .then(responseJSON => {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      }
+    }).then(response =>
+      response.json().then(responseJSON => {
         this.setState({
-          users: responseJSON.value || [],
-        })
-      }))
+          users: responseJSON.value || []
+        });
+      })
+    );
   }
 
   render() {
     if (!sessionStorage.getItem("token")) {
-      return (<Redirect to={'/home'} />)
+      return <Redirect to={"/home"} />;
     }
     return (
-
       <div className="UsersetBox">
         {console.log("array", this.state.users)}
         <Sidebar history={this.props.history} />
@@ -50,7 +48,11 @@ class UserList extends Component {
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
                 <div>
-                  <button><Link to={{pathname: './adduser'}}>Dodaj użytkownika</Link></button>
+                  <button>
+                    <Link to={{ pathname: "./adduser" }}>
+                      Dodaj użytkownika
+                    </Link>
+                  </button>
                   <Table striped bordered hover size="sm">
                     <thead>
                       <tr>
@@ -71,13 +73,18 @@ class UserList extends Component {
                           <td>{item.login}</td>
                           <td>{item.email}</td>
                           <td>{item.role}</td>
-                          <td><button><Link to={{ pathname: './changerole', state: item }}>Ustawienia</Link></button></td>
+                          <td>
+                            <button>
+                              <Link
+                                to={{ pathname: "./changerole", state: item }}
+                              >
+                                Ustawienia
+                              </Link>
+                            </button>
+                          </td>
                         </tr>
                       </tbody>
-
-                    )
-                    )
-                    }
+                    ))}
                   </Table>
                 </div>
               </div>
@@ -85,11 +92,8 @@ class UserList extends Component {
           </div>
         </div>
       </div>
-
-
-    )
+    );
   }
 }
-
 
 export default UserList;
