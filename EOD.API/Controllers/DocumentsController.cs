@@ -20,9 +20,9 @@
         }
 
         [HttpPost("{caseId}")]
-        public async Task<ActionResult<ResponseDto<string>>> UploadDocument(IFormFile document, int caseId)
+        public async Task<ActionResult<ResponseDto<string>>> UploadPhoto(IFormFile photo, int caseId)
         {
-            ResponseDto<string> result = await _documentsService.AddDocument(User, document, caseId);
+            ResponseDto<string> result = await _documentsService.AddDocument(User, photo, caseId);
             if (result.HasErrors)
             {
                 return BadRequest(result);
