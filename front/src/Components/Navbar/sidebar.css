@@ -1,0 +1,101 @@
+
+
+.sidebar{
+    background-color: rgb(0, 67, 90);
+    width:20%;
+    position: fixed;
+    height: 100%;
+    float:left;
+    color: white;
+    font-size: 40px;
+}
+
+.sidebar .sidebar-logo{
+    text-align: center;
+    padding : 20px;
+    font-size: 50px;
+    font-weight: bold;
+    border: 1px solid gray;
+    background-color: rgb(0, 168, 114);
+}
+
+.sidebar .apiOptions{
+    width: 100%;
+    font-size: 25px;
+}
+
+.sidebar .apiOptions .apiOptions-CategorieUser{
+    margin-top: 10px;
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.sidebar .userOptions{
+    position: absolute;
+    bottom: 10px;
+    font-size: 25px;
+    width: 100%;
+}
+
+.sidebar .apiOptions ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar .apiOptions li:first-child{
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.sidebar .apiOptions li{
+    padding-left: 20px;
+}
+
+.sidebar .apiOptions .linker{
+    text-decoration: none;
+}
+
+.sidebar .apiOptions li p{
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar .userOptions ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.sidebar .userOptions .linker{
+    text-decoration: none;
+}
+
+.sidebar .userOptions li p{
+    margin: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
+    
+}
+
+
+.sidebar .apiOptions li:hover{
+    background-color: rgb(0, 168, 114);
+    cursor: pointer;
+}
+.sidebar .apiOptions li p:hover{
+    text-decoration-line: none;
+}
+
+.sidebar .userOptions li:hover{
+    background-color: rgb(0, 168, 114);
+    cursor: pointer;
+}
+
+
+
+
+
+

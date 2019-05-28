@@ -1,4 +1,6 @@
-﻿namespace EOD.API
+﻿using EOD.BL.Dtos.DocumentTypeDtos;
+
+namespace EOD.API
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -78,6 +80,8 @@
             services.AddScoped<IDocumentsService, DocumentsService>();
             services.AddScoped<IDepartmentsRepository, DepartmentsRepository>();
             services.AddScoped<IDepartmentsService, DepartmentsService>();
+            services.AddScoped<IDocumentTypesService, DocumentTypesService>();
+            services.AddScoped<IDocumentTypesRepository, DocumentTypesRepository>();
             services.AddDbContext<ApplicationDbContext>();
 
         }
@@ -140,6 +144,8 @@
                         cfg.CreateMap<AddCaseDto, Case>();
                         cfg.CreateMap<AddDepartmentDto, Department>();
                         cfg.CreateMap<Document, GetDocumentDto>();
+                        cfg.CreateMap<DocumentType, GetDocumentTypeDto>();
+                        cfg.CreateMap<AddDocumentTypeDto, DocumentType>();
                     });
         }
     }

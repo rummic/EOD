@@ -1,0 +1,69 @@
+.AddfileBox{
+    width:100%;
+
+}
+
+.AddfileBox-content{
+    margin: auto;
+    width:100%;
+    background-color: rgba(234, 234, 234, 1);
+    position: fixed;
+    height: 100%;
+    margin-left: 20%;
+}
+
+.AddfileBox-form{
+    width: 70%;
+    margin-top: 5%;
+    margin-left: 5%; 
+    background-color: white;
+    position: fixed;
+    height: 80%;
+}
+
+.AddfileBox-form-content{
+    padding: 20px;
+    margin-left: 15%;
+}
+
+.AddfileBox-form-files{
+    padding: 20px;
+    margin-left: 15%;
+    margin-top: 5%;
+    border: 1px solid gray;
+    margin-right: 15%;
+}
+
+.AddfileBox-form-content label{
+    text-align: left;
+    width: 40%;
+    font-size: 30px;
+}
+.AddfileBox-form-content input{
+    text-align: center;
+    width: 85%;
+    font-size: 30px;
+    border:none;
+    border-bottom: 2px solid gray;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.AddfileBox-form-content select{
+    text-align: center;
+    width: 45%;
+    font-size: 30px;
+    border:none;
+    border-bottom: 2px solid gray;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.AddfileBox-form-content input:hover ,.AddfileBox-form-content input:focus{
+    border-bottom: 3px solid rgb(0, 168, 114);;
+
+}
+
+
+
+
