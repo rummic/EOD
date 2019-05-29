@@ -10,5 +10,7 @@
     public interface IDocumentsService
     {
         Task<ResponseDto<string>> AddDocument(ClaimsPrincipal user, IFormFile document, int caseId);
+
+        Task<ResponseDto<bool>> SendMail(string recipient, string documentName);
     }
 }

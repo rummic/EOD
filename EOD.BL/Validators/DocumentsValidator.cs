@@ -43,5 +43,16 @@
             return result;
 
         }
+
+        public static ResponseDto<bool> ValidateSendMail(Document document)
+        {
+            var response = new ResponseDto<bool>();
+            if (document == null)
+            {
+                response.AddError(DocumentErrors.NotFoundByName);
+            }
+
+            return response;
+        }
     }
 }

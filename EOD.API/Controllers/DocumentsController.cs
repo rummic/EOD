@@ -30,5 +30,17 @@
 
             return Ok(result);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<ResponseDto<bool>>> SendMail(string recipient, string documentName)
+        {
+            ResponseDto<bool> result = await _documentsService.SendMail(recipient, documentName);
+            if (result.HasErrors)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
     }
 }

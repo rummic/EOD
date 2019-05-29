@@ -49,6 +49,7 @@
             userFromDb.FirstName = user.FirstName;
             userFromDb.LastName = user.LastName;
             userFromDb.Password = user.Password;
+            userFromDb.Salt = user.Salt;
             await _context.SaveChangesAsync();
             return userFromDb.Id;
         }

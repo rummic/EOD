@@ -12,11 +12,13 @@
     using EOD.BL.Validators;
     using EOD.Commons.Enumerables;
     using EOD.Commons.ErrorMessages;
+    using EOD.Commons.Helpers;
     using EOD.DAL.Model;
     using EOD.DAL.Repositories.Interfaces;
 
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Options;
 
     public class DocumentsService : IDocumentsService
     {
@@ -25,11 +27,14 @@
 
         private readonly IDocumentsRepository _documentsRepository;
         private readonly ICasesRepository _casesRepository;
+        private readonly IOptions<AppSettings> _appSettings;
 
-        public DocumentsService(IHostingEnvironment hostingEnvironment, IDocumentsRepository documentsRepository, ICasesRepository casesRepository)
+
+        public DocumentsService(IHostingEnvironment hostingEnvironment, IDocumentsRepository documentsRepository, ICasesRepository casesRepository, IOptions<AppSettings> appSettings)
         {
             _documentsRepository = documentsRepository;
             _casesRepository = casesRepository;
+            _appSettings = appSettings;
             if (string.IsNullOrWhiteSpace(hostingEnvironment.WebRootPath))
             {
                 hostingEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
@@ -77,6 +82,21 @@
             }
 
         }
+
+        public async Task<ResponseDto<bool>> SendMail(string recipient, string documentName)
+        {
+            var document = await _documentsRepository.GetDocumentByName(documentName);
+            var response = DocumentsValidator.ValidateSendMail(document);
+            if (response.HasErrors)
+            {
+                return response;
+            }
+
+            await MailHelper.SendDocument(_appSettings.Value, recipient, documentName);
+            response.Value = true;
+            return response;
+        }
+
         private string GetAvailablePath(string photosFolderPath, string photoFileName)
         {
             return Path.Combine(
