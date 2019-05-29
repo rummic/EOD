@@ -1,37 +1,37 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
-import "./userslist.css";
+import { Redirect } from "react-router-dom";
 import { Table } from "react-bootstrap";
+
 
 const token = sessionStorage.getItem("token");
 
-class UserList extends Component {
+class showfiles extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: 0,
-      users: []
+      cases: []
     };
-    this.onChange = this.onChange.bind(this);
+    this.OnChange = this.OnChange.bind(this);
   }
 
-  onChange(e) {
+  OnChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   componentDidMount() {
-    fetch("https://localhost:44388/api/Users", {
+    fetch("https://localhost:44388/api/Cases", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "aplication/json",
         Authorization: `bearer ${token}`
       }
     }).then(response =>
       response.json().then(responseJSON => {
-        console.log(responseJSON)
+        console.log(responseJSON);
         this.setState({
-          users: responseJSON.value || []
+          cases: responseJSON.value || []
         });
       })
     );
@@ -49,38 +49,31 @@ class UserList extends Component {
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
                 <div>
-                  <button>
-                    <Link to={{ pathname: "./adduser" }}>
-                      Dodaj użytkownika
-                    </Link>
-                  </button>
                   <Table striped bordered hover size="sm">
                     <thead>
                       <tr>
                         <th>Id</th>
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
-                        <th>Login</th>
-                        <th>Email</th>
-                        <th>Rola</th>
+                        <th>Tytuł</th>
+                        <th>Dział</th>
+                        <th>Status</th>
+                        <th>Data otrzymania</th>
+
                       </tr>
                     </thead>
-                    {this.state.users.map((item, i) => (
+                    {this.state.cases.map((item, i) => (
                       <tbody key={i}>
                         <tr>
+                            
                           <td>{this.state.id = this.state.id + 1}</td>
-                          <td>{item.firstName}</td>
-                          <td>{item.lastName}</td>
-                          <td>{item.login}</td>
-                          <td>{item.email}</td>
-                          <td>{item.role}</td>
+                          <td>{item.title}</td>
+                          <td>{item.departmentName}</td>
+                          <td>{item.status}</td>
+                          <td>{item.sendDate}</td>
                           <td>
                             <button>
-                              <Link
-                                to={{ pathname: "./changerole", state: item }}
-                              >
-                                Ustawienia
-                              </Link>
+
+                                Zobacz dokument
+
                             </button>
                           </td>
                         </tr>
@@ -97,4 +90,4 @@ class UserList extends Component {
   }
 }
 
-export default UserList;
+export default showfiles;

@@ -9,7 +9,9 @@ import AddFile from "./Components/Addfile/addfile";
 import UserSettings from "./Components/UserSettings/userset";
 import UsersList from "./Components/UsersList/userslist";
 import ChangeRole from "./Components/ChangeRole/changerole";
-import AddUser from "./Components/AddUser/adduser";
+import AddUser from "./Components/AddUser/AddUser";
+import Showfiles from "./Components/Showfiles/showfiles";
+
 
 class App extends Component {
   render() {
@@ -24,7 +26,8 @@ class App extends Component {
           <Route path="/userset" component={UserSettings} />
           <Route path="/userslist" component={UsersList} />
           <Route path="/changerole" component={ChangeRole} />
-          <Route path="/adduser" component={AddUser} />
+          <Route path="/AddUser" component={AddUser} />
+          <Route path="/showfiles" component={Showfiles} />
         </div>
       </BrowserRouter>
     );

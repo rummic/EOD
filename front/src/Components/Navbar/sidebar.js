@@ -47,9 +47,11 @@ class sidebar extends Component {
               </Link>
             </li>
             <li>
+              <Link to="/showfiles" className="linker">
               <p>
-                <GoFile /> Zobacz dokumentu
+                <GoFile /> Zobacz dokumenty
               </p>
+              </Link>
             </li>
             <li>
               <p>

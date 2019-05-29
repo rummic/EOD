@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
 import "./userset.css";
-import changerole from "../ChangeRole/changerole";
 
 const token = sessionStorage.getItem("token");
 
@@ -135,6 +134,7 @@ class userset extends Component {
                 name="password"
                 onChange={this.onChange}
               />
+              
             </div>
             <button
               className="UsersetBox-form-button"
