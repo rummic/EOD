@@ -60,5 +60,13 @@
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> ChangeRole(int id, string role)
+        {
+            var userFromDb = await GetUserById(id);
+            userFromDb.Role = role;
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

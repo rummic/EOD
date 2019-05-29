@@ -15,7 +15,7 @@
         Task<ResponseDto<List<GetUserDto>>> GetUsers(bool allUsers = false);
         Task<ResponseDto<int>> UpdateUser(ClaimsPrincipal loggedInUser, AddUserDto userToUpdate);
         Task<ResponseDto<bool>> DeleteUser(ClaimsPrincipal userIdentity, int id);
-
         Task<ResponseDto<int>> ChangePassword(ClaimsPrincipal userIdentity, ChangePasswordDto changePasswordDto);
+        Task<ResponseDto<bool>> ChangeRole(int id, string role);
     }
 }

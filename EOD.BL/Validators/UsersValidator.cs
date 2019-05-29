@@ -104,5 +104,21 @@
 
             return response;
         }
+
+        public static ResponseDto<bool> ValidateChangeRole(User userFromDb, string role)
+        {
+            var response = new ResponseDto<bool>();
+            if (userFromDb == null)
+            {
+                response.AddError(UserErrors.NotFoundByLogin);
+            }
+
+            if (role != Role.User && role != Role.Admin && role != Role.SuperAdmin)
+            {
+                response.AddError(UserErrors.NonExistingRole);
+            }
+
+            return response;
+        }
     }
 }

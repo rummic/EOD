@@ -14,5 +14,6 @@
         public static readonly string EmptyLastName = "Nazwisko nie może być puste.";
         public static readonly string EmptyPhoneNumber = "Numer telefonu nie może być pusty.";
         public static readonly string InvalidConfirmPassword = "Hasła nie są identyczne";
+        public static readonly string NonExistingRole = "Nie ma takiej roli.";
     }
 }
