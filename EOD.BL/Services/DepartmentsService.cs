@@ -57,7 +57,7 @@ namespace EOD.BL.Services
         public async Task<ResponseDto<int>> AddDepartment(AddDepartmentDto departmentDto)
         {
             var departmentFromDb = await _departmentsRepository.GetDepartmentByName(departmentDto.Name);
-            ResponseDto<int> response = DepartmentsValidator.ValidateAddDepartment(departmentFromDb);
+            ResponseDto<int> response = DepartmentsValidator.ValidateAddDepartment(departmentFromDb, departmentDto);
             if (response.HasErrors)
             {
                 return response;

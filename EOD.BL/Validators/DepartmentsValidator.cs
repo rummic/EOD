@@ -1,14 +1,13 @@
-﻿using EOD.BL.Dtos.DepartmentDtos;
-
-namespace EOD.BL.Validators
+﻿namespace EOD.BL.Validators
 {
     using EOD.BL.Dtos;
+    using EOD.BL.Dtos.DepartmentDtos;
     using EOD.Commons.ErrorMessages;
     using EOD.DAL.Model;
 
     public static class DepartmentsValidator
     {
-        public static ResponseDto<int> ValidateAddDepartment(Department department)
+        public static ResponseDto<int> ValidateAddDepartment(Department department, AddDepartmentDto departmentDto)
         {
             var response = new ResponseDto<int>();
             if (department != null)
@@ -16,7 +15,7 @@ namespace EOD.BL.Validators
                 response.AddError(DepartmentErrors.NameExists);
             }
 
-            if (department.Name.Length < 2)
+            if (departmentDto.Name.Length < 2)
             {
                 response.AddError(DepartmentErrors.TooShortName);
             }
