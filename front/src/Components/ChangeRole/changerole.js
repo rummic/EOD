@@ -1,21 +1,19 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
-import "./userset.css";
 
 const token = sessionStorage.getItem("token");
 
-class userset extends Component {
+class changerole extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      login: "",
       password: "",
       firstName: "",
       lastName: "",
       email: "",
-      phoneNumber: "",
-      role: "",
-      user: []
+      role: ""
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -24,40 +22,34 @@ class userset extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  componentDidMount() {
-    fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem("id"), {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`
-      }
-    })
-      .then(response => response.json())
-      .then(parseJSON => {
-        this.setState({
-          firstName: parseJSON.value.firstName,
-          lastName: parseJSON.value.lastName,
-          email: parseJSON.value.email,
-          phoneNumber: parseJSON.value.phoneNumber,
-          role: parseJSON.value.role
-        });
-      });
+  componentWillMount() {
+    const obj = this.props.location.state;
+    this.setState({
+      id: obj.id,
+      login: obj.login,
+      firstName: obj.firstName,
+      lastName: obj.lastName,
+      email: obj.email,
+      role: obj.role
+    });
   }
-
-  update() {
+  update(id) {
+    console.log(this.state.role);
     fetch("https://localhost:44388/api/Users", {
       method: "PUT",
+
       headers: {
         "Content-Type": "application/json",
         Authorization: `bearer ${token}`
       },
+
       body: JSON.stringify({
-        login: sessionStorage.getItem("login"),
+        id: id,
+        login: this.state.login,
         password: this.state.password,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email,
-        phoneNumber: this.state.phoneNumber,
         role: this.state.role
       })
     })
@@ -65,23 +57,20 @@ class userset extends Component {
       .then(parseJSON => {
         console.log(parseJSON);
         if (parseJSON.hasErrors) {
-          document.getElementById("badData").innerHTML = parseJSON.errors;
-          document.getElementById("badData").style.color = "red";
+          alert("Rola nie została zmieniona");
         } else {
           alert("Poprawnie zmieniono dane");
-          this.props.history.push("/index");
+          console.log(this.state.role, "rola");
+          this.props.history.push("/userslist");
         }
       });
   }
 
-  showInput() {
-    document.getElementById("password").style.display = "inline";
-    document.getElementById("hideButton").style.display = "none";
-  }
   render() {
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/login"} />;
     }
+    const obj = this.state;
     return (
       <div className="UsersetBox">
         <Sidebar history={this.props.history} />
@@ -92,7 +81,7 @@ class userset extends Component {
               <input
                 type="text"
                 disabled
-                value={this.state.firstName}
+                value={obj.firstName}
                 name="firstName"
                 onChange={this.onChange}
               />
@@ -100,45 +89,41 @@ class userset extends Component {
               <input
                 type="text"
                 disabled
-                value={this.state.lastName}
+                value={obj.lastName}
                 name="lastName"
                 onChange={this.onChange}
               />
-              <label>Nick :</label>
+              <label>Login :</label>
               <input
                 type="text"
                 disabled
-                value={sessionStorage.getItem("login")}
+                value={obj.login}
                 name="login"
                 onChange={this.onChange}
               />
               <label>Email :</label>
               <input
                 type="text"
-                value={this.state.email}
+                value={obj.email}
                 name="email"
                 onChange={this.onChange}
               />
-              <label>Hasło :</label>
-              <button
-                id="hideButton"
-                variant="primary"
-                onClick={this.showInput}
-              >
-                Zmień hasło
-              </button>
-              <input
-                type="password"
-                id="password"
-                placeholder="Podaj hasło"
-                name="password"
-                onChange={this.onChange}
-              />
-              
+
+              <label>Rola :</label>
+              <select name="role" onChange={this.onChange} required>
+                <option value={obj.role}>{obj.role}</option>
+                <option name="role" onChange={this.onChange}>
+                  Admin
+                </option>
+                <option name="role" onChange={this.onChange}>
+                  User
+                </option>
+              </select>
             </div>
             <button
               className="UsersetBox-form-button"
-              onClick={this.update.bind(this)}
+              variant="primary"
+              onClick={() => this.update(obj.id)}
             >
               Zmień dane
             </button>
@@ -149,4 +134,4 @@ class userset extends Component {
   }
 }
 
-export default userset;
+export default changerole;
