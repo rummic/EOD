@@ -70,7 +70,7 @@ class adduser extends Component {
               <label>Nazwisko :</label>
               <input
                 type="text"
-                placegoler="Podaj Nazwisko"
+                placeholder="Podaj Nazwisko"
                 name="lastName"
                 onChange={this.onChange}
                 required
@@ -78,7 +78,7 @@ class adduser extends Component {
               <label>Login :</label>
               <input
                 type="text"
-                placeholer="Podaj Login"
+                placeholder="Podaj Login"
                 name="login"
                 onChange={this.onChange}
                 required

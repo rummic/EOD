@@ -14,7 +14,8 @@ class addfile extends Component {
       caseId: 1,
       title: "",
       departmentId: 1,
-      documents: []
+      documents: [],
+      departments: []
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -23,8 +24,18 @@ class addfile extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  componentDidMount() {
+    fetch("https://localhost:44388/api/Departments")
+      .then(response => response.json())
+      .then(parseJSON => {
+        this.setState({
+          departments: parseJSON.value
+        });
+      });
+  }
+
   addDocument() {
-    console.log(this.state.caseId, this.state.departmentId, this.state.title);
+    console.log(this.state.departmentId);
     fetch("https://localhost:44388/api/Cases/", {
       method: "POST",
       headers: {
@@ -37,22 +48,21 @@ class addfile extends Component {
       })
     })
       .then(res => res.json())
+      
       .then(data => {
         console.log(data, "data");
         if (!data.hasErrors) {
-            let formData = new FormData();
-            console.log(data);
-            axios({
-              
-              url: "https://localhost:44388/api/Documents/" + data.value,
-              method: "POST",
-              headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `bearer ${token}`
-              },
-              data: formData,
-              caseId: this.state.caseId
-            });
+          let formData = new FormData();
+          console.log(data);
+          axios((error)=>{console.log(error)},{
+            url: "https://localhost:44388/api/Documents/" + data.value,
+            method: "POST",
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "Authorization": `bearer ${token}`
+            },
+            data: formData
+          });
           alert("Plik został porpawnie dodany");
           this.props.history.push("/showfiles");
         } else {
@@ -65,6 +75,8 @@ class addfile extends Component {
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/login"} />;
     }
+    console.log(this.state.departments);
+    
     return (
       <div className="AddfileBox">
         <Sidebar history={this.props.history} />
@@ -80,9 +92,11 @@ class addfile extends Component {
                 onChange={this.onChange}
               />
               <label>Dział :</label>
-              <input type="text" name="departmentId" onChange={this.onchage} placeholer="1"/>
-              <label>Case : </label>
-              <input type="text" name="caseId" onChange={this.onchage}  placeholer="1"/>
+              <select>
+                {this.state.departments.map((item, i) => (
+                  <option key={i} >{item.name} {this.departmentId = item.id  }</option>
+                ))}
+              </select>
             </div>
             <div className="AddfileBox-form-files">
               <input type="file" />
