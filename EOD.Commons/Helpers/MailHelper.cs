@@ -6,7 +6,7 @@
 
     public static class MailHelper
     {
-        public static async Task SendDocument(AppSettings appSettings, string recipient, string documentName)
+        public static async Task SendDocument(AppSettings appSettings, string recipient, string documentUrl)
         {
             var mail = new MailMessage(new MailAddress(appSettings.AppMail), new MailAddress(recipient));
             var smtp = new SmtpClient(appSettings.MailHost);
@@ -17,7 +17,7 @@
             
             mail.Subject = "Udostępniono dokument - EOD";
             mail.Body =
-                $"Udostępniono Ci dokument za pośrednictwem aplikacji EOD. Link do dokumentu to : https://localhost:44388/Documents/{documentName}";
+                $"Udostępniono Ci dokument za pośrednictwem aplikacji EOD. Link do dokumentu to : {documentUrl}";
             await smtp.SendMailAsync(mail);
         }
     }

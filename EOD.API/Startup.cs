@@ -82,6 +82,7 @@ namespace EOD.API
             services.AddScoped<IDepartmentsService, DepartmentsService>();
             services.AddScoped<IDocumentTypesService, DocumentTypesService>();
             services.AddScoped<IDocumentTypesRepository, DocumentTypesRepository>();
+            services.AddScoped<ISharedDocumentsRepository, SharedDocumentsRepository>();
             services.AddDbContext<ApplicationDbContext>();
 
         }

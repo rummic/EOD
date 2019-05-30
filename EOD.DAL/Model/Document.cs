@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace EOD.DAL.Model
+﻿namespace EOD.DAL.Model
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Document
     {
         [Key]

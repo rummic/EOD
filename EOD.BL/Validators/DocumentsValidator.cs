@@ -44,9 +44,9 @@
 
         }
 
-        public static ResponseDto<bool> ValidateSendMail(Document document)
+        public static ResponseDto<int> ValidateSendMail(Document document)
         {
-            var response = new ResponseDto<bool>();
+            var response = new ResponseDto<int>();
             if (document == null)
             {
                 response.AddError(DocumentErrors.NotFoundByName);
