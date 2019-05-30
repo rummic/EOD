@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
-
 const token = sessionStorage.getItem("token");
 
 class changerole extends Component {
@@ -9,7 +8,6 @@ class changerole extends Component {
     super(props);
     this.state = {
       login: "",
-      password: "",
       firstName: "",
       lastName: "",
       email: "",
@@ -34,22 +32,17 @@ class changerole extends Component {
     });
   }
   update(id) {
-    console.log(this.state.role);
-    fetch("https://localhost:44388/api/Users", {
-      method: "PUT",
-
+    console.log(this.state.login,this.state.role);
+    fetch("https://localhost:44388/api/Users/ChangeRole", {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `bearer ${token}`
+        Authorization: `Bearer ${token}`
       },
 
       body: JSON.stringify({
         id: id,
         login: this.state.login,
-        password: this.state.password,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
         role: this.state.role
       })
     })
@@ -78,37 +71,13 @@ class changerole extends Component {
           <div className="UsersetBox-form">
             <div className="UsersetBox-form-content">
               <label>Imie :</label>
-              <input
-                type="text"
-                disabled
-                value={obj.firstName}
-                name="firstName"
-                onChange={this.onChange}
-              />
+              <output>{obj.firstName}</output><br></br>
               <label>Nazwisko :</label>
-              <input
-                type="text"
-                disabled
-                value={obj.lastName}
-                name="lastName"
-                onChange={this.onChange}
-              />
+              <output>{obj.lastName}</output><br></br>
               <label>Login :</label>
-              <input
-                type="text"
-                disabled
-                value={obj.login}
-                name="login"
-                onChange={this.onChange}
-              />
+              <output>{obj.login}</output><br></br>
               <label>Email :</label>
-              <input
-                type="text"
-                value={obj.email}
-                name="email"
-                onChange={this.onChange}
-              />
-
+              <output>{obj.email}</output><br></br>
               <label>Rola :</label>
               <select name="role" onChange={this.onChange} required>
                 <option value={obj.role}>{obj.role}</option>
