@@ -110,7 +110,13 @@
             var response = new ResponseDto<bool>();
             if (userFromDb == null)
             {
-                response.AddError(UserErrors.NotFoundByLogin);
+                response.AddError(UserErrors.NotFoundById);
+            }
+
+            if (role == null)
+            {
+                response.AddError(UserErrors.EmptyRole);
+                return response;
             }
 
             if (role != Role.User && role != Role.Admin && role != Role.SuperAdmin)
