@@ -107,12 +107,12 @@ class addfile extends Component {
             <div className="AddfileBox-form-files">
               <input type="file" />
             </div>
-            <div className="addButton">
+          </div>
+          <div className="addButton">
               <button
                 type="button"
                 id="add"
                 onClick={this.addDocument.bind(this)}
-                className="btn btn-success btn-number plusbut"
                 data-type="plus"
                 data-field="quant[2]"
               >
@@ -120,7 +120,6 @@ class addfile extends Component {
                 Dodaj dokument
               </button>
             </div>
-          </div>
         </div>
       </div>
       </div>
