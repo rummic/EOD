@@ -101,8 +101,9 @@ class adduser extends Component {
               />
               <label>Rola : </label>
               <select name="role" onChange={this.onChange} required>
-                <option>Administrator</option>
-                <option>Użytkownik</option>
+                <option selected>{this.state.role}</option>
+                <option name="role" onChange={this.onChange}>Admin</option>
+                <option name="role" onChange={this.onChange}>User</option>
               </select>
             </div>
             <button

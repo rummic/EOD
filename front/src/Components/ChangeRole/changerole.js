@@ -19,6 +19,22 @@ class changerole extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+  componentDidMount() {
+    fetch("https://localhost:44388/api/Users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      }
+    }).then(response =>
+      response.json().then(responseJSON => {
+        console.log(responseJSON);
+        this.setState({
+          users: responseJSON.value || []
+        });
+      })
+    );
+  }
 
   componentWillMount() {
     const obj = this.props.location.state;
@@ -32,33 +48,33 @@ class changerole extends Component {
     });
   }
   update(id) {
-    console.log(this.state.login,this.state.role);
-    fetch("https://localhost:44388/api/Users/ChangeRole", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-
-      body: JSON.stringify({
-        id: id,
-        login: this.state.login,
-        role: this.state.role
-      })
-    })
-      .then(response => response.json())
-      .then(parseJSON => {
-        console.log(parseJSON);
-        if (parseJSON.hasErrors) {
-          alert("Rola nie została zmieniona");
-        } else {
-          alert("Poprawnie zmieniono dane");
-          console.log(this.state.role, "rola");
-          this.props.history.push("/userslist");
-        }
-      });
+    for (let i = 0; this.state.users.length > i; i++) {
+      if (id === this.state.users[i].id) {
+        fetch(
+          "https://localhost:44388/api/Users/ChangeRole?id=" +
+            id +
+            "&role=" +
+            this.state.role,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+          .then(response => response.json())
+          .then(parseJSON => {
+            if (parseJSON.hasErrors) {
+              alert("Rola nie została zmieniona");
+            } else {
+              alert("Poprawnie zmieniono dane");
+              this.props.history.push("/userslist");
+            }
+          });
+      }
+    }
   }
-
   render() {
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/login"} />;
@@ -71,13 +87,17 @@ class changerole extends Component {
           <div className="UsersetBox-form">
             <div className="UsersetBox-form-content">
               <label>Imie :</label>
-              <output>{obj.firstName}</output><br></br>
+              <output>{obj.firstName}</output>
+              <br />
               <label>Nazwisko :</label>
-              <output>{obj.lastName}</output><br></br>
+              <output>{obj.lastName}</output>
+              <br />
               <label>Login :</label>
-              <output>{obj.login}</output><br></br>
+              <output>{obj.login}</output>
+              <br />
               <label>Email :</label>
-              <output>{obj.email}</output><br></br>
+              <output>{obj.email}</output>
+              <br />
               <label>Rola :</label>
               <select name="role" onChange={this.onChange} required>
                 <option value={obj.role}>{obj.role}</option>
