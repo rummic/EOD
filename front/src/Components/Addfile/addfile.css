@@ -1,3 +1,5 @@
+
+
 .AddfileBox{
     width:100%;
 
@@ -25,12 +27,13 @@
     margin-left: 15%;
 }
 
-.AddfileBox-form-files{
+.AddfileBox-form-content .AddfileBox-form-files input{
     padding: 20px;
-    margin-left: 15%;
     margin-top: 5%;
     border: 1px solid gray;
     margin-right: 15%;
+    font-size: 20px;
+    
 }
 
 .AddfileBox-form-content label{
@@ -51,6 +54,7 @@
 
 .AddfileBox-form-content-select{
     width:100%;
+
 }
 
 .AddfileBox-form-content-select label{
@@ -71,7 +75,7 @@
 .AddfileBox-form-content select{
     text-align: center;
     width: 45%;
-    font-size: 30px;
+    font-size: 20px;
     border:none;
     border-bottom: 2px solid gray;
     border-radius: 5px;
@@ -89,6 +93,22 @@
     width: 100%;
     background-color: #e9ecef;
     border-radius: .25rem;
+}
+
+.addButton button{
+    width:40%;
+    padding: 10px;
+    margin-left: 30%;
+    border: 4px solid rgb(0, 168, 114);
+    background: none;
+    border-radius: 20px;
+    color: rgb(0, 168, 114);
+    font-size: 23px;
+}
+
+.addButton button:hover{
+    color: white;
+    background-color: rgb(0, 168, 114);
 }
 
 
