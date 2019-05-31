@@ -123,6 +123,7 @@ class addfile extends Component {
           </div>
         </div>
       </div>
+      </div>
     );
   }
 }
