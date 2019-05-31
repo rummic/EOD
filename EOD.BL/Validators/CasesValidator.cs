@@ -27,11 +27,20 @@ namespace EOD.BL.Validators
         {
             var response = new ResponseDto<int>();
             if(string.IsNullOrEmpty(caseToAdd.Title))
+            {
                 response.AddError(CaseErrors.EmptyTitle);
-            if(department == null)
+            }
+
+            if(department == null || department.IsDeleted)
+            {
                 response.AddError(DepartmentErrors.NotFoundById);
+            }
+
             if(user == null)
+            {
                 response.AddError(UserErrors.NotFoundByLogin);
+            }
+
             return response;
         }
 

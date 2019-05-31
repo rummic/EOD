@@ -12,11 +12,13 @@
     using EOD.BL.Validators;
     using EOD.Commons.Enumerables;
     using EOD.Commons.ErrorMessages;
+    using EOD.Commons.Helpers;
     using EOD.DAL.Model;
     using EOD.DAL.Repositories.Interfaces;
 
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Options;
 
     public class DocumentsService : IDocumentsService
     {
@@ -25,11 +27,16 @@
 
         private readonly IDocumentsRepository _documentsRepository;
         private readonly ICasesRepository _casesRepository;
+        private readonly ISharedDocumentsRepository _sharedDocumentsRepository;
+        private readonly IOptions<AppSettings> _appSettings;
 
-        public DocumentsService(IHostingEnvironment hostingEnvironment, IDocumentsRepository documentsRepository, ICasesRepository casesRepository)
+
+        public DocumentsService(IHostingEnvironment hostingEnvironment, IDocumentsRepository documentsRepository, ICasesRepository casesRepository, IOptions<AppSettings> appSettings, ISharedDocumentsRepository sharedDocumentsRepository)
         {
             _documentsRepository = documentsRepository;
             _casesRepository = casesRepository;
+            _appSettings = appSettings;
+            _sharedDocumentsRepository = sharedDocumentsRepository;
             if (string.IsNullOrWhiteSpace(hostingEnvironment.WebRootPath))
             {
                 hostingEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
@@ -77,11 +84,50 @@
             }
 
         }
+
+        public async Task<ResponseDto<int>> SendMail(string recipient, string documentUrl)
+        {
+            var documentName = documentUrl.Split('/').Last();
+            var document = await _documentsRepository.GetDocumentByName(documentName);
+            var response = DocumentsValidator.ValidateSendMail(document);
+            if (response.HasErrors)
+            {
+                return response;
+            }
+            var sharedDocument = CreateSharedDocument(recipient, documentUrl);
+            var mail = await _sharedDocumentsRepository.AddSharedDocument(sharedDocument);
+            await MailHelper.SendDocument(_appSettings.Value, recipient, documentUrl);
+            response.Value = mail.Id;
+            return response;
+        }
+
+        public async Task<ResponseDto<bool>> DocumentSeen(int id)
+        {
+            await _sharedDocumentsRepository.SeenSharedDocument(id);
+            return new ResponseDto<bool> { Value = true };
+        }
+
+        public async Task<ResponseDto<List<SharedDocument>>> GetSharedDocuments()
+        {
+            var docs = await _sharedDocumentsRepository.GetSharedDocuments();
+            return new ResponseDto<List<SharedDocument>>() { Value = docs };
+        }
+
+        private SharedDocument CreateSharedDocument(string recipient, string documentUrl)
+        {
+            return new SharedDocument
+            {
+                DocumentName = documentUrl.Split('/').Last(),
+                RecipientMail = recipient,
+                SharedTime = DateTime.UtcNow
+            };
+        }
+
         private string GetAvailablePath(string photosFolderPath, string photoFileName)
         {
             return Path.Combine(
                 photosFolderPath,
-                DateTime.UtcNow.ToString("HH-mm-ss-fff_dd-MM-yyyy_") + photoFileName);
+                DateTime.UtcNow.ToString("HH-mm-ss-fff_dd-MM-yyyy_") + photoFileName.Replace(" ", "-"));
         }
     }
 }

@@ -7,5 +7,7 @@
     public interface IDocumentsRepository
     {
         Task<bool> AddDocument(Document documentToAdd);
+
+        Task<Document> GetDocumentByName(string documentName);
     }
 }

@@ -49,6 +49,7 @@
             userFromDb.FirstName = user.FirstName;
             userFromDb.LastName = user.LastName;
             userFromDb.Password = user.Password;
+            userFromDb.Salt = user.Salt;
             await _context.SaveChangesAsync();
             return userFromDb.Id;
         }
@@ -57,6 +58,14 @@
         {
             var userFromDb = await GetUserById(id);
             userFromDb.IsDeleted = true;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> ChangeRole(int id, string role)
+        {
+            var userFromDb = await GetUserById(id);
+            userFromDb.Role = role;
             await _context.SaveChangesAsync();
             return true;
         }

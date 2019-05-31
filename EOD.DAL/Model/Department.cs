@@ -13,6 +13,6 @@ namespace EOD.DAL.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public User Manager { get; set; }
-        public ICollection<User> Workers { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

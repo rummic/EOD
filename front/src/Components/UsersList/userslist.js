@@ -29,7 +29,7 @@ class UserList extends Component {
       }
     }).then(response =>
       response.json().then(responseJSON => {
-        console.log(responseJSON)
+        console.log(responseJSON);
         this.setState({
           users: responseJSON.value || []
         });
@@ -72,7 +72,7 @@ class UserList extends Component {
                     {this.state.users.map((item, i) => (
                       <tbody key={i}>
                         <tr>
-                          <td>{this.state.id = this.state.id + 1}</td>
+                          <td>{(this.state.id = this.state.id + 1)}</td>
                           <td>{item.firstName}</td>
                           <td>{item.lastName}</td>
                           <td>{item.login}</td>

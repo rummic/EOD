@@ -119,6 +119,19 @@
             return Ok(result);
         }
 
+        [HttpPatch("ChangeRole")]
+        [Authorize(Roles = Role.SuperAdmin)]
+        public async Task<ActionResult> ChangeRole(int id, string role)
+        {
+            ResponseDto<bool> result = await _usersService.ChangeRole(id, role);
+            if (result.HasErrors)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         [Authorize(Roles = Role.User + ", " + Role.SuperAdmin)]
         public async Task<ActionResult> DeleteUser(int id)

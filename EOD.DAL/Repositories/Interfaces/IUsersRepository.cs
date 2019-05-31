@@ -13,5 +13,6 @@
         Task<int> AddUser(User user);
         Task<int> UpdateUser(User user);
         Task<bool> DeleteUser(int id);
+        Task<bool> ChangeRole(int id, string role);
     }
 }

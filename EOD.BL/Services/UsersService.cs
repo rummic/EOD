@@ -125,6 +125,19 @@
             return response;
         }
 
+        public async Task<ResponseDto<bool>> ChangeRole(int id, string role)
+        {
+            var userFromDb = await _usersRepository.GetUserById(id);
+            ResponseDto<bool> response = UsersValidator.ValidateChangeRole(userFromDb, role);
+            if (response.HasErrors)
+            {
+                return response;
+            }
+
+            response.Value = await _usersRepository.ChangeRole(id, role);
+            return response;
+        }
+
         public async Task<ResponseDto<LoggedInUserDto>> Authenticate(LoginUserDto loginUserDto)
         {
             var user = await _usersRepository.GetUserByLogin(loginUserDto.Login);

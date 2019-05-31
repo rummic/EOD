@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Sidebar from "../Navbar/sidebar";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
-
 
 const token = sessionStorage.getItem("token");
 
@@ -57,23 +56,23 @@ class showfiles extends Component {
                         <th>Dział</th>
                         <th>Status</th>
                         <th>Data otrzymania</th>
-
                       </tr>
                     </thead>
                     {this.state.cases.map((item, i) => (
                       <tbody key={i}>
                         <tr>
-                            
-                          <td>{this.state.id = this.state.id + 1}</td>
+                          <td>{(this.state.id = this.state.id + 1)}</td>
                           <td>{item.title}</td>
                           <td>{item.departmentName}</td>
                           <td>{item.status}</td>
                           <td>{item.sendDate}</td>
                           <td>
                             <button>
-
-                                Zobacz dokument
-
+                              <Link
+                                to={{ pathname: "./filedetails", state: item }}
+                              >
+                                Ustawienia
+                              </Link>
                             </button>
                           </td>
                         </tr>

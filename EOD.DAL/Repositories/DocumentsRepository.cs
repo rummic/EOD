@@ -6,6 +6,8 @@ namespace EOD.DAL.Repositories
     using EOD.DAL.Model;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     public class DocumentsRepository : IDocumentsRepository
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,11 @@ namespace EOD.DAL.Repositories
             await _context.AddAsync(documentToAdd);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<Document> GetDocumentByName(string documentName)
+        {
+            return await _context.Documents.FirstOrDefaultAsync(x => x.Path.Contains(documentName));
         }
     }
 }
