@@ -59,7 +59,7 @@
     margin-bottom: 30px;
 }
 
-.AddfileBox-form-content input:hover ,.AddfileBox-form-content input:focus{
+ .AddfileBox-form-content input:focus{
     border-bottom: 3px solid rgb(0, 168, 114);;
 
 }

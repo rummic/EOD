@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
 import "./userset.css";
+import { Breadcrumb } from 'react-bootstrap';
 
 const token = sessionStorage.getItem("token");
 
@@ -65,8 +66,7 @@ class userset extends Component {
       .then(parseJSON => {
         console.log(parseJSON);
         if (parseJSON.hasErrors) {
-          document.getElementById("badData").innerHTML = parseJSON.errors;
-          document.getElementById("badData").style.color = "red";
+          alert("nie działa")
         } else {
           alert("Poprawnie zmieniono dane");
           this.props.history.push("/index");
@@ -87,6 +87,10 @@ class userset extends Component {
         <Sidebar history={this.props.history} />
         <div className="UsersetBox-content">
           <div className="UsersetBox-form">
+          <Breadcrumb>
+              <Breadcrumb.Item href="/index">EOD</Breadcrumb.Item>
+              <Breadcrumb.Item active>Ustawienia konta</Breadcrumb.Item>
+            </Breadcrumb>
             <div className="UsersetBox-form-content">
               <label>Imie :</label>
               <input
@@ -122,6 +126,7 @@ class userset extends Component {
               <label>Hasło :</label>
               <button
                 id="hideButton"
+                className="password-button"
                 variant="primary"
                 onClick={this.showInput}
               >
@@ -136,12 +141,15 @@ class userset extends Component {
               />
               
             </div>
+            <div className="UsersetBox-form-button-back">
             <button
               className="UsersetBox-form-button"
               onClick={this.update.bind(this)}
             >
               Zmień dane
             </button>
+            </div>
+
           </div>
         </div>
       </div>
