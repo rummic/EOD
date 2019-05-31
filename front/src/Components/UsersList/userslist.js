@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
 import "./userslist.css";
-import { Table } from "react-bootstrap";
+import { Table,Breadcrumb } from "react-bootstrap";
 
 const token = sessionStorage.getItem("token");
 
@@ -46,6 +46,10 @@ class UserList extends Component {
         <Sidebar history={this.props.history} />
         <div className="UsersetBox-content">
           <div className="UsersetBox-form">
+          <Breadcrumb>
+              <Breadcrumb.Item href="/index">EOD</Breadcrumb.Item>
+              <Breadcrumb.Item active>Lista Użytkowników</Breadcrumb.Item>
+            </Breadcrumb>
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
                 <div>

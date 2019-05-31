@@ -3,6 +3,7 @@ import Sidebar from "../Navbar/sidebar";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./addfile.css";
+import { Breadcrumb } from 'react-bootstrap';
 
 const token = sessionStorage.getItem("token");
 
@@ -70,6 +71,10 @@ class addfile extends Component {
         <Sidebar history={this.props.history} />
         <div className="AddfileBox-content">
           <div className="AddfileBox-form">
+          <Breadcrumb>
+              <Breadcrumb.Item href="/index">EOD</Breadcrumb.Item>
+              <Breadcrumb.Item active>Dodaj Dokument</Breadcrumb.Item>
+            </Breadcrumb>
             <div className="AddfileBox-form-content">
               <label>Tytuł :</label>
               <input
@@ -79,10 +84,12 @@ class addfile extends Component {
                 name="title"
                 onChange={this.onChange}
               />
+              <div className="AddfileBox-form-content-select">
               <label>Dział :</label>
               <input type="text" name="departmentId" onChange={this.onchage} placeholer="1"/>
               <label>Case : </label>
               <input type="text" name="caseId" onChange={this.onchage}  placeholer="1"/>
+              </div>
             </div>
             <div className="AddfileBox-form-files">
               <input type="file" />

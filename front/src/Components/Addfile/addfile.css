@@ -6,7 +6,6 @@
 .AddfileBox-content{
     margin: auto;
     width:100%;
-    background-color: rgba(234, 234, 234, 1);
     position: fixed;
     height: 100%;
     margin-left: 20%;
@@ -49,6 +48,26 @@
     margin-bottom: 30px;
 }
 
+
+.AddfileBox-form-content-select{
+    width:100%;
+}
+
+.AddfileBox-form-content-select label{
+    width:10%;
+    font-size: 25px;
+    margin-left: 10%;
+}
+
+
+.AddfileBox-form-content-select input{
+    width:20%;
+}
+.AddfileBox-form-content-select input:last-child{
+    width:20%;
+}
+
+
 .AddfileBox-form-content select{
     text-align: center;
     width: 45%;
@@ -62,6 +81,14 @@
  .AddfileBox-form-content input:focus{
     border-bottom: 3px solid rgb(0, 168, 114);;
 
+}
+
+.addButton{
+    padding: 20px;
+    margin-top: 5%;
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: .25rem;
 }
 
 
