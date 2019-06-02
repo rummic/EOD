@@ -45,7 +45,6 @@ class addfile extends Component {
       },
       body: JSON.stringify({
         title: this.state.title,
-        caseId: this.state.caseId,
         departmentId: this.state.departmentId
       })
     })
