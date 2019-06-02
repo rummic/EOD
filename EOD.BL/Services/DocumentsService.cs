@@ -22,7 +22,7 @@
 
     public class DocumentsService : IDocumentsService
     {
-        private readonly string _photosFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents");
+        private readonly string _documentsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents");
 
 
         private readonly IDocumentsRepository _documentsRepository;
@@ -42,9 +42,9 @@
                 hostingEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
             }
 
-            if (!Directory.Exists(hostingEnvironment.WebRootPath) || !Directory.Exists(_photosFolderPath))
+            if (!Directory.Exists(hostingEnvironment.WebRootPath) || !Directory.Exists(_documentsFolderPath))
             {
-                Directory.CreateDirectory(_photosFolderPath);
+                Directory.CreateDirectory(_documentsFolderPath);
             }
         }
 
@@ -53,7 +53,7 @@
             Case caseFromDb = await _casesRepository.GetCaseById(caseId);
             ResponseDto<string> response = DocumentsValidator.ValidateAddDocument(caseFromDb, document, user);
 
-            string filePath = GetAvailablePath(_photosFolderPath, document.FileName);
+            string filePath = GetAvailablePath(_documentsFolderPath, document.FileName);
             Document documentToAdd = new Document { Path = filePath, Status = Status.Sent, Case = caseFromDb };
 
             try
