@@ -17,5 +17,6 @@
         Task<ResponseDto<bool>> DeleteUser(ClaimsPrincipal userIdentity, int id);
         Task<ResponseDto<int>> ChangePassword(ClaimsPrincipal userIdentity, ChangePasswordDto changePasswordDto);
         Task<ResponseDto<bool>> ChangeRole(int id, string role);
+        Task<ResponseDto<bool>> ResetPassword(string mail);
     }
 }

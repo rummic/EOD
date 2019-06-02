@@ -14,5 +14,6 @@
         Task<int> UpdateUser(User user);
         Task<bool> DeleteUser(int id);
         Task<bool> ChangeRole(int id, string role);
+        Task<User> GetUserByMail(string mail);
     }
 }

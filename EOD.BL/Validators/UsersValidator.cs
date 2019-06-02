@@ -1,4 +1,6 @@
-﻿namespace EOD.BL.Validators
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EOD.BL.Validators
 {
     using System.Security.Claims;
 
@@ -35,6 +37,11 @@
                 response.AddError(UserErrors.EmptyFirstName);
             if (string.IsNullOrEmpty(userToAdd.LastName))
                 response.AddError(UserErrors.EmptyLastName);
+
+            if (!new EmailAddressAttribute().IsValid(userToAdd.Email))
+            {
+                response.AddError(UserErrors.EmailInvalid);
+            }
 
             return response;
         }
@@ -122,6 +129,27 @@
             if (role != Role.User && role != Role.Admin && role != Role.SuperAdmin)
             {
                 response.AddError(UserErrors.NonExistingRole);
+            }
+
+            return response;
+        }
+
+        public static ResponseDto<bool> ValidateResetPassword(User userFromDb, string mail)
+        {
+            var response = new ResponseDto<bool>();
+            if (userFromDb == null)
+            {
+                response.AddError(UserErrors.NotFoundByMail);
+            }
+
+            if (string.IsNullOrEmpty(mail))
+            {
+                response.AddError(UserErrors.EmptyEmail);
+            }
+
+            if (!new EmailAddressAttribute().IsValid(mail))
+            {
+                response.AddError(UserErrors.EmailInvalid);
             }
 
             return response;

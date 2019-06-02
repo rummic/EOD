@@ -144,5 +144,18 @@
 
             return BadRequest(result);
         }
+
+        [HttpPost("{mail}")]
+        [AllowAnonymous]
+        public async Task<ActionResult> ResetPassword(string mail)
+        {
+            ResponseDto<bool> result = await _usersService.ResetPassword(mail);
+            if (result.Value)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
 }
