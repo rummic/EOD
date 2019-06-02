@@ -11,15 +11,38 @@ import {
   GoPerson
 } from "react-icons/go";
 
+const token = sessionStorage.getItem("token");
+
 class sidebar extends Component {
   constructor(props) {
     super(props);
+    this.state={
+        role: ""
+    }
     this.logout = this.logout.bind(this);
   }
 
   logout() {
     sessionStorage.clear();
     this.props.history.push("/login");
+  }
+
+
+  componentDidMount(){
+    fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(parseJSON => {
+      this.setState({
+        role: parseJSON.value.role
+      });
+    });
+
   }
 
   render() {
@@ -68,6 +91,7 @@ class sidebar extends Component {
             </li>
           </ul>
         </div>
+          <div style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>jkhjk</div>
         <div className="userOptions">
           <ul>
             <li>
