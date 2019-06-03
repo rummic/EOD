@@ -87,7 +87,7 @@
             return response;
         }
 
-        public async Task<ResponseDto<int>> ChangeStatus(ClaimsPrincipal user, int id, string status)
+        public async Task<ResponseDto<int>> ChangeStatus(ClaimsPrincipal user, int id, string status, string comment)
         {
             var caseFromDb = await _casesRepository.GetCaseById(id);
             var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
@@ -97,7 +97,7 @@
                 return response;
             }
 
-            response.Value = await _casesRepository.ChangeStatus(caseFromDb, status);
+            response.Value = await _casesRepository.ChangeStatus(caseFromDb, status, comment);
             return response;
         }
 

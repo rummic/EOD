@@ -58,11 +58,12 @@ namespace EOD.DAL.Repositories
             return caseToDb.Id;
         }
 
-        public async Task<int> ChangeStatus(Case CaseFromDb, string status)
+        public async Task<int> ChangeStatus(Case caseFromDb, string status, string comment)
         {
-            CaseFromDb.Status = status;
+            caseFromDb.Status = status;
+            caseFromDb.Comment = comment;
             await _context.SaveChangesAsync();
-            return CaseFromDb.Id;
+            return caseFromDb.Id;
         }
 
         public async Task<bool> DeleteCase(Case caseFromDb)
