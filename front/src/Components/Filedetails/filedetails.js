@@ -66,13 +66,13 @@ class filedetails extends Component {
       return <Redirect to={"/home"} />;
     }
     const obj = this.state;
-    if (obj.status == "Sent"){
+    if (obj.status === "Sent"){
         obj.status = "Oczekiwanie na akceptację"
     }
-    if (obj.status == "Accepted") {
+    if (obj.status === "Accepted") {
       obj.status = "Plik został zaakceptowany"
     }
-    if (obj.status == "Rejected") {
+    if (obj.status === "Rejected") {
       obj.status = "Plik został odrzucony"
     }
     return (
