@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Sidebar from "../Navbar/sidebar";
 import { Redirect } from "react-router-dom";
 import { Table } from "react-bootstrap";
+import "./filedetails.css";
 
 const token = sessionStorage.getItem("token");
 
@@ -40,6 +41,35 @@ class filedetails extends Component {
   acceptDocument(){
     const obj = this.props.location.state;
     fetch("https://localhost:44388/api/Cases?id="+ obj.id +"&status=Accepted", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      },
+      body: JSON.stringify({
+        status: obj.status
+      })
+    })
+      .then(response => response.json())
+      .then(parseJSON => {
+        console.log(obj.status)
+        if (parseJSON.hasErrors) {
+          alert("nie działa")
+        } else {
+          alert("Zaakceptowano");
+          this.props.history.push("/index");
+        }
+      });
+  }
+
+  showInput() {
+    document.getElementById("coment").style.display = "inline";
+    document.getElementById("hideButton").style.display = "none";
+  }
+
+  rejectedDocument(){
+    const obj = this.props.location.state;
+    fetch("https://localhost:44388/api/Cases?id="+ obj.id +"&status=Rejected", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -155,9 +185,20 @@ class filedetails extends Component {
                   <button>
                       Wyświetl plik
                   </button>
+                  <div style= {{display : obj.status ==='Plik został zaakceptowany' || obj.status === 'Plik został odrzucony' ? 'none' : 'block'}}>
                   <button onClick={ this.acceptDocument.bind(this)}>
                       Akceptuj
                   </button>
+                  <button  id="hideButton" onClick={this.showInput}>
+                      Odrzuć
+                  </button>
+                  <div id="coment">
+                  <textarea></textarea>
+                  <button onClick={ this.rejectedDocument.bind(this)}>
+                      Wyslij
+                  </button>
+                  </div>
+                  </div>
                   <div />
                 </div>
               </div>
