@@ -80,5 +80,16 @@ namespace EOD.BL.Validators
 
             return response;
         }
+
+        public static ResponseDto<List<GetCaseDto>> ValidateGetUsersCases(User userFromDb)
+        {
+            var response = new ResponseDto<List<GetCaseDto>>();
+            if (userFromDb == null)
+            {
+                response.AddError(UserErrors.NotFoundByLogin);
+            }
+
+            return response;
+        }
     }
 }

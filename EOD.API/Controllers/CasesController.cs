@@ -66,6 +66,17 @@ namespace EOD.API.Controllers
             return Ok(casesResponse);
         }
 
+        [HttpGet("User")]
+        public async Task<ActionResult<ResponseDto<List<GetCaseDto>>>> GetUsersCases()
+        {
+            ResponseDto<List<GetCaseDto>> response = await _casesService.GetUsersCases(User);
+            if (response.HasErrors)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
 
         [HttpPost]
         public async Task<ActionResult<ResponseDto<int>>> AddCase([FromBody] AddCaseDto caseToAdd)

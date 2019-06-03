@@ -15,5 +15,6 @@
         Task<ResponseDto<int>> AddCase(ClaimsPrincipal user, AddCaseDto caseToAdd);
         Task<ResponseDto<int>> ChangeStatus(ClaimsPrincipal user, int id, string status);
         Task<ResponseDto<bool>> DeleteCase(ClaimsPrincipal user, int id);
+        Task<ResponseDto<List<GetCaseDto>>> GetUsersCases(ClaimsPrincipal user);
     }
 }

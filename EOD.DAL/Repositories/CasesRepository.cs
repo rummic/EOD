@@ -71,5 +71,16 @@ namespace EOD.DAL.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<IEnumerable<Case>> GetUsersCases(User userFromDb)
+        {
+            var cases = await _context.Cases
+                .Where(x => x.Sender == userFromDb && !x.IsDeleted)
+                .Include(x => x.Department)
+                .Include(x => x.Sender)
+                .Include(x => x.Documents)
+                .ToListAsync();
+            return cases;
+        }
     }
 }

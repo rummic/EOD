@@ -114,5 +114,19 @@
             response.Value = await _casesRepository.DeleteCase(caseFromDb);
             return response;
         }
+
+        public async Task<ResponseDto<List<GetCaseDto>>> GetUsersCases(ClaimsPrincipal user)
+        {
+            var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
+            ResponseDto<List<GetCaseDto>> response = CasesValidator.ValidateGetUsersCases(userFromDb);
+            if (response.HasErrors)
+            {
+                return response;
+            }
+
+            var casesFromDb = await _casesRepository.GetUsersCases(userFromDb);
+            response.Value = Mapper.Map<List<GetCaseDto>>(casesFromDb);
+            return response;
+        }
     }
 }

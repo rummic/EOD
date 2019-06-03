@@ -13,5 +13,6 @@
         Task<int> AddCase(Case caseToDb);
         Task<int> ChangeStatus(Case CaseFromDb, string status);
         Task<bool> DeleteCase(Case caseFromDb);
+        Task<IEnumerable<Case>> GetUsersCases(User userFromDb);
     }
 }
