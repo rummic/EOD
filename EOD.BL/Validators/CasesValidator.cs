@@ -51,7 +51,7 @@ namespace EOD.BL.Validators
                 response.AddError(CaseErrors.WrongStatus);
             if(caseFromDb == null)
                 response.AddError(CaseErrors.NotFoundById);
-            if(userFromDb == null)
+            else if(userFromDb == null)
                 response.AddError(UserErrors.NotFoundByLogin);
             else if (userFromDb.Role == Role.Admin && caseFromDb.Department.Manager != userFromDb)
                     response.AddError(CaseErrors.NotAllowed);

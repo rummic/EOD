@@ -97,14 +97,14 @@ namespace EOD.API.Controllers
 
         [HttpPut]
         [Authorize(Roles = Role.Admin + ", " + Role.SuperAdmin)]
-        public async Task<ActionResult<ResponseDto<int>>> ChangeStatus(int id, string status)
+        public async Task<ActionResult<ResponseDto<int>>> ChangeStatus(int id, string status, string comment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            ResponseDto<int> result = await _casesService.ChangeStatus(User, id, status);
+            ResponseDto<int> result = await _casesService.ChangeStatus(User, id, status, comment);
             if (result.HasErrors)
             {
                 return BadRequest(result);

@@ -13,7 +13,7 @@
         Task<ResponseDto<List<GetCaseDto>>> GetCases(bool allCases = false);
         Task<ResponseDto<List<GetCaseDto>>> GetCasesForManager(ClaimsPrincipal user);
         Task<ResponseDto<int>> AddCase(ClaimsPrincipal user, AddCaseDto caseToAdd);
-        Task<ResponseDto<int>> ChangeStatus(ClaimsPrincipal user, int id, string status);
+        Task<ResponseDto<int>> ChangeStatus(ClaimsPrincipal user, int id, string status, string comment);
         Task<ResponseDto<bool>> DeleteCase(ClaimsPrincipal user, int id);
         Task<ResponseDto<List<GetCaseDto>>> GetUsersCases(ClaimsPrincipal user);
     }
