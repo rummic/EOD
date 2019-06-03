@@ -22,6 +22,23 @@ class adduser extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  componentDidMount(){
+    fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(parseJSON => {
+      this.setState({
+        role: parseJSON.value.role
+      });
+    });
+
+  }
+
   addU() {
     fetch("https://localhost:44388/api/Users", {
       method: "POST",
@@ -50,7 +67,7 @@ class adduser extends Component {
   }
 
   render() {
-    if (!sessionStorage.getItem("token")) {
+    if (!sessionStorage.getItem("token") || this.state.role === "User" || this.state.role === "Admin") {
       return <Redirect to={"/home"} />;
     }
     return (

@@ -81,7 +81,18 @@ class sidebar extends Component {
                 <GoInbox /> Skrzynka odbiorcza
               </p>
             </li>
-            <li>
+          </ul>
+          <div style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
+          <div className="apiOptions-CategorieUser">Panel Administracyjny</div>
+          <ul>
+          <li>
+              <Link to="/showfiles" className="linker">
+              <p>
+                <GoFile /> Zobacz/Akceptuj dokumenty
+              </p>
+              </Link>
+            </li>
+            <li style = {{display :  this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
               <Link to="/userslist" className="linker">
                 <p>
                   <GoPerson />
@@ -90,8 +101,8 @@ class sidebar extends Component {
               </Link>
             </li>
           </ul>
-        </div>
-          <div style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>jkhjk</div>
+          </div>
+          </div>
         <div className="userOptions">
           <ul>
             <li>

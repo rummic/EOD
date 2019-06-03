@@ -77,7 +77,7 @@ class changerole extends Component {
   }
   render() {
     if (!sessionStorage.getItem("token")) {
-      return <Redirect to={"/login"} />;
+      return <Redirect to={"/home"} />;
     }
     const obj = this.state;
     return (

@@ -11,7 +11,8 @@ class UserList extends Component {
     super(props);
     this.state = {
       id: 0,
-      users: []
+      users: [],
+      role: ""
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -19,8 +20,23 @@ class UserList extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+  
 
   componentDidMount() {
+    fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(parseJSON => {
+      this.setState({
+        role: parseJSON.value.role
+      });
+    });
+
     fetch("https://localhost:44388/api/Users", {
       method: "GET",
       headers: {
@@ -38,9 +54,10 @@ class UserList extends Component {
   }
 
   render() {
-    if (!sessionStorage.getItem("token")) {
+    if (!sessionStorage.getItem("token") || this.state.role === "User" || this.state.role === "Admin" ) {
       return <Redirect to={"/home"} />;
     }
+    console.log(this.state.role)
     return (
       <div className="UsersetBox">
         <Sidebar history={this.props.history} />
