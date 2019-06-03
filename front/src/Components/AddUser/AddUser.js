@@ -67,7 +67,7 @@ class adduser extends Component {
   }
 
   render() {
-    if (!sessionStorage.getItem("token") || this.state.role === "User" || this.state.role === "Admin") {
+    if (!sessionStorage.getItem("token") || this.role === "User" || this.role === "Admin") {
       return <Redirect to={"/home"} />;
     }
     return (

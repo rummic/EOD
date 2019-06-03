@@ -10,7 +10,6 @@ class UserList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
       users: [],
       role: ""
     };
@@ -89,7 +88,7 @@ class UserList extends Component {
                     {this.state.users.map((item, i) => (
                       <tbody key={i}>
                         <tr>
-                          <td>{(this.state.id = this.state.id + 1)}</td>
+                          <td>{item.id}</td>
                           <td>{item.firstName}</td>
                           <td>{item.lastName}</td>
                           <td>{item.login}</td>
