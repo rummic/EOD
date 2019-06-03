@@ -3,10 +3,13 @@ import Sidebar from "../Navbar/sidebar";
 import { Redirect } from "react-router-dom";
 import { Table } from "react-bootstrap";
 
+const token = sessionStorage.getItem("token");
+
 class filedetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       title: "",
       status: "",
       departmentName: "",
@@ -24,6 +27,7 @@ class filedetails extends Component {
   componentWillMount() {
     const obj = this.props.location.state;
     this.setState({
+      id: obj.id,
       title: obj.title,
       status: obj.status,
       departmentName: obj.departmentName,
@@ -31,6 +35,30 @@ class filedetails extends Component {
       sender: obj.sender,
       documents: obj.documents
     });
+  }
+
+  acceptDocument(){
+    const obj = this.props.location.state;
+    fetch("https://localhost:44388/api/Cases?id="+ obj.id +"&status=Accepted", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      },
+      body: JSON.stringify({
+        status: obj.status
+      })
+    })
+      .then(response => response.json())
+      .then(parseJSON => {
+        console.log(obj.status)
+        if (parseJSON.hasErrors) {
+          alert("nie działa")
+        } else {
+          alert("Zaakceptowano");
+          this.props.history.push("/index");
+        }
+      });
   }
 
   render() {
@@ -127,7 +155,9 @@ class filedetails extends Component {
                   <button>
                       Wyświetl plik
                   </button>
-
+                  <button onClick={ this.acceptDocument.bind(this)}>
+                      Akceptuj
+                  </button>
                   <div />
                 </div>
               </div>
