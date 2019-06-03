@@ -85,7 +85,7 @@ class filedetails extends Component {
         if (parseJSON.hasErrors) {
           alert("nie działa")
         } else {
-          alert("Zaakceptowano");
+          alert("Odrzucono");
           this.props.history.push("/index");
         }
       });
