@@ -8,7 +8,7 @@ import {
   GoFileSymlinkFile,
   GoInbox,
   GoHome,
-  GoPerson
+  GoPerson, GoOrganization
 } from "react-icons/go";
 
 const token = sessionStorage.getItem("token");
@@ -83,7 +83,7 @@ class sidebar extends Component {
             </li>
           </ul>
           <div style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
-          <div className="apiOptions-CategorieUser">Panel Administracyjny</div>
+          <div className="apiOptions-CategorieUser apiOptions-PanelAdmin ">Panel Administracyjny</div>
           <ul>
           <li>
               <Link to="/showfiles" className="linker">
@@ -97,6 +97,13 @@ class sidebar extends Component {
                 <p>
                   <GoPerson />
                   Lista użytkowników
+                </p>
+              </Link>
+            </li>
+            <li style = {{display :  this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
+              <Link to="/departments" className="linker">
+                <p>
+                  <GoOrganization /> Lista Działów
                 </p>
               </Link>
             </li>

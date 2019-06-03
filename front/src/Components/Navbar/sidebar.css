@@ -7,7 +7,7 @@
     height: 100%;
     float:left;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .sidebar .sidebar-logo{
@@ -21,20 +21,25 @@
 
 .sidebar .apiOptions{
     width: 100%;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .sidebar .apiOptions .apiOptions-CategorieUser{
     margin-top: 10px;
     width: 100%;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
+}
+.sidebar .apiOptions .apiOptions-PanelAdmin{
+    margin-top: 13%;
+    width: 100%;
+    font-size: 20px;
 }
 
 .sidebar .userOptions{
     position: absolute;
     bottom: 10px;
-    font-size: 25px;
+    font-size: 20px;
     width: 100%;
 }
 
