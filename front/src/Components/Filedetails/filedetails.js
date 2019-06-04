@@ -111,20 +111,16 @@ class filedetails extends Component {
           value: parseJSON.value
         });
         console.log(this.state.value)
+        console.log(this.state.document)
         if (parseJSON.hasErrors ) {
           console.log("elo")
         } else {
-          fetch("https://localhost:44388/api/Documents/SendMail",{
+          fetch("https://localhost:44388/api/Documents/SendMail?id=" +this.state.value + "&redirect=" +this.state.frontRedirect,{
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
               Authorization: `bearer ${token}`
             },
-            body: JSON.stringify({
-              value: this.state.value,
-              frontRedirect: this.state.frontRedirect
-              
-            })
           })
             .then(response => response.json())
             .then(parseJSON => {
