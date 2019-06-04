@@ -13,9 +13,11 @@
     {
         Task<ResponseDto<string>> AddDocument(ClaimsPrincipal user, IFormFile document, int caseId);
 
-        Task<ResponseDto<int>> SendMail(string recipient, string documentUrl);
+        Task<ResponseDto<bool>> SendMail(int id, string frontRedirect);
 
-        Task<ResponseDto<bool>> DocumentSeen(int id);
+        Task<ResponseDto<int>> AddSharedDocument(string recipient, string documentUrl);
+
+        Task<ResponseDto<string>> DocumentSeen(int id);
 
         Task<ResponseDto<List<SharedDocument>>> GetSharedDocuments();
     }

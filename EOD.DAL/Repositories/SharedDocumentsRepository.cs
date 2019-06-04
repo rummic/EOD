@@ -37,5 +37,10 @@
         {
             return await _context.SharedDocuments.ToListAsync();
         }
+
+        public async Task<SharedDocument> GetSharedDocument(int id)
+        {
+            return await _context.SharedDocuments.FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }
