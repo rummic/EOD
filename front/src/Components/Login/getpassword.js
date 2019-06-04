@@ -3,7 +3,7 @@ import { Form, Button, FormGroup } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./login.css";
 
-class login extends Component {
+class getpassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,32 +14,27 @@ class login extends Component {
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-
-  login() {
-    fetch("https://localhost:44388/api/Users/Authenticate", {
+  
+  getpassword() {
+    fetch("https://localhost:44388/api/Users/"+  {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        login: this.state.login,
-        password: this.state.password
+        email: this.state.email,
+
       })
     })
       .then(response => response.json())
       .then(parseJSON => {
         if (parseJSON.hasErrors) {
-          document.getElementById("badLogin").innerHTML = parseJSON.errors;
-          document.getElementById("badLogin").style.color = "red";
+          alert("Zły mail")
         } else {
-          sessionStorage.setItem("login", parseJSON.value.login);
-          sessionStorage.setItem("token", parseJSON.value.token);
-          sessionStorage.setItem("id", parseJSON.value.id);
-          window.location.reload(true);
+          this.props.history.push("/login");
         }
       });
   }
-
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -84,4 +79,4 @@ class login extends Component {
   }
 }
 
-export default login;
+export default getpassword;

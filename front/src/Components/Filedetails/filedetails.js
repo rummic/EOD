@@ -60,8 +60,9 @@ class filedetails extends Component {
     var split = str.split("\\");
     var nazwadokumentu = split[split.length-1]
     console.log(nazwadokumentu)
-    fetch("https://localhost:44388/api/Documents/SendMail?recipient=augmarcinaug@gmail.com&documentUrl=localhost:3000/sharedfiles/15-07-40-226_04-06-2019_Bez-tytułu-1-2.pdf", {
-      method: "PUT",
+    console.log(this.state.recipient)
+    fetch("https://localhost:44388/api/Documents/SendMail?recipient="+ this.state.recipient +"&documentUrl=localhost:3000/sharedfiles/" + nazwadokumentu, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `bearer ${token}`
@@ -251,7 +252,7 @@ class filedetails extends Component {
                       Dzare
                   </button>
                   <div id="recepient">
-                  <input type="email" name="recepient" onChange={this.onChange}/>
+                  <input type="email" name="recipient" onChange={this.onChange}/>
                   <button onClick={ this.sendMail.bind(this)}>
                       Wyslij
                   </button>
