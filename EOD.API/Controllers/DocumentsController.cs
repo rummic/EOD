@@ -37,14 +37,9 @@
         }
 
         [HttpPut("SendMail")]
-        public async Task<ActionResult<ResponseDto<bool>>> SendMail([FromBody] SendDocumentMailDto mailDto)
+        public async Task<ActionResult<ResponseDto<bool>>> SendMail(int id, string redirect)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            ResponseDto<bool> result = await _documentsService.SendMail(mailDto);
+           ResponseDto<bool> result = await _documentsService.SendMail(id, redirect);
             if (result.HasErrors)
             {
                 return BadRequest(result);
