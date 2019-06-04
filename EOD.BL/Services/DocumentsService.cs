@@ -86,14 +86,14 @@
 
         }
 
-        public async Task<ResponseDto<bool>> SendMail(SendDocumentMailDto mailDto)
+        public async Task<ResponseDto<bool>> SendMail(int id, string redirect)
         {
-            var response = DocumentsValidator.ValidateSendMailDto(mailDto);
+            var response = DocumentsValidator.ValidateSendMailParameters(id, redirect);
             if (response.HasErrors)
             {
                 return response;
             }
-            var shared = await _sharedDocumentsRepository.GetSharedDocument(mailDto.Id);
+            var shared = await _sharedDocumentsRepository.GetSharedDocument(id);
             if (shared == null)
             {
                 response.AddError(DocumentErrors.CannotFindSharedDoc);
@@ -102,7 +102,7 @@
 
             try
             {
-                await MailHelper.SendDocument(_appSettings.Value, shared.RecipientMail, mailDto.FrontRedirect + "?id=" + shared.Id);
+                await MailHelper.SendDocument(_appSettings.Value, shared.RecipientMail, redirect + "?id=" + shared.Id);
             }
             catch
             {

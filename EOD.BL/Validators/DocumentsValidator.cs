@@ -59,11 +59,11 @@
             return response;
         }
 
-        public static ResponseDto<bool> ValidateSendMailDto(SendDocumentMailDto mailDto)
+        public static ResponseDto<bool> ValidateSendMailParameters(int id, string redirect)
         {
             var response = new ResponseDto<bool>();
-            if (mailDto.Id < 0) response.AddError(DocumentErrors.InvalidId);
-            if (string.IsNullOrWhiteSpace(mailDto.FrontRedirect)) response.AddError(DocumentErrors.InvalidFrontRedirect);
+            if (id < 0) response.AddError(DocumentErrors.InvalidId);
+            if (string.IsNullOrWhiteSpace(redirect)) response.AddError(DocumentErrors.InvalidFrontRedirect);
 
             return response;
 
