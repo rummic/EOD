@@ -18,9 +18,11 @@ class filedetails extends Component {
       sender: [],
       documents: [],
       comment: "",
-      recipient: ""
+      recipient: "",
+      value: "",
     };
     this.onChange = this.onChange.bind(this);
+    this.login = this.login.bind(this);
   }
 
   onChange(e) {
@@ -55,13 +57,13 @@ class filedetails extends Component {
         })
    } */
 
-   sendMail(){
+  /* login(){
     var str = this.state.documents[0].path
     var split = str.split("\\");
     var nazwadokumentu = split[split.length-1]
     console.log(nazwadokumentu)
     console.log(this.state.recipient)
-    fetch("https://localhost:44388/api/Documents/SendMail?recipient="+ this.state.recipient +"&documentUrl=localhost:3000/sharedfiles/" + nazwadokumentu, {
+    fetch("http://localhost:44388/api/Documents/SharedDocument?recipient="+ this.state.recipient +"&documentName= " + nazwadokumentu, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,6 +75,10 @@ class filedetails extends Component {
     })
       .then(response => response.json())
       .then(parseJSON => {
+        this.setState({
+          value: parseJSON.value.value
+        });
+        console.log(this.state.value)
         if (parseJSON.hasErrors) {
           alert("nie działa")
         } else {
@@ -80,7 +86,28 @@ class filedetails extends Component {
           this.props.history.push("/index");
         }
       });
-   }
+   }*/
+   login() {
+    fetch("https://localhost:44388/api/DocumentTypes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        login: this.state.login,
+        password: this.state.password
+      })
+    })
+      .then(response => response.json())
+      .then(parseJSON => {
+        if (parseJSON.hasErrors) {
+          document.getElementById("badLogin").innerHTML = parseJSON.errors;
+          document.getElementById("badLogin").style.color = "red";
+        } else {
+          console.log("elo")
+        }
+      });
+  }
   
 
   acceptDocument(){
@@ -138,13 +165,12 @@ class filedetails extends Component {
       });
   }
 
-
+//    console.log(this.state.documents[0].path)
   render() {
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/home"} />;
     }
     const obj = this.state;
-    console.log(this.state.documents[0].path)
     if (obj.status === "Sent"){
         obj.status = "Oczekiwanie na akceptację"
     }
@@ -253,7 +279,7 @@ class filedetails extends Component {
                   </button>
                   <div id="recepient">
                   <input type="email" name="recipient" onChange={this.onChange}/>
-                  <button onClick={ this.sendMail.bind(this)}>
+                  <button onClick={this.login}>
                       Wyslij
                   </button>
                   </div>

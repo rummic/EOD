@@ -15,6 +15,7 @@ import Filedetails from "./Components/Filedetails/filedetails";
 import Departments from "./Components/Departments/departments";
 import AddDepartments from "./Components/Departments/adddepartment";
 import SharedFiles from "./Components/sharedfile/sharedfiles";
+import UserDocuments from "./Components/userdocument/userdocument";
 
 class App extends Component {
   render() {
@@ -35,6 +36,7 @@ class App extends Component {
           <Route path="/departments" component={Departments}/>
           <Route path="/adddepartment" component={AddDepartments}/>
           <Route path="/sharedfiles" component={SharedFiles}/>
+          <Route path="/userdocument" component={UserDocuments}/>
         </div>
       </BrowserRouter>
     );

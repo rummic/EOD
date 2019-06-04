@@ -48,7 +48,7 @@ class getpassword extends Component {
       <div className="loginbox">
         <div className="login-content-box">
           <Form.Group controlId="formBasicLogin">
-            <Form.Label>Login</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               type="text"
               required
@@ -57,20 +57,7 @@ class getpassword extends Component {
               onChange={this.onChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicPassowrd">
-            <Form.Label>Hasło</Form.Label>
-            <Form.Control
-              type="password"
-              required
-              placeholder="Hasło"
-              name="password"
-              onChange={this.onChange}
-            />
-          </Form.Group>
-          <FormGroup>
-            <p id="badLogin" />
-          </FormGroup>
-          <Button variant="primary" type="submit" block onClick={this.login}>
+          <Button variant="primary" type="submit" block onClick={this.lo}>
             Zaloguj
           </Button>
         </div>
