@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect,Link } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
-import "./userslist.css";
-import { Table,Breadcrumb } from "react-bootstrap";
+import { Breadcrumb, Table } from "react-bootstrap";
 
 const token = sessionStorage.getItem("token");
 
-class UserList extends Component {
+class departments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [],
+      departments:[],
       role: ""
     };
     this.onChange = this.onChange.bind(this);
@@ -23,6 +22,20 @@ class UserList extends Component {
 
   componentDidMount() {
     fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `bearer ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(parseJSON => {
+        this.setState({
+          role: parseJSON.value.role
+        });
+      });
+
+    fetch("https://localhost:44388/api/Departments" , {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -32,24 +45,10 @@ class UserList extends Component {
     .then(response => response.json())
     .then(parseJSON => {
       this.setState({
-        role: parseJSON.value.role
+        departments: parseJSON.value || []
       });
     });
 
-    fetch("https://localhost:44388/api/Users", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`
-      }
-    }).then(response =>
-      response.json().then(responseJSON => {
-        console.log(responseJSON);
-        this.setState({
-          users: responseJSON.value || []
-        });
-      })
-    );
   }
 
   render() {
@@ -69,35 +68,29 @@ class UserList extends Component {
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
                 <div>
-                  <button>
-                    <Link to={{ pathname: "./adduser" }}>
-                      Dodaj użytkownika
+                <button>
+                    <Link to={{ pathname: "./adddepartment" }}>
+                      Dodaj dział
                     </Link>
                   </button>
-                  <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm">
                     <thead>
                       <tr>
                         <th>Id</th>
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
-                        <th>Login</th>
-                        <th>Email</th>
-                        <th>Rola</th>
+                        <th>Nazwa</th>
+                        <th>Menager</th>
                       </tr>
                     </thead>
-                    {this.state.users.map((item, i) => (
+                    {this.state.departments.map((item, i) => (
                       <tbody key={i}>
                         <tr>
                           <td>{item.id}</td>
-                          <td>{item.firstName}</td>
-                          <td>{item.lastName}</td>
-                          <td>{item.login}</td>
-                          <td>{item.email}</td>
-                          <td>{item.role}</td>
+                          <td>{item.name}</td>
+                          <td>{item.menager}</td>
                           <td>
                             <button>
                               <Link
-                                to={{ pathname: "./changerole", state: item }}
+                                to={{ pathname: "./filedetails", state: item }}
                               >
                                 Ustawienia
                               </Link>
@@ -107,14 +100,14 @@ class UserList extends Component {
                       </tbody>
                     ))}
                   </Table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
     );
   }
 }
 
-export default UserList;
+export default departments;

@@ -9,7 +9,6 @@ class showfiles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
       cases: []
     };
     this.OnChange = this.OnChange.bind(this);
@@ -61,7 +60,7 @@ class showfiles extends Component {
                     {this.state.cases.map((item, i) => (
                       <tbody key={i}>
                         <tr>
-                          <td>{(this.state.id = this.state.id + 1)}</td>
+                          <td>{item.id}</td>
                           <td>{item.title}</td>
                           <td>{item.departmentName}</td>
                           <td>{item.status}</td>
