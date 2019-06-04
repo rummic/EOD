@@ -12,5 +12,7 @@
         Task<SharedDocument> SeenSharedDocument(int id);
 
         Task<List<SharedDocument>> GetSharedDocuments();
+
+        Task<SharedDocument> GetSharedDocument(int id);
     }
 }

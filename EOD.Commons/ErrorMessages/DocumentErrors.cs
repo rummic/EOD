@@ -8,5 +8,6 @@
         public static readonly string InfoSaveFailed = "Informacje o pliku nie mogły być zapisane.";
 
         public static readonly string NotFoundByName = "Nie znaleziono dokumentu o podanej nazwie.";
+        public static readonly string CannotFindSharedDoc = "Nie znaleziono udostępnienia o podanym id.";
     }
 }

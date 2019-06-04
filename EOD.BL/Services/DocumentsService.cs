@@ -85,26 +85,48 @@
 
         }
 
-        public async Task<ResponseDto<int>> SendMail(string recipient, string documentUrl)
+        public async Task<ResponseDto<bool>> SendMail(int id, string frontRedirect)
         {
-            var documentName = documentUrl.Split('/').Last();
+            var response = new ResponseDto<bool>();
+            var shared = await _sharedDocumentsRepository.GetSharedDocument(id);
+            if (shared == null)
+            {
+                response.AddError(DocumentErrors.CannotFindSharedDoc);
+                return response;
+            }
+
+            try
+            {
+                await MailHelper.SendDocument(_appSettings.Value, shared.RecipientMail, frontRedirect + "?id=" + shared.Id);
+            }
+            catch
+            {
+                response.Value = false;
+                return response;
+            }
+
+            response.Value = true;
+            return response;
+        }
+
+        public async Task<ResponseDto<int>> AddSharedDocument(string recipient, string documentName)
+        {
             var document = await _documentsRepository.GetDocumentByName(documentName);
             var response = DocumentsValidator.ValidateSendMail(document);
             if (response.HasErrors)
             {
                 return response;
             }
-            var sharedDocument = CreateSharedDocument(recipient, documentUrl);
-            var mail = await _sharedDocumentsRepository.AddSharedDocument(sharedDocument);
-            await MailHelper.SendDocument(_appSettings.Value, recipient, documentUrl);
-            response.Value = mail.Id;
+            var sharedDocument = CreateSharedDocument(recipient, documentName);
+            await _sharedDocumentsRepository.AddSharedDocument(sharedDocument);
+            response.Value = sharedDocument.Id;
             return response;
         }
 
-        public async Task<ResponseDto<bool>> DocumentSeen(int id)
+        public async Task<ResponseDto<string>> DocumentSeen(int id)
         {
-            await _sharedDocumentsRepository.SeenSharedDocument(id);
-            return new ResponseDto<bool> { Value = true };
+            var shared = await _sharedDocumentsRepository.SeenSharedDocument(id);
+            return new ResponseDto<string> { Value = shared.DocumentName };
         }
 
         public async Task<ResponseDto<List<SharedDocument>>> GetSharedDocuments()

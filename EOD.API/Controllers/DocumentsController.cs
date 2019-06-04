@@ -36,9 +36,21 @@
         }
 
         [HttpPut("SendMail")]
-        public async Task<ActionResult<ResponseDto<int>>> SendMail(string recipient, string documentUrl)
+        public async Task<ActionResult<ResponseDto<bool>>> SendMail(int id, string frontRedirect)
         {
-            ResponseDto<int> result = await _documentsService.SendMail(recipient, documentUrl);
+            ResponseDto<bool> result = await _documentsService.SendMail(id, frontRedirect);
+            if (result.HasErrors)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("SharedDocument")]
+        public async Task<ActionResult<ResponseDto<int>>> AddSharedDocument(string recipient, string documentName)
+        {
+            var result = await _documentsService.AddSharedDocument(recipient, documentName);
             if (result.HasErrors)
             {
                 return BadRequest(result);
@@ -48,9 +60,9 @@
         }
 
         [HttpPatch("DocumentSeen")]
-        public async Task<ActionResult<ResponseDto<bool>>> DocumentSeen(int id)
+        public async Task<ActionResult<ResponseDto<string>>> DocumentSeen(int id)
         {
-            ResponseDto<bool> result = await _documentsService.DocumentSeen(id);
+            ResponseDto<string> result = await _documentsService.DocumentSeen(id);
             if (result.HasErrors)
             {
                 return BadRequest(result);
