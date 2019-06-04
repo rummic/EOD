@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using EOD.BL.Dtos;
+    using EOD.BL.Dtos.DocumentDtos;
     using EOD.BL.Services.Interfaces;
     using EOD.Commons.Enumerables;
     using EOD.DAL.Model;
@@ -36,9 +37,14 @@
         }
 
         [HttpPut("SendMail")]
-        public async Task<ActionResult<ResponseDto<bool>>> SendMail(int id, string frontRedirect)
+        public async Task<ActionResult<ResponseDto<bool>>> SendMail([FromBody] SendDocumentMailDto mailDto)
         {
-            ResponseDto<bool> result = await _documentsService.SendMail(id, frontRedirect);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            ResponseDto<bool> result = await _documentsService.SendMail(mailDto);
             if (result.HasErrors)
             {
                 return BadRequest(result);
@@ -48,9 +54,14 @@
         }
 
         [HttpPost("SharedDocument")]
-        public async Task<ActionResult<ResponseDto<int>>> AddSharedDocument(string recipient, string documentName)
+        public async Task<ActionResult<ResponseDto<int>>> AddSharedDocument([FromBody] AddSharedDocumentDto documentDto)
         {
-            var result = await _documentsService.AddSharedDocument(recipient, documentName);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _documentsService.AddSharedDocument(documentDto);
             if (result.HasErrors)
             {
                 return BadRequest(result);

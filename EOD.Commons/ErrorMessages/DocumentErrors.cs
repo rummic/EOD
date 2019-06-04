@@ -3,11 +3,23 @@
     public static class DocumentErrors
     {
         public static readonly string WrongExtension = "Niepoprawne rozszerzenie pliku.";
+
         public static readonly string EmptyFile = "Plik nie może być pusty.";
+
         public static readonly string CannotSave = "Plik nie mógł zostać zapisany.";
+
         public static readonly string InfoSaveFailed = "Informacje o pliku nie mogły być zapisane.";
 
         public static readonly string NotFoundByName = "Nie znaleziono dokumentu o podanej nazwie.";
+
         public static readonly string CannotFindSharedDoc = "Nie znaleziono udostępnienia o podanym id.";
+
+        public static readonly string InvalidId = "Podane Id jest nieprawidłowe.";
+
+        public static readonly string InvalidFrontRedirect = "Podany adres strony przekierowania jest nieprawidłowy.";
+
+        public static readonly string InvalidName = "Podana nazwa pliku jest niepoprawna.";
+
+        public static readonly string InvalidRecipient = "Podany adres odbiorcy jest niepoprawny.";
     }
 }

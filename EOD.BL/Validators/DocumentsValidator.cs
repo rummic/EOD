@@ -6,6 +6,7 @@
     using System.Security.Claims;
 
     using EOD.BL.Dtos;
+    using EOD.BL.Dtos.DocumentDtos;
     using EOD.Commons.ErrorMessages;
     using EOD.DAL.Model;
 
@@ -44,7 +45,7 @@
 
         }
 
-        public static ResponseDto<int> ValidateSendMail(Document document)
+        public static ResponseDto<int> ValidateSendMail(Document document, AddSharedDocumentDto documentDto)
         {
             var response = new ResponseDto<int>();
             if (document == null)
@@ -52,7 +53,20 @@
                 response.AddError(DocumentErrors.NotFoundByName);
             }
 
+            if (string.IsNullOrWhiteSpace(documentDto.DocumentName)) response.AddError(DocumentErrors.InvalidName);
+            if (string.IsNullOrWhiteSpace(documentDto.Recipient)) response.AddError(DocumentErrors.InvalidRecipient);
+
             return response;
+        }
+
+        public static ResponseDto<bool> ValidateSendMailDto(SendDocumentMailDto mailDto)
+        {
+            var response = new ResponseDto<bool>();
+            if (mailDto.Id < 0) response.AddError(DocumentErrors.InvalidId);
+            if (string.IsNullOrWhiteSpace(mailDto.FrontRedirect)) response.AddError(DocumentErrors.InvalidFrontRedirect);
+
+            return response;
+
         }
     }
 }

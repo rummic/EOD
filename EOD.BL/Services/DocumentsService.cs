@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
 
     using EOD.BL.Dtos;
+    using EOD.BL.Dtos.DocumentDtos;
     using EOD.BL.Services.Interfaces;
     using EOD.BL.Validators;
     using EOD.Commons.Enumerables;
@@ -85,10 +86,14 @@
 
         }
 
-        public async Task<ResponseDto<bool>> SendMail(int id, string frontRedirect)
+        public async Task<ResponseDto<bool>> SendMail(SendDocumentMailDto mailDto)
         {
-            var response = new ResponseDto<bool>();
-            var shared = await _sharedDocumentsRepository.GetSharedDocument(id);
+            var response = DocumentsValidator.ValidateSendMailDto(mailDto);
+            if (response.HasErrors)
+            {
+                return response;
+            }
+            var shared = await _sharedDocumentsRepository.GetSharedDocument(mailDto.Id);
             if (shared == null)
             {
                 response.AddError(DocumentErrors.CannotFindSharedDoc);
@@ -97,7 +102,7 @@
 
             try
             {
-                await MailHelper.SendDocument(_appSettings.Value, shared.RecipientMail, frontRedirect + "?id=" + shared.Id);
+                await MailHelper.SendDocument(_appSettings.Value, shared.RecipientMail, mailDto.FrontRedirect + "?id=" + shared.Id);
             }
             catch
             {
@@ -109,15 +114,15 @@
             return response;
         }
 
-        public async Task<ResponseDto<int>> AddSharedDocument(string recipient, string documentName)
+        public async Task<ResponseDto<int>> AddSharedDocument(AddSharedDocumentDto documentDto)
         {
-            var document = await _documentsRepository.GetDocumentByName(documentName);
-            var response = DocumentsValidator.ValidateSendMail(document);
+            var document = await _documentsRepository.GetDocumentByName(documentDto.DocumentName);
+            var response = DocumentsValidator.ValidateSendMail(document, documentDto);
             if (response.HasErrors)
             {
                 return response;
             }
-            var sharedDocument = CreateSharedDocument(recipient, documentName);
+            var sharedDocument = CreateSharedDocument(documentDto.Recipient,  documentDto.DocumentName);
             await _sharedDocumentsRepository.AddSharedDocument(sharedDocument);
             response.Value = sharedDocument.Id;
             return response;

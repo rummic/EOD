@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using EOD.BL.Dtos;
+    using EOD.BL.Dtos.DocumentDtos;
     using EOD.DAL.Model;
 
     using Microsoft.AspNetCore.Http;
@@ -13,9 +14,9 @@
     {
         Task<ResponseDto<string>> AddDocument(ClaimsPrincipal user, IFormFile document, int caseId);
 
-        Task<ResponseDto<bool>> SendMail(int id, string frontRedirect);
+        Task<ResponseDto<bool>> SendMail(SendDocumentMailDto mailDto);
 
-        Task<ResponseDto<int>> AddSharedDocument(string recipient, string documentUrl);
+        Task<ResponseDto<int>> AddSharedDocument(AddSharedDocumentDto documentDto);
 
         Task<ResponseDto<string>> DocumentSeen(int id);
 
