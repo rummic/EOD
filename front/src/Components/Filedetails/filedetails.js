@@ -19,7 +19,11 @@ class filedetails extends Component {
       documents: [],
       comment: "",
       recipient: "",
-      value: "",
+      value: null,
+      documentname: "",
+      frontRedirect : "https://localhost:3000/sharedfiles/",
+      val: ""
+
     };
     this.onChange = this.onChange.bind(this);
     this.login = this.login.bind(this);
@@ -88,25 +92,57 @@ class filedetails extends Component {
       });
    }*/
    login() {
-    fetch("https://localhost:44388/api/DocumentTypes", {
+    var str = this.state.documents[0].path
+    var split = str.split("\\");
+    this.state.documentname = split[split.length-1]
+    fetch("https://localhost:44388/api/Documents/SharedDocument", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        login: this.state.login,
-        password: this.state.password
+        recipient : this.state.recipient,
+        documentname: this.state.documentname
       })
     })
       .then(response => response.json())
       .then(parseJSON => {
-        if (parseJSON.hasErrors) {
-          document.getElementById("badLogin").innerHTML = parseJSON.errors;
-          document.getElementById("badLogin").style.color = "red";
-        } else {
+        this.setState({
+          value: parseJSON.value
+        });
+        console.log(this.state.value)
+        if (parseJSON.hasErrors ) {
           console.log("elo")
+        } else {
+          fetch("https://localhost:44388/api/Documents/SendMail",{
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `bearer ${token}`
+            },
+            body: JSON.stringify({
+              value: this.state.value,
+              frontRedirect: this.state.frontRedirect
+              
+            })
+          })
+            .then(response => response.json())
+            .then(parseJSON => {
+              console.log(this.state.value)
+              console.log(this.state.frontRedirect)
+              console.log(parseJSON);
+              if (parseJSON.hasErrors) {
+                alert("nie działa")
+              } else {
+                alert("Poprawnie zmieniono dane");
+              }
+            });
+
         }
+        
       });
+
+
   }
   
 
