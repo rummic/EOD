@@ -35,7 +35,7 @@
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPut("SendMail")]
         public async Task<ActionResult<ResponseDto<int>>> SendMail(string recipient, string documentUrl)
         {
             ResponseDto<int> result = await _documentsService.SendMail(recipient, documentUrl);
@@ -47,7 +47,7 @@
             return Ok(result);
         }
 
-        [HttpPatch]
+        [HttpPatch("DocumentSeen")]
         public async Task<ActionResult<ResponseDto<bool>>> DocumentSeen(int id)
         {
             ResponseDto<bool> result = await _documentsService.DocumentSeen(id);
@@ -59,7 +59,7 @@
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("SharedDocuments")]
         [Authorize(Roles = Role.SuperAdmin)]
         public async Task<ActionResult<ResponseDto<List<SharedDocument>>>> GetSharedDocuments()
         {
