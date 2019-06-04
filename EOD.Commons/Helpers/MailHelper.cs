@@ -14,6 +14,7 @@
             smtp.Credentials = new NetworkCredential(appSettings.AppMail, appSettings.MailPassword);
             smtp.EnableSsl = true;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.Port = 25;
             
             mail.Subject = "Udostępniono dokument - EOD";
             mail.Body =

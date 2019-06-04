@@ -22,13 +22,13 @@ namespace EOD.DAL.Repositories
 
         public async Task<IEnumerable<Department>> GetDepartments()
         {
-            var departments = await _context.Departments.ToListAsync();
+            var departments = await _context.Departments.Include(x => x.Manager).ToListAsync();
             return departments;
         }
 
         public async Task<Department> GetDepartmentById(int id)
         {
-            var department = await _context.Departments.FirstOrDefaultAsync(x => x.Id == id);
+            var department = await _context.Departments.Include(x => x.Manager).FirstOrDefaultAsync(x => x.Id == id);
             return department;
         }
 

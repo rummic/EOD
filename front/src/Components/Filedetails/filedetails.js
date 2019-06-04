@@ -18,6 +18,7 @@ class filedetails extends Component {
       sender: [],
       documents: [],
       comment: "",
+      recipient: ""
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -37,7 +38,49 @@ class filedetails extends Component {
       sender: obj.sender,
       documents: obj.documents
     });
-  }
+    }
+
+  /* getpath(){
+    const obj = this.props.location.state;
+    fetch('https://localhost:44388/api/Cases/' +  obj.id)
+        .then(response => response.json())
+        .then(responseJSON => {
+          if (responseJSON.hasErrors) {
+            console.log(responseJSON.errors);
+          } else {
+            this.setState({
+              documents: responseJSON.value
+            })
+          }
+        })
+   } */
+
+   sendMail(){
+    var str = this.state.documents[0].path
+    var split = str.split("\\");
+    var nazwadokumentu = split[split.length-1]
+    console.log(nazwadokumentu)
+    fetch("https://localhost:44388/api/Documents/SendMail?recipient=augmarcinaug@gmail.com&documentUrl=localhost:3000/sharedfiles/15-07-40-226_04-06-2019_Bez-tytułu-1-2.pdf", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      },
+      body: JSON.stringify({
+        recipient: this.state.recipient
+      })
+    })
+      .then(response => response.json())
+      .then(parseJSON => {
+        if (parseJSON.hasErrors) {
+          alert("nie działa")
+        } else {
+          alert("Zaakceptowano");
+          this.props.history.push("/index");
+        }
+      });
+   }
+  
 
   acceptDocument(){
     const obj = this.props.location.state;
@@ -65,6 +108,7 @@ class filedetails extends Component {
 
   showInput() {
     document.getElementById("coment").style.display = "inline";
+    document.getElementById("recepient").style.display = "inline";
     document.getElementById("hideButton").style.display = "none";
   }
 
@@ -93,11 +137,13 @@ class filedetails extends Component {
       });
   }
 
+
   render() {
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/home"} />;
     }
     const obj = this.state;
+    console.log(this.state.documents[0].path)
     if (obj.status === "Sent"){
         obj.status = "Oczekiwanie na akceptację"
     }
@@ -201,7 +247,15 @@ class filedetails extends Component {
                   </button>
                   </div>
                   </div>
-                  <div />
+                  <button  id="hideButton" onClick={this.showInput}>
+                      Dzare
+                  </button>
+                  <div id="recepient">
+                  <input type="email" name="recepient" onChange={this.onChange}/>
+                  <button onClick={ this.sendMail.bind(this)}>
+                      Wyslij
+                  </button>
+                  </div>
                 </div>
               </div>
             </div>
