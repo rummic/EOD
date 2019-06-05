@@ -104,9 +104,10 @@
             {
                 await MailHelper.SendDocument(_appSettings.Value, shared.RecipientMail, redirect + "?id=" + shared.Id);
             }
-            catch
+            catch (Exception e)
             {
                 response.Value = false;
+                response.AddError(e.Message);
                 return response;
             }
 
