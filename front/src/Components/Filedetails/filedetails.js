@@ -28,6 +28,7 @@ class filedetails extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.sendmail = this.sendmail.bind(this);
+    this.showFile = this.showFile.bind(this);
   }
 
   onChange(e) {
@@ -47,7 +48,11 @@ class filedetails extends Component {
     });
     }
 
- 
+    showFile(){
+      var split = this.state.documents[0].path.split("\\");
+      this.state.documentname = split[split.length-1]
+      window.open('https://localhost:44388/Documents/'+ this.state.documentname, "_blank")
+    }
    sendmail() {
     var split = this.state.documents[0].path.split("\\");
     this.state.documentname = split[split.length-1]
@@ -251,7 +256,7 @@ class filedetails extends Component {
                       </tr>
                     </tbody>
                   </Table>
-                  <button>
+                  <button onClick={this.showFile}>
                       Wyświetl plik
                   </button>
                   <div style= {{display : obj.status ==='Plik został zaakceptowany' || obj.status === 'Plik został odrzucony' ? 'none' : 'block'}}>
