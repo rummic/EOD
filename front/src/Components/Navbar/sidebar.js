@@ -70,7 +70,7 @@ class sidebar extends Component {
               </Link>
             </li>
             <li>
-              <Link to="/showfiles" className="linker">
+              <Link to="/userdocument" className="linker">
               <p>
                 <GoFile /> Zobacz dokumenty
               </p>

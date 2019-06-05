@@ -27,7 +27,7 @@ class filedetails extends Component {
 
     };
     this.onChange = this.onChange.bind(this);
-    this.login = this.login.bind(this);
+    this.sendmail = this.sendmail.bind(this);
   }
 
   onChange(e) {
@@ -47,53 +47,8 @@ class filedetails extends Component {
     });
     }
 
-  /* getpath(){
-    const obj = this.props.location.state;
-    fetch('https://localhost:44388/api/Cases/' +  obj.id)
-        .then(response => response.json())
-        .then(responseJSON => {
-          if (responseJSON.hasErrors) {
-            console.log(responseJSON.errors);
-          } else {
-            this.setState({
-              documents: responseJSON.value
-            })
-          }
-        })
-   } */
-
-  /* login(){
-    var str = this.state.documents[0].path
-    var split = str.split("\\");
-    var nazwadokumentu = split[split.length-1]
-    console.log(nazwadokumentu)
-    console.log(this.state.recipient)
-    fetch("http://localhost:44388/api/Documents/SharedDocument?recipient="+ this.state.recipient +"&documentName= " + nazwadokumentu, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`
-      },
-      body: JSON.stringify({
-        recipient: this.state.recipient
-      })
-    })
-      .then(response => response.json())
-      .then(parseJSON => {
-        this.setState({
-          value: parseJSON.value.value
-        });
-        console.log(this.state.value)
-        if (parseJSON.hasErrors) {
-          alert("nie działa")
-        } else {
-          alert("Zaakceptowano");
-          this.props.history.push("/index");
-        }
-      });
-   }*/
-   login() {
-   // var str = this.state.documents[0].path
+ 
+   sendmail() {
     var split = this.state.documents[0].path.split("\\");
     this.state.documentname = split[split.length-1]
     fetch("https://localhost:44388/api/Documents/SharedDocument", {
@@ -318,7 +273,7 @@ class filedetails extends Component {
                   </button>
                   <div id="recepient">
                   <input type="email" name="recipient" onChange={this.onChange.bind(this)}/>
-                  <button onClick={this.login}>
+                  <button onClick={this.sendmail}>
                       Wyslij
                   </button>
                   </div>
