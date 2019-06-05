@@ -80,6 +80,7 @@ class changerole extends Component {
       return <Redirect to={"/home"} />;
     }
     const obj = this.state;
+    console.log(this.state.role);
     return (
       <div className="UsersetBox">
         <Sidebar history={this.props.history} />
