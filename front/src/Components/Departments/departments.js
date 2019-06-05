@@ -48,6 +48,7 @@ class departments extends Component {
         departments: parseJSON.value || []
       });
     });
+    console.log(this.state.departments);
 
   }
 
@@ -55,7 +56,6 @@ class departments extends Component {
     if (!sessionStorage.getItem("token") || this.state.role === "User" || this.state.role === "Admin" ) {
       return <Redirect to={"/home"} />;
     }
-    console.log(this.state.role)
     return (
       <div className="UsersetBox">
         <Sidebar history={this.props.history} />
@@ -78,7 +78,6 @@ class departments extends Component {
                       <tr>
                         <th>Id</th>
                         <th>Nazwa</th>
-                        <th>Menager</th>
                       </tr>
                     </thead>
                     {this.state.departments.map((item, i) => (
@@ -86,11 +85,10 @@ class departments extends Component {
                         <tr>
                           <td>{item.id}</td>
                           <td>{item.name}</td>
-                          <td>{item.menager}</td>
                           <td>
                             <button>
-                              <Link
-                                to={{ pathname: "./filedetails", state: item }}
+                            <Link
+                                to={{ pathname: "./changemenager", state: item }}
                               >
                                 Ustawienia
                               </Link>
