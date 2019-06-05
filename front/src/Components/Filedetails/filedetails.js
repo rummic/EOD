@@ -274,7 +274,7 @@ class filedetails extends Component {
                   </div>
                   </div>
                   <button  id="showButton" onClick={this.showMail}>
-                      Dzare
+                      Udostępnij dokument
                   </button>
                   <div id="recepient">
                   <input type="email" name="recipient" onChange={this.onChange.bind(this)}/>
