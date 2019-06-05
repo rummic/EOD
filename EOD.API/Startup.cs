@@ -141,7 +141,7 @@ namespace EOD.API
                     {
                         cfg.CreateMap<User, GetUserDto>();
                         cfg.CreateMap<AddUserDto, User>();
-                        cfg.CreateMap<Case, GetCaseDto>();
+                        cfg.CreateMap<Case, GetCaseDto>().ForMember(x => x.SendDate, opt => opt.MapFrom(src => src.SendDate.ToString("dd-MM-yyyy")));
                         cfg.CreateMap<AddCaseDto, Case>();
                         cfg.CreateMap<AddDepartmentDto, Department>();
                         cfg.CreateMap<Document, GetDocumentDto>();

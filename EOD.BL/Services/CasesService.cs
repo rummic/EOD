@@ -38,6 +38,7 @@
             }
 
             var mappedCase = Mapper.Map<GetCaseDto>(caseFromDb);
+            mappedCase.SendDate = caseFromDb.SendDate.ToString("dd-MM-yyyy");
             response.Value = mappedCase;
             return response;
         }

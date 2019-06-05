@@ -54,12 +54,12 @@
             Case caseFromDb = await _casesRepository.GetCaseById(caseId);
             ResponseDto<string> response = DocumentsValidator.ValidateAddDocument(caseFromDb, document, user);
 
-            string filePath = GetAvailablePath(_documentsFolderPath, document.FileName);
+            string filePath = GetAvailablePath(document.FileName);
             Document documentToAdd = new Document { Path = filePath, Status = Status.Sent, Case = caseFromDb };
 
             try
             {
-                using (var fs = new FileStream(filePath, FileMode.Create))
+                using (var fs = new FileStream(_documentsFolderPath + "/" + filePath, FileMode.Create))
                 {
                     await document.CopyToAsync(fs);
                 }
@@ -73,8 +73,7 @@
             try
             {
                 await _documentsRepository.AddDocument(documentToAdd);
-                var split = filePath.Split('\\');
-                response.Value = string.Join('/', split.Skip(split.Length - 2));
+                response.Value = documentToAdd.Path;
                 return response;
             }
             catch
@@ -123,7 +122,7 @@
             {
                 return response;
             }
-            var sharedDocument = CreateSharedDocument(documentDto.Recipient,  documentDto.DocumentName);
+            var sharedDocument = CreateSharedDocument(documentDto.Recipient, documentDto.DocumentName);
             await _sharedDocumentsRepository.AddSharedDocument(sharedDocument);
             response.Value = sharedDocument.Id;
             return response;
@@ -145,17 +144,15 @@
         {
             return new SharedDocument
             {
-                DocumentName = documentUrl.Split('/').Last(),
+                DocumentName = documentUrl,
                 RecipientMail = recipient,
                 SharedTime = DateTime.UtcNow
             };
         }
 
-        private string GetAvailablePath(string photosFolderPath, string photoFileName)
+        private string GetAvailablePath(string photoFileName)
         {
-            return Path.Combine(
-                photosFolderPath,
-                DateTime.UtcNow.ToString("HH-mm-ss-fff_dd-MM-yyyy_") + photoFileName.Replace(" ", "-"));
+            return Path.Combine(DateTime.UtcNow.ToString("HH-mm-ss-fff_dd-MM-yyyy_") + photoFileName.Replace(" ", "-"));
         }
     }
 }
