@@ -6,7 +6,6 @@ import { IoIosBuild, IoMdPower } from "react-icons/io";
 import {
   GoFile,
   GoFileSymlinkFile,
-  GoInbox,
   GoHome,
   GoPerson, GoOrganization
 } from "react-icons/go";
@@ -70,16 +69,11 @@ class sidebar extends Component {
               </Link>
             </li>
             <li>
-              <Link to="/showfiles" className="linker">
+              <Link to="/userdocument" className="linker">
               <p>
-                <GoFile /> Zobacz dokumenty
+                <GoFile /> Twoje dokumenty
               </p>
               </Link>
-            </li>
-            <li>
-              <p>
-                <GoInbox /> Skrzynka odbiorcza
-              </p>
             </li>
           </ul>
           <div style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>

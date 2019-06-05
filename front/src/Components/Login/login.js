@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button, FormGroup } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import "./login.css";
 
 class login extends Component {
@@ -75,6 +75,12 @@ class login extends Component {
           <FormGroup>
             <p id="badLogin" />
           </FormGroup>
+
+          <Link to="/getpassword" >
+              <p>
+                przypomnij hasło
+              </p>
+              </Link>
           <Button variant="primary" type="submit" block onClick={this.login}>
             Zaloguj
           </Button>

@@ -21,13 +21,13 @@ class filedetails extends Component {
       recipient: "",
       value: null,
       documentname: "",
-      frontRedirect : "https://localhost:3000/sharedfiles/",
+      frontRedirect : "http://localhost:3000/sharedfiles/",
       val: "",
       patch: ""
 
     };
     this.onChange = this.onChange.bind(this);
-    this.login = this.login.bind(this);
+    this.sendmail = this.sendmail.bind(this);
   }
 
   onChange(e) {
@@ -47,53 +47,8 @@ class filedetails extends Component {
     });
     }
 
-  /* getpath(){
-    const obj = this.props.location.state;
-    fetch('https://localhost:44388/api/Cases/' +  obj.id)
-        .then(response => response.json())
-        .then(responseJSON => {
-          if (responseJSON.hasErrors) {
-            console.log(responseJSON.errors);
-          } else {
-            this.setState({
-              documents: responseJSON.value
-            })
-          }
-        })
-   } */
-
-  /* login(){
-    var str = this.state.documents[0].path
-    var split = str.split("\\");
-    var nazwadokumentu = split[split.length-1]
-    console.log(nazwadokumentu)
-    console.log(this.state.recipient)
-    fetch("http://localhost:44388/api/Documents/SharedDocument?recipient="+ this.state.recipient +"&documentName= " + nazwadokumentu, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`
-      },
-      body: JSON.stringify({
-        recipient: this.state.recipient
-      })
-    })
-      .then(response => response.json())
-      .then(parseJSON => {
-        this.setState({
-          value: parseJSON.value.value
-        });
-        console.log(this.state.value)
-        if (parseJSON.hasErrors) {
-          alert("nie działa")
-        } else {
-          alert("Zaakceptowano");
-          this.props.history.push("/index");
-        }
-      });
-   }*/
-   login() {
-   // var str = this.state.documents[0].path
+ 
+   sendmail() {
     var split = this.state.documents[0].path.split("\\");
     this.state.documentname = split[split.length-1]
     fetch("https://localhost:44388/api/Documents/SharedDocument", {
@@ -169,8 +124,13 @@ class filedetails extends Component {
 
   showInput() {
     document.getElementById("coment").style.display = "inline";
-    document.getElementById("recepient").style.display = "inline";
     document.getElementById("hideButton").style.display = "none";
+
+  }
+
+  showMail(){
+    document.getElementById("recepient").style.display = "inline";
+    document.getElementById("showButton").style.display = "none";
   }
 
   rejectedDocument(){
@@ -200,6 +160,7 @@ class filedetails extends Component {
 
 //    console.log(this.state.documents[0].path)
   render() {
+
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/home"} />;
     }
@@ -307,12 +268,12 @@ class filedetails extends Component {
                   </button>
                   </div>
                   </div>
-                  <button  id="hideButton" onClick={this.showInput}>
+                  <button  id="showButton" onClick={this.showMail}>
                       Dzare
                   </button>
                   <div id="recepient">
-                  <input type="email" name="recipient" onChange={this.onChange}/>
-                  <button onClick={this.login}>
+                  <input type="email" name="recipient" onChange={this.onChange.bind(this)}/>
+                  <button onClick={this.sendmail}>
                       Wyslij
                   </button>
                   </div>
