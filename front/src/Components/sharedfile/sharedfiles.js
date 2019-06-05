@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 
 
 
 
-class home extends Component {
+
+class sharedfiles extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,4 +37,4 @@ class home extends Component {
     }
   }
   
-  export default home;
+  export default sharedfiles;
