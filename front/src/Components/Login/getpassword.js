@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, FormGroup } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./login.css";
 
@@ -7,22 +7,22 @@ class getpassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: "",
-      password: "",
-      email: ""
+ 
+      mail: "",
+
     };
-    this.login = this.login.bind(this);
+    this.getpassword = this.getpassword.bind(this);
     this.onChange = this.onChange.bind(this);
   }
   
   getpassword() {
-    fetch("https://localhost:44388/api/Users/"+  {
+    fetch("https://localhost:44388/api/Users/"+ this.state.mail,  {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email: this.state.email,
+        mail: this.state.mail,
 
       })
     })
@@ -50,15 +50,18 @@ class getpassword extends Component {
           <Form.Group controlId="formBasicLogin">
             <Form.Label>Email</Form.Label>
             <Form.Control
-              type="text"
+              type="email"
               required
-              placeholder="Login"
-              name="login"
+              placeholder="mail"
+              name="mail"
               onChange={this.onChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" block onClick={this.lo}>
-            Zaloguj
+          <Button variant="primary" type="submit" block onClick={this.getpassword}>
+            przypomnij
+          </Button>
+          <Button variant="primary" type="submit" block href="./login">
+            Powrót
           </Button>
         </div>
       </div>

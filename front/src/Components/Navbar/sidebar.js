@@ -6,7 +6,6 @@ import { IoIosBuild, IoMdPower } from "react-icons/io";
 import {
   GoFile,
   GoFileSymlinkFile,
-  GoInbox,
   GoHome,
   GoPerson, GoOrganization
 } from "react-icons/go";

@@ -3,9 +3,6 @@ import Sidebar from "../Navbar/sidebar";
 import { Redirect } from "react-router-dom";
 import { Table } from "react-bootstrap";
 
-
-const token = sessionStorage.getItem("token");
-
 class filedetails extends Component {
   constructor(props) {
     super(props);
