@@ -14,7 +14,7 @@ class home extends Component {
         <Sidebar history={this.props.history} />
         <div className="homebox">
           <div className="homebox-options">
-            <Link to="/showfiles">
+            <Link to="/userdocument">
               <div className="homebox-option">
                 <div className="homebox-option-content">
                   <div className="homebox-option-content-con">

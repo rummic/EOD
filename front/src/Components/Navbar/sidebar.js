@@ -72,14 +72,9 @@ class sidebar extends Component {
             <li>
               <Link to="/userdocument" className="linker">
               <p>
-                <GoFile /> Zobacz dokumenty
+                <GoFile /> Twoje dokumenty
               </p>
               </Link>
-            </li>
-            <li>
-              <p>
-                <GoInbox /> Skrzynka odbiorcza
-              </p>
             </li>
           </ul>
           <div style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
