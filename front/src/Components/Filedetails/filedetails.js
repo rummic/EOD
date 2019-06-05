@@ -21,7 +21,7 @@ class filedetails extends Component {
       recipient: "",
       value: null,
       documentname: "",
-      frontRedirect : "https://localhost:3000/sharedfiles/",
+      frontRedirect : "http://localhost:3000/sharedfiles/",
       val: "",
       patch: ""
 
@@ -169,8 +169,13 @@ class filedetails extends Component {
 
   showInput() {
     document.getElementById("coment").style.display = "inline";
-    document.getElementById("recepient").style.display = "inline";
     document.getElementById("hideButton").style.display = "none";
+
+  }
+
+  showMail(){
+    document.getElementById("recepient").style.display = "inline";
+    document.getElementById("showButton").style.display = "none";
   }
 
   rejectedDocument(){
@@ -200,6 +205,7 @@ class filedetails extends Component {
 
 //    console.log(this.state.documents[0].path)
   render() {
+
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/home"} />;
     }
@@ -307,11 +313,11 @@ class filedetails extends Component {
                   </button>
                   </div>
                   </div>
-                  <button  id="hideButton" onClick={this.showInput}>
+                  <button  id="showButton" onClick={this.showMail}>
                       Dzare
                   </button>
                   <div id="recepient">
-                  <input type="email" name="recipient" onChange={this.onChange}/>
+                  <input type="email" name="recipient" onChange={this.onChange.bind(this)}/>
                   <button onClick={this.login}>
                       Wyslij
                   </button>
