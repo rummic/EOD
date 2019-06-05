@@ -73,7 +73,7 @@ class adduser extends Component {
               <label>Nazwa :</label>
               <input
                 type="text"
-                placeholder="poadaj nazwe"
+                placeholder="Podaj nazwe"
                 name="name"
                 onChange={this.onChange}
                 required

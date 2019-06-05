@@ -17,6 +17,7 @@ class addfile extends Component {
       documents: [],
       selectedFile: null,
       cases: [],
+      documentsType: [],
       departments: []
     };
     this.onChange = this.onChange.bind(this);
@@ -51,11 +52,27 @@ class addfile extends Component {
         this.setState({
           cases: responseJSON.value || []
         });
+        
        
        
       })
     );
-   
+    /*fetch("https://localhost:44388/api/DocumentsType/"+this.state.departmentId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "aplication/json",
+        Authorization: `bearer ${token}`
+      }
+    }).then(response =>
+      response.json().then(responseJSON => {
+        this.setState({
+          documentsType: responseJSON.value || []
+        });
+        
+       
+       
+      })
+    );*/
   }
  
 
@@ -106,6 +123,9 @@ class addfile extends Component {
       () => this.addFiles());
   }
 
+  setdepartmentId = () => {
+    this.setState((prevdepartmenId , currentdepartmentId)=> {return {departmentId: !prevdepartmenId.departmentId}})
+  }
  
  
  
@@ -114,6 +134,7 @@ class addfile extends Component {
       return <Redirect to={"/login"} />;
     }
    console.log(this.state.departmentId);
+   console.log(this.state.documentsType);
     return (
       <div className="AddfileBox">
         <Sidebar history={this.props.history} />
@@ -134,9 +155,10 @@ class addfile extends Component {
               />
               <div className="AddfileBox-form-content-select">
               <label>Dział :</label>
-              <select value={this.state.departmentsId} name="departmentsId"onChange={this.onChange}>
+              <select value={this.state.departmentsId} name="departmentsId" onChange={(e) => this.setState({departmentId: e.target.value})}>
                 {this.state.departments.map((item, i) => (
-                  <option  key={item.name}  value={item.id} onClick={this.onChange}>{item.name}{this.state.departmentId=item.id}</option>
+                 
+                  <option   key={i}  value={item.id}  >{item.name} </option>
                   
                 ))}
               </select>
@@ -161,6 +183,7 @@ class addfile extends Component {
       </div>
       </div>
     );
+    console.log(this.state.departmentId,"id");
   }
 }
  

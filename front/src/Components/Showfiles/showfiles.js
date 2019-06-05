@@ -70,7 +70,7 @@ class showfiles extends Component {
                               <Link
                                 to={{ pathname: "./filedetails", state: item }}
                               >
-                                Ustawienia
+                                Szczegóły
                               </Link>
                             </button>
                           </td>
