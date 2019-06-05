@@ -22,7 +22,8 @@ class filedetails extends Component {
       value: null,
       documentname: "",
       frontRedirect : "https://localhost:3000/sharedfiles/",
-      val: ""
+      val: "",
+      patch: ""
 
     };
     this.onChange = this.onChange.bind(this);
@@ -92,8 +93,8 @@ class filedetails extends Component {
       });
    }*/
    login() {
-    var str = this.state.documents[0].path
-    var split = str.split("\\");
+   // var str = this.state.documents[0].path
+    var split = this.state.documents[0].path.split("\\");
     this.state.documentname = split[split.length-1]
     fetch("https://localhost:44388/api/Documents/SharedDocument", {
       method: "POST",
@@ -111,7 +112,7 @@ class filedetails extends Component {
           value: parseJSON.value
         });
         console.log(this.state.value)
-        console.log(this.state.document)
+        console.log(this.state.documentname)
         if (parseJSON.hasErrors ) {
           console.log("elo")
         } else {
