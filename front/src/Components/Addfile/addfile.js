@@ -35,6 +35,7 @@ class addfile extends Component {
   }
  
   componentDidMount() {
+      document.title = 'Dodawanie dokumentu';
     fetch("https://localhost:44388/api/Departments")
       .then(response => response.json())
       .then(parseJSON => {
@@ -116,6 +117,18 @@ class addfile extends Component {
             .then(res => {
               console.log(res)
             })
+            fetch("https://localhost:44388/api/DocumentsType/"+this.state.departmentId, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      },
+      body: JSON.stringify({
+        
+        name: this.state.name
+        
+      })
+    })
             
    
           

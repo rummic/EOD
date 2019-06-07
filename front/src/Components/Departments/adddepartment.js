@@ -23,6 +23,7 @@ class adduser extends Component {
   }
 
   componentDidMount(){
+    document.title = 'Dodawanie działu';
     fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
       method: "GET",
       headers: {

@@ -19,6 +19,7 @@ class showfiles extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Lista dokumentów';
     fetch("https://localhost:44388/api/Cases", {
       method: "GET",
       headers: {

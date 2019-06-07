@@ -22,6 +22,7 @@ class UserList extends Component {
   
 
   componentDidMount() {
+    document.title = 'Lista użytkowników';
     fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
       method: "GET",
       headers: {
