@@ -122,7 +122,7 @@ class filedetails extends Component {
           alert("nie działa")
         } else {
           alert("Zaakceptowano");
-          this.props.history.push("/index");
+          this.props.history.push("/showfiles");
         }
       });
   }
