@@ -51,7 +51,7 @@ namespace EOD.BL.Validators
             var response = new ResponseDto<int>();
             if (userFromDb == null)
                 response.AddError(UserErrors.NotFoundByLogin);
-            if (!loggedInUser.IsInRole(Role.SuperAdmin))
+            if (!loggedInUser.IsInRole(Role.SuperAdmin) && loggedInUser.Identity.Name != userToUpdate.Login)
                 response.AddError(UserErrors.NotAllowed);
 
             return response;
