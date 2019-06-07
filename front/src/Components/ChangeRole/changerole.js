@@ -278,7 +278,6 @@ class changerole extends Component {
                       </button><div id="showRoleSelect">
                       
                       <select  name="role" onChange={this.onChange} placeholder="Rola użytkownika">
-                <option selected disabled>Zmień rolę</option>
                 <option name="role" onChange={this.onChange}>
                   Admin
                 </option>
