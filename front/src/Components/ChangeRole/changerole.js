@@ -54,6 +54,35 @@ class changerole extends Component {
     });
   }
 
+ 
+
+  updateData() {
+    fetch("https://localhost:44388/api/Users", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      },
+      body: JSON.stringify({
+        login: this.state.login,
+        password: this.state.password,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        role: this.state.role
+      })
+    })
+      .then(response => response.json())
+      .then(parseJSON => {
+        console.log(parseJSON);
+        if (parseJSON.hasErrors) {
+          swal("Udana zmiana")
+        } else {
+          swal("Poprawnie zmieniono dane");
+          window.location.reload(true);
+        }
+      });
+  }
   update(id) {
     for (let i = 0; this.state.users.length > i; i++) {
       if (id === this.state.users[i].id) {
@@ -73,51 +102,40 @@ class changerole extends Component {
           .then(response => response.json())
           .then(parseJSON => {
             if (parseJSON.hasErrors) {
-              swal("Rola nie została zmieniona");
+              alert("Rola nie została zmieniona");
             } else {
-              swal("Poprawnie zmieniono dane");
+              alert("Poprawnie zmieniono dane");
               this.props.history.push("/userslist");
             }
           });
       }
     }
-   
-  }
-
-  updateUserData() {
-    const obj = this.state;
-    fetch("https://localhost:44388/api/Users", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`
-      },
-      body: JSON.stringify({
-        login: obj.login,
-        password: obj.password,
-        firstName: obj.firstName,
-        lastName: obj.lastName,
-        email: obj.email,
-        phoneNumber: obj.phoneNumber,
-        role: obj.role
-        
-      })
-    })
-      .then(response => response.json())
-      .then(parseJSON => {
-        console.log(parseJSON);
-        if (parseJSON.hasErrors) {
-          swal(parseJSON.errors)
-        } else {
-          swal("Poprawnie zmieniono dane");
-          this.props.history.push("/index");
-        }
-      });
   }
   showFirstNameInput() {
     document.getElementById("firstNameOutput").style.display = "none";
     document.getElementById("firstNameButton").style.display = "none";
     document.getElementById("showInputButtonFirstName").style.display = "inline";
+    
+  }
+
+  showLastNameInput() {
+    document.getElementById("lastNameOutput").style.display = "none";
+    document.getElementById("lastNameButton").style.display = "none";
+    document.getElementById("showLastNameInput").style.display = "inline";
+    
+  }
+
+  showEmailInput() {
+    document.getElementById("emailOutput").style.display = "none";
+    document.getElementById("emailButton").style.display = "none";
+    document.getElementById("showEmailInput").style.display = "inline";
+    
+  }
+  showRoleSelect() {
+    document.getElementById("currentRole").style.display = "none";
+    document.getElementById("roleButton").style.display = "none";
+    document.getElementById("showRoleSelect").style.display = "inline";
+    
   }
   render() {
     if (!sessionStorage.getItem("token")) {
@@ -144,7 +162,7 @@ class changerole extends Component {
                         variant="primary"
                         onClick={this.showFirstNameInput}
                       >
-                        Zmień umię użytkownika
+                        Zmień imię użytkownika
                       </button><div id="showInputButtonFirstName">
                       <input
                         type="text"
@@ -158,7 +176,7 @@ class changerole extends Component {
                       id="changeFirstNameButton"
                       className="password-button"
                       variant="primary"
-                      onClick={() => this.updateUserData()}
+                      onClick={() => this.update(obj.id)}
                       >
                         Zmień imię
                       </button>
@@ -171,12 +189,33 @@ class changerole extends Component {
                       <label>Nazwisko:</label>
                     </td>
                     <td>
+                    <output id="lastNameOutput">{obj.lastName}</output>
+                      <button
+                        id="lastNameButton"
+                        className="password-button"
+                        variant="primary"
+                        onClick={this.showLastNameInput}
+                      >
+                        Zmień nazwisko użytkownika
+                      </button><div id="showLastNameInput">
                       <input
                         type="text"
+                        id="lastNameInput"
                         value={this.state.lastName}
                         name="lastName"
                         onChange={this.onChange}
                       />
+                      
+                      <button
+                      id="changeLastNameButton"
+                      className="password-button"
+                      variant="primary"
+                      onClick={() => this.updateData()}
+                      >
+                        Zmień nazwisko
+                      </button>
+                      </div>
+                      
                     </td>
                   </tr>
                   <tr>
@@ -184,7 +223,9 @@ class changerole extends Component {
                       <label>Login:</label>
                     </td>
                     <td>
-                      <output>{obj.login}</output>
+                    
+              <output>{obj.login}</output>
+                      
                     </td>
                   </tr>
 
@@ -193,44 +234,81 @@ class changerole extends Component {
                       <label>Email:</label>
                     </td>
                     <td>
+                    <output id="emailOutput">{obj.email}</output>
+                      <button
+                        id="emailButton"
+                        className="password-button"
+                        variant="primary"
+                        onClick={this.showEmailInput}
+                      >
+                        Zmień umię użytkownika
+                      </button><div id="showEmailInput">
                       <input
                         type="text"
+                        id="emailInput"
                         value={this.state.email}
                         name="email"
                         onChange={this.onChange}
                       />
-                    </td>
+                      
+                      <button
+                      id="changeEmail"
+                      className="password-button"
+                      variant="primary"
+                      onClick={() => this.updateData()}
+                      >
+                        Zmień email
+                      </button>
+                      </div>
+                      </td>
                   </tr>
                   <tr>
                     <td>
                       <label>Rola:</label>
                     </td>
                     <td>
-                      <Dropdown name="role" onChange={this.onChange}>
-                        <Dropdown.Toggle variant="secondary" size="lg">
-                          Zmień rolęużytkownika, aktualna rola {obj.role}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item name="role" onChange={this.onChange}>
-                            Admin
-                          </Dropdown.Item>
-                          <Dropdown.Item name="role" onChange={this.onChange}>
-                            User
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </td>
+                    <output id="currentRole">{obj.role}</output>
+                      <button
+                        id="roleButton"
+                        className="password-button"
+                        variant="primary"
+                        onClick={this.showRoleSelect}
+                      >
+                        Zmień rolę użytkownika
+                      </button><div id="showRoleSelect">
+                      
+                      <select  name="role" onChange={this.onChange} placeholder="Rola użytkownika">
+                <option selected disabled>Zmień rolę</option>
+                <option name="role" onChange={this.onChange}>
+                  Admin
+                </option>
+                <option name="role" onChange={this.onChange}>
+                  User
+                </option>
+                      
+                      <button
+                      id="changeEmail"
+                      className="password-button"
+                      variant="primary"
+                      onClick={() => this.update()}
+                      >
+                        Zmień email
+                      </button>
+                      </select>
+                      </div>
+                      </td>
                   </tr>
                 </tbody>
               </Table>
-            </div>
+            </div><Link to={{ pathname: "./userslist" }}>
             <button
               className="UsersetBox-form-button"
               variant="primary"
-              onClick={() => this.update(obj.id)}
             >
-              Zmień dane
-            </button>
+               
+                      Wróc
+                    
+            </button></Link>
           </div>
         </div>
       </div>
