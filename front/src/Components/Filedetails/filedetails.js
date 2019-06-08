@@ -51,20 +51,19 @@ class filedetails extends Component {
       sender: obj.sender,
       documents: obj.documents
     });
-    fetch("https://localhost:44388/api/Users", {
+    fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `bearer ${token}`
       }
-    }).then(response =>
-      response.json().then(responseJSON => {
-        console.log(responseJSON);
-        this.setState({
-          users: responseJSON.value || []
-        });
-      })
-    );
+    })
+    .then(response => response.json())
+    .then(parseJSON => {
+      this.setState({
+        role: parseJSON.value.role
+      });
+    });
     }
 
     showFile(){
@@ -199,6 +198,7 @@ class filedetails extends Component {
       obj.status = "Plik został odrzucony"
     }
     return (
+      console.log(this.state.role),
       console.log(
         "Wysyłający:",
         this.state.sender,
