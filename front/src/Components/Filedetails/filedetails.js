@@ -7,6 +7,9 @@ import "./filedetails.css";
 const token = sessionStorage.getItem("token");
 
 class filedetails extends Component {
+  componentDidMount() {
+    document.title = 'Szczegóły ' + this.state.title;
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -122,7 +125,7 @@ class filedetails extends Component {
           alert("nie działa")
         } else {
           alert("Zaakceptowano");
-          this.props.history.push("/index");
+          this.props.history.push("/showfiles");
         }
       });
   }

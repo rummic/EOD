@@ -9,8 +9,10 @@ class adduser extends Component {
     super(props);
     this.state = {
     departmentId: 1,
+    userId:1,
       name: "",
-      role: ""
+      role: "",
+      users: []
 
     };
     this.onChange = this.onChange.bind(this);
@@ -21,6 +23,7 @@ class adduser extends Component {
   }
 
   componentDidMount(){
+    document.title = 'Dodawanie działu';
     fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
       method: "GET",
       headers: {
@@ -34,6 +37,21 @@ class adduser extends Component {
         role: parseJSON.value.role
       });
     });
+
+    fetch("https://localhost:44388/api/Users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      }
+    }).then(response =>
+      response.json().then(responseJSON => {
+        console.log(responseJSON);
+        this.setState({
+          users: responseJSON.value || []
+        });
+      })
+    );
 
   }
 
@@ -51,11 +69,30 @@ class adduser extends Component {
       .then(response => response.json())
       .then(parseJSON => {
           console.log(this.state.name)
+          this.setState({
+            value: parseJSON.value
+          });
         if (parseJSON.hasErrors) {
           alert("Dział nie został dodany");
         } else {
-          alert("Dział został dodany");
-          this.props.history.push("/departments");
+          fetch(
+            "http://localhost:60148/api/Departments?id=" + this.state.value +"&userId=" + this.state.userId ,{
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+              }
+            }
+          )
+            .then(response => response.json())
+            .then(parseJSON => {
+              if (parseJSON.hasErrors) {
+                alert("Dział nie został dodany");
+              } else {
+                alert("Dział został dodany");
+                this.props.history.push("/departments");
+              }
+            });
         }
       });
   }
@@ -78,6 +115,14 @@ class adduser extends Component {
                 onChange={this.onChange}
                 required
               />
+              <label>Wybierz kierownika :</label>
+              <select  value={this.state.userId} name="userId" onChange={(e) => this.setState({userId: e.target.value})}>
+                {this.state.users.map((item, i) => (
+                 
+                  <option   key={i}  value={item.id} style = {{display : item.role ==='Admin' ? 'block' : 'none'}} >{item.login} </option>
+                  
+                ))}
+              </select>
             </div>
             <button
               className="UsersetBox-form-button"

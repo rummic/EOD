@@ -18,6 +18,7 @@ class addfile extends Component {
       selectedFile: null,
       cases: [],
       documentsType: [],
+      documentsTypename: "",
       departments: []
     };
     this.onChange = this.onChange.bind(this);
@@ -34,6 +35,7 @@ class addfile extends Component {
   }
  
   componentDidMount() {
+      document.title = 'Dodawanie dokumentu';
     fetch("https://localhost:44388/api/Departments")
       .then(response => response.json())
       .then(parseJSON => {
@@ -57,7 +59,13 @@ class addfile extends Component {
        
       })
     );
-    /*fetch("https://localhost:44388/api/DocumentsType/"+this.state.departmentId, {
+    console.log(this.state.departmentId)
+    console.log(this.state.documentsType)
+    
+  }
+
+  docTypGet = () => {
+    fetch("https://localhost:44388/api/DocumentTypes/"+this.state.departmentId, {
       method: "GET",
       headers: {
         "Content-Type": "aplication/json",
@@ -72,13 +80,12 @@ class addfile extends Component {
        
        
       })
-    );*/
+    );
   }
- 
+
 
 
   fileUploadHandler = () => {
-    console.log(this.state.departmentId,"indeksik kutesik");
     fetch("https://localhost:44388/api/Cases/", {
       method: "POST",
       headers: {
@@ -110,6 +117,18 @@ class addfile extends Component {
             .then(res => {
               console.log(res)
             })
+            fetch("https://localhost:44388/api/DocumentsType/"+this.state.departmentId, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      },
+      body: JSON.stringify({
+        
+        name: this.state.name
+        
+      })
+    })
             
    
           
@@ -133,8 +152,6 @@ class addfile extends Component {
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/login"} />;
     }
-   console.log(this.state.departmentId);
-   console.log(this.state.documentsType);
     return (
       <div className="AddfileBox">
         <Sidebar history={this.props.history} />
@@ -155,10 +172,17 @@ class addfile extends Component {
               />
               <div className="AddfileBox-form-content-select">
               <label>Dział :</label>
-              <select value={this.state.departmentsId} name="departmentsId" onChange={(e) => this.setState({departmentId: e.target.value})}>
+              <select value={this.state.departmentsId} name="departmentsId" onChange={(e) => this.setState({departmentId: e.target.value})} onClick={this.docTypGet()}>
                 {this.state.departments.map((item, i) => (
                  
                   <option   key={i}  value={item.id}  >{item.name} </option>
+                  
+                ))}
+              </select>
+              <select value={this.state.documentsType} name="documentsType" onChange={this.onChange}>
+                {this.state.documentsType.map((item, i) => (
+                 
+                  <option   key={i} value={item.id}  >{item.name} </option>
                   
                 ))}
               </select>
@@ -183,7 +207,6 @@ class addfile extends Component {
       </div>
       </div>
     );
-    console.log(this.state.departmentId,"id");
   }
 }
  

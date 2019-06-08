@@ -53,6 +53,10 @@
         {
             Case caseFromDb = await _casesRepository.GetCaseById(caseId);
             ResponseDto<string> response = DocumentsValidator.ValidateAddDocument(caseFromDb, document, user);
+            if (response.HasErrors)
+            {
+                return response;
+            }
 
             string filePath = GetAvailablePath(document.FileName);
             Document documentToAdd = new Document { Path = filePath, Status = Status.Sent, Case = caseFromDb };

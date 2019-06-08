@@ -3,7 +3,11 @@ import { Form, Button, FormGroup } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import "./login.css";
 
+
 class login extends Component {
+  componentDidMount() {
+    document.title = 'Logowanie';
+  }
   constructor(props) {
     super(props);
     this.state = {

@@ -4,6 +4,7 @@ import Sidebar from "../Navbar/sidebar";
 import "./userset.css";
 import { Breadcrumb } from 'react-bootstrap';
 
+
 const token = sessionStorage.getItem("token");
 
 class userset extends Component {
@@ -24,8 +25,9 @@ class userset extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-
+ 
   componentDidMount() {
+    document.title = 'Moje konto';
     fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem("id"), {
       method: "GET",
       headers: {
@@ -46,7 +48,7 @@ class userset extends Component {
   }
 
   update() {
-    fetch("https://localhost:44388/api/Users", {
+    fetch("https://localhost:44388/api/Users" + sessionStorage.getItem("id"), {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

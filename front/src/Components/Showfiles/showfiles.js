@@ -19,6 +19,7 @@ class showfiles extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Lista dokumentów';
     fetch("https://localhost:44388/api/Cases", {
       method: "GET",
       headers: {
@@ -46,7 +47,12 @@ class showfiles extends Component {
           <div className="UsersetBox-form">
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
-                <div>
+                <div><Link to={{ pathname: "./adddoctype" }}>
+                <button>
+                    
+                      Dodaj typ dokumentu
+                    
+                  </button></Link>
                   <Table striped bordered hover size="sm">
                     <thead>
                       <tr>
