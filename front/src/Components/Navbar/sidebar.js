@@ -50,7 +50,7 @@ class sidebar extends Component {
     }
     return (
       <div className="sidebar">
-        <div className="sidebar-logo">Sidebar</div>
+        <div className="sidebar-logo">EOD</div>
         <div className="apiOptions">
           <div className="apiOptions-CategorieUser">Menu główne</div>
           <ul>
