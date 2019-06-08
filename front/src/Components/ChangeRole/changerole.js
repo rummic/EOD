@@ -25,6 +25,7 @@ class changerole extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   componentDidMount() {
+    document.title = 'Szczegóły ' + this.state.firstName + ' '+ this.state.lastName;
     fetch("https://localhost:44388/api/Users", {
       method: "GET",
       headers: {

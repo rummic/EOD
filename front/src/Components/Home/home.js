@@ -4,7 +4,11 @@ import Sidebar from "../Navbar/sidebar";
 import { Redirect, Link } from "react-router-dom";
 import "./home.css";
 
+
 class home extends Component {
+  componentDidMount() {
+    document.title = 'Strona główna';
+  }
   render() {
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/login"} />;

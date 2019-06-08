@@ -57,7 +57,7 @@ class sidebar extends Component {
             <li>
               <Link to="/index" className="linker">
                 <p>
-                  <GoHome /> Stron główna
+                  <GoHome /> Strona główna
                 </p>
               </Link>
             </li>

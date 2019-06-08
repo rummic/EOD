@@ -33,6 +33,7 @@ class filedetails extends Component {
   }
 
   componentDidMount(){
+    document.title = 'Dział '+this.state.name;
     fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem('id'), {
       method: "GET",
       headers: {
