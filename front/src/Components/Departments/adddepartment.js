@@ -115,8 +115,7 @@ class adduser extends Component {
                 required
               />
               <label>Wybierz kierownika :</label>
-
-              <select  value={this.state.userId } name="userId" onChange={(e) => this.setState({userId: e.target.value})}>
+              <select  value={this.state.userId} name="userId" onChange={(e) => this.setState({userId: e.target.value})}>
                 {this.state.users.map((item, i) => (
                  
                   <option   key={i}  value={item.id} style = {{display : item.role ==='Admin' ? 'block' : 'none'}} >{item.login} </option>

@@ -89,7 +89,7 @@ class filedetails extends Component {
   
   render() {
 
-    if (!sessionStorage.getItem("token")) {
+    if (!sessionStorage.getItem("token") || this.role === "User" || this.role === "Admin") {
       return <Redirect to={"/home"} />;
     }
     const obj = this.state
