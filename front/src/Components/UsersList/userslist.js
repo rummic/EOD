@@ -3,6 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
 import "./userslist.css";
 import { Table,Breadcrumb } from "react-bootstrap";
+import TableFajne from "./Teble"
 
 const token = sessionStorage.getItem("token");
 
@@ -111,6 +112,8 @@ class UserList extends Component {
                 </div>
               </div>
             </div>
+            <TableFajne
+            />
           </div>
         </div>
       </div>
