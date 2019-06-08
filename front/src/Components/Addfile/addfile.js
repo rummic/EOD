@@ -188,7 +188,7 @@ class addfile extends Component {
               </select>
             </div>
             <div className="AddfileBox-form-files">
-              <input type="file" onChange={this.fileSelectedHandler} />
+              <input type="file" onChange={this.fileSelectedHandler} required  accept=".doc,.docx,.pdf" />
             </div>
           </div>
           <div className="addButton">
