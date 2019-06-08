@@ -79,8 +79,15 @@ class sidebar extends Component {
           <div style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
           <div className="apiOptions-CategorieUser apiOptions-PanelAdmin ">Panel Administracyjny</div>
           <ul>
-          <li>
-              <Link to="/showfiles" className="linker">
+          <li style = {{display :  this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
+              <Link to="/showfiles" className="linker" >
+              <p>
+                <GoFile /> Zobacz/Akceptuj dokumenty
+              </p>
+              </Link>
+            </li>
+            <li style = {{display :  this.state.role === 'Admin' ? 'block' : 'none'}}>
+              <Link to="/menagerfile" className="linker" >
               <p>
                 <GoFile /> Zobacz/Akceptuj dokumenty
               </p>

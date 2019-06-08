@@ -26,7 +26,9 @@ class filedetails extends Component {
       documentname: "",
       frontRedirect : "http://localhost:3000/sharedfiles/",
       val: "",
-      patch: ""
+      patch: "",
+      users: [],
+      role: ""
 
     };
     this.onChange = this.onChange.bind(this);
@@ -49,6 +51,20 @@ class filedetails extends Component {
       sender: obj.sender,
       documents: obj.documents
     });
+    fetch("https://localhost:44388/api/Users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      }
+    }).then(response =>
+      response.json().then(responseJSON => {
+        console.log(responseJSON);
+        this.setState({
+          users: responseJSON.value || []
+        });
+      })
+    );
     }
 
     showFile(){
@@ -263,10 +279,10 @@ class filedetails extends Component {
                       Wyświetl plik
                   </button>
                   <div style= {{display : obj.status ==='Plik został zaakceptowany' || obj.status === 'Plik został odrzucony' ? 'none' : 'block'}}>
-                  <button onClick={ this.acceptDocument.bind(this)}>
+                  <button onClick={ this.acceptDocument.bind(this)} style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
                       Akceptuj
                   </button>
-                  <button  id="hideButton" onClick={this.showInput}>
+                  <button  id="hideButton" onClick={this.showInput} style = {{display : this.state.role ==='Admin' || this.state.role === 'SuperAdmin' ? 'block' : 'none'}}>
                       Odrzuć
                   </button>
                   <div id="coment">

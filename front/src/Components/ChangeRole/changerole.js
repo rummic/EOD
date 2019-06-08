@@ -25,7 +25,6 @@ class changerole extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   componentDidMount() {
-    document.title = 'Szczegóły ' + this.state.firstName + ' '+ this.state.lastName;
     fetch("https://localhost:44388/api/Users", {
       method: "GET",
       headers: {
@@ -279,6 +278,7 @@ class changerole extends Component {
                       </button><div id="showRoleSelect">
                       
                       <select  name="role" onChange={this.onChange} placeholder="Rola użytkownika">
+                <option selected disabled>Zmień rolę</option>
                 <option name="role" onChange={this.onChange}>
                   Admin
                 </option>

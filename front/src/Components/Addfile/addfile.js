@@ -134,7 +134,7 @@ class addfile extends Component {
           
         
           alert("Plik został porpawnie dodany");
-          this.props.history.push("/showfiles");
+          this.props.history.push("/userdocument");
         } else {
           alert("Niestety plik nie został dodany");
         }

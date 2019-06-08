@@ -18,6 +18,7 @@ import SharedFiles from "./Components/sharedfile/sharedfiles";
 import UserDocuments from "./Components/userdocument/userdocument";
 import ChangeMenager from "./Components/Departments/changemenager";
 import GetPassword from "./Components/Login/getpassword";
+import MenagerFile from "./Components/Showfiles/menagerfile"
 
 class App extends Component {
   render() {
@@ -41,6 +42,7 @@ class App extends Component {
           <Route path="/userdocument" component={UserDocuments}/>
           <Route path="/changemenager" component={ChangeMenager}/>
           <Route path="/getpassword" component={GetPassword}/>
+          <Route path="/menagerfile" component={MenagerFile}/>
         </div>
       </BrowserRouter>
     );
