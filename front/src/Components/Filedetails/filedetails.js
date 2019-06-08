@@ -67,13 +67,10 @@ class filedetails extends Component {
     }
 
     showFile(){
-      var split = this.state.documents[0].path.split("\\");
-      this.state.documentname = split[split.length-1]
-      window.open('https://localhost:44388/Documents/'+ this.state.documentname, "_blank")
+      window.open('https://localhost:44388/Documents/'+ this.state.documents[0].path, "_blank")
     }
    sendmail() {
-    var split = this.state.documents[0].path.split("\\");
-    this.state.documentname = split[split.length-1]
+    
     fetch("https://localhost:44388/api/Documents/SharedDocument", {
       method: "POST",
       headers: {
@@ -81,7 +78,7 @@ class filedetails extends Component {
       },
       body: JSON.stringify({
         recipient : this.state.recipient,
-        documentname: this.state.documentname
+        documentname: this.state.documents[0].path
       })
     })
       .then(response => response.json())
@@ -90,7 +87,7 @@ class filedetails extends Component {
           value: parseJSON.value
         });
         console.log(this.state.value)
-        console.log(this.state.documentname)
+        console.log(this.state.documents[0].path)
         if (parseJSON.hasErrors ) {
           console.log("elo")
         } else {
