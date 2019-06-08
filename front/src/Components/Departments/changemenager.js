@@ -111,7 +111,7 @@ class filedetails extends Component {
                             <th>Wybierz innego kierownika</th> 
                           </tr>
                           <tr>
-                          <td>{obj.id}{obj.name}</td>
+                          <td>{obj.name}</td>
                           <td >
                             {obj.manager.login}
                           </td>
