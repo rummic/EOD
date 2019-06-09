@@ -16,10 +16,10 @@ class addfile extends Component {
       departmentId: 1,
       documents: [],
       selectedFile: null,
-      cases: [],
       documentsType: [],
       documentsTypename: "",
-      departments: []
+      departments: [],
+      value: ""
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -43,45 +43,15 @@ class addfile extends Component {
           departments: parseJSON.value
         });
       });
-      fetch("https://localhost:44388/api/Cases", {
-      method: "GET",
-      headers: {
-        "Content-Type": "aplication/json",
-        Authorization: `bearer ${token}`
-      }
-    }).then(response =>
-      response.json().then(responseJSON => {
-        this.setState({
-          cases: responseJSON.value || []
-        });
+      
         
        
-       
-      })
-    );
     console.log(this.state.departmentId)
     console.log(this.state.documentsType)
     
   }
 
-  docTypGet = () => {
-    fetch("https://localhost:44388/api/DocumentTypes/"+this.state.departmentId, {
-      method: "GET",
-      headers: {
-        "Content-Type": "aplication/json",
-        Authorization: `bearer ${token}`
-      }
-    }).then(response =>
-      response.json().then(responseJSON => {
-        this.setState({
-          documentsType: responseJSON.value || []
-        });
-        
-       
-       
-      })
-    );
-  }
+
 
 
 
@@ -102,13 +72,15 @@ class addfile extends Component {
       .then(res => res.json())
       
       .then(parseJSON => {
+        this.setState({
+          value: parseJSON.value
+        });
         if (!parseJSON.hasErrors) {
           
           const fd = new FormData();
           fd.append('document', this.state.selectedFile, this.state.selectedFile.name)
           
-          var temp = this.state.cases.length+1;
-             axios.post('https://localhost:44388/api/Documents/'+ temp, fd,{
+             axios.post('https://localhost:44388/api/Documents/'+this.state.value, fd,{
               headers: {
                 "Content-Type": "aplication/json",
                 Authorization: `bearer ${token}`
@@ -172,23 +144,17 @@ class addfile extends Component {
               />
               <div className="AddfileBox-form-content-select">
               <label>Dział :</label>
-              <select value={this.state.departmentsId} name="departmentsId" onChange={(e) => this.setState({departmentId: e.target.value})} onClick={this.docTypGet()}>
+              <select value={this.state.departmentsId} name="departmentsId" onChange={(e) => this.setState({departmentId: e.target.value})} >
                 {this.state.departments.map((item, i) => (
                  
                   <option   key={i}  value={item.id}  >{item.name} </option>
                   
                 ))}
               </select>
-              <select value={this.state.documentsType} name="documentsType" onChange={this.onChange}>
-                {this.state.documentsType.map((item, i) => (
-                 
-                  <option   key={i} value={item.id}  >{item.name} </option>
-                  
-                ))}
-              </select>
+              
             </div>
             <div className="AddfileBox-form-files">
-              <input type="file" accept=".doc,.docx,.pdf" onChange={this.fileSelectedHandler} required  />
+              <input type="file"  onChange={this.fileSelectedHandler}  />
             </div>
           </div>
           <div className="addButton">
