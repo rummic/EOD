@@ -85,12 +85,14 @@ class UserList extends Component {
             <div style={{ maxWidth: "100%" }}> 
             
         <MaterialTable
+        
           columns={[
             { title: "Imię", field: "name" },
             { title: "Nazwisko", field: "surname" },
             {title: "Login", field: "nick"},
             {title: "E-mail", field: "mail"},
             {title: "Rola", field: "userRole"},
+            {title: "", field:"buttonek"}
             
           ]}
          
@@ -100,7 +102,8 @@ class UserList extends Component {
            surname: item.lastName,
            nick: item.login,
            mail: item.email,
-           userRole: item.role
+           userRole: item.role,
+           
         
             
 })) }
