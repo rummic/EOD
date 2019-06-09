@@ -15,7 +15,7 @@
     public static class DocumentsValidator
     {
 
-        private static readonly List<string> _allowedExtensions = new List<string> { ".jpeg", ".jpg", ".png", ".pdf", ".docx", ".doc", ".xlsx", ".xls" };
+        private static readonly List<string> _allowedExtensions = new List<string> { ".jpeg", ".jpg", ".png", ".pdf", ".docx", ".doc", ".xlsx", ".xls", ".txt" };
 
         public static ResponseDto<string> ValidateAddDocument(Case caseFromDb, IFormFile document, ClaimsPrincipal user)
         {

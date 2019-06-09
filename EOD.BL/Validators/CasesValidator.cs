@@ -26,17 +26,17 @@ namespace EOD.BL.Validators
         public static ResponseDto<int> ValidateAddCase(AddCaseDto caseToAdd, Department department, User user)
         {
             var response = new ResponseDto<int>();
-            if(string.IsNullOrEmpty(caseToAdd.Title))
+            if (string.IsNullOrEmpty(caseToAdd.Title))
             {
                 response.AddError(CaseErrors.EmptyTitle);
             }
 
-            if(department == null || department.IsDeleted)
+            if (department == null || department.IsDeleted)
             {
                 response.AddError(DepartmentErrors.NotFoundById);
             }
 
-            if(user == null)
+            if (user == null)
             {
                 response.AddError(UserErrors.NotFoundByLogin);
             }
@@ -44,17 +44,25 @@ namespace EOD.BL.Validators
             return response;
         }
 
-        public static ResponseDto<int> ValidateChangeStatus(Case caseFromDb, User userFromDb, string status)
+        public static ResponseDto<int> ValidateChangeStatus(Case caseFromDb, User loggedInUser, string status)
         {
             var response = new ResponseDto<int>();
-            if(!(status == Status.Accepted || status == Status.Rejected || status == Status.Sent))
+            if (!(status == Status.Accepted || status == Status.Rejected || status == Status.Sent))
                 response.AddError(CaseErrors.WrongStatus);
-            if(caseFromDb == null)
+            if (caseFromDb == null)
+            {
                 response.AddError(CaseErrors.NotFoundById);
-            else if(userFromDb == null)
+                return response;
+            }
+
+            if (loggedInUser == null)
+            {
                 response.AddError(UserErrors.NotFoundByLogin);
-            else if (userFromDb.Role == Role.Admin && caseFromDb.Department.Manager != userFromDb)
-                    response.AddError(CaseErrors.NotAllowed);
+                return response;
+            }
+
+            if (loggedInUser.Role != Role.SuperAdmin && caseFromDb.Department.Manager.Login != loggedInUser.Login)
+                response.AddError(CaseErrors.NotAllowed);
 
             return response;
         }
@@ -62,9 +70,9 @@ namespace EOD.BL.Validators
         public static ResponseDto<bool> ValidateDeleteCase(Case caseFromDb, User userFromDb)
         {
             var response = new ResponseDto<bool>();
-            if(caseFromDb == null)
+            if (caseFromDb == null)
                 response.AddError(CaseErrors.NotFoundById);
-            if(userFromDb == null)
+            if (userFromDb == null)
                 response.AddError(UserErrors.NotFoundByLogin);
             else if (userFromDb.Role == Role.Admin && caseFromDb.Department.Manager != userFromDb)
                 response.AddError(CaseErrors.NotAllowed);
@@ -75,7 +83,7 @@ namespace EOD.BL.Validators
         public static ResponseDto<List<GetCaseDto>> ValidateGetCasesForManager(User userFromDb)
         {
             var response = new ResponseDto<List<GetCaseDto>>();
-            if(userFromDb == null)
+            if (userFromDb == null)
                 response.AddError(UserErrors.NotFoundByLogin);
 
             return response;

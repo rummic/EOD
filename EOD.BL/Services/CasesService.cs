@@ -91,8 +91,8 @@
         public async Task<ResponseDto<int>> ChangeStatus(ClaimsPrincipal user, int id, string status, string comment)
         {
             var caseFromDb = await _casesRepository.GetCaseById(id);
-            var userFromDb = await _usersRepository.GetUserByLogin(user.Identity.Name);
-            var response = CasesValidator.ValidateChangeStatus(caseFromDb, userFromDb, status);
+            var loggedInUser = await _usersRepository.GetUserByLogin(user.Identity.Name);
+            var response = CasesValidator.ValidateChangeStatus(caseFromDb, loggedInUser, status);
             if (response.HasErrors)
             {
                 return response;
