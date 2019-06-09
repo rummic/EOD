@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 const token = sessionStorage.getItem("token");
 
 class adduser extends Component {
@@ -63,6 +63,7 @@ class adduser extends Component {
             type: 'error',
             title: 'Coś poszło nie tak',
             text: 'Sprawdź dane i spróbuj ponownie',
+            showConfirmButton: true,
           })
         } else {
           Swal.fire({

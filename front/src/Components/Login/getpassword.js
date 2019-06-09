@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./login.css";
-
+import Swal from 'sweetalert2';
 class getpassword extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +16,11 @@ class getpassword extends Component {
   }
   
   getpassword() {
+    Swal.fire({
+      title: 'Wysyłanie...',
+      showConfirmButton: false,
+      timer: 3000
+    })
     fetch("https://localhost:44388/api/Users/"+ this.state.mail,  {
       method: "POST",
       headers: {
@@ -29,9 +34,18 @@ class getpassword extends Component {
       .then(response => response.json())
       .then(parseJSON => {
         if (parseJSON.hasErrors) {
-          alert("Zły mail")
+          Swal.fire({
+            type: 'error',
+            title: 'Błąd',
+            text: 'Podany mail jest niepoprawny',
+          })
         } else {
           this.props.history.push("/login");
+          Swal.fire({
+            type: 'success',
+            title: 'Sukces',
+            text: 'Mail został wysłany',
+          })
         }
       });
   }
@@ -58,7 +72,7 @@ class getpassword extends Component {
             />
           </Form.Group>
           <Button variant="primary" type="submit" block onClick={this.getpassword}>
-            przypomnij
+            Przypomnij
           </Button>
           <Button variant="primary" type="submit" block href="./login">
             Powrót

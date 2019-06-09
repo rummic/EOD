@@ -104,7 +104,7 @@ class changerole extends Component {
             if (parseJSON.hasErrors) {
               alert("Rola nie została zmieniona");
             } else {
-              alert("Poprawnie zmieniono dane");
+              alert("Poprawnie ??? zmieniono dane");
               this.props.history.push("/userslist");
             }
           });
