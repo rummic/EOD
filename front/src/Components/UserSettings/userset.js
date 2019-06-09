@@ -48,7 +48,7 @@ class userset extends Component {
   }
 
   update() {
-    fetch("https://localhost:44388/api/Users" + sessionStorage.getItem("id"), {
+    fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem("id"), {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
