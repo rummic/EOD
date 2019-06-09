@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Sidebar from "../Navbar/sidebar";
 import { Redirect } from "react-router-dom";
 import { Table } from "react-bootstrap";
-
+import Swal from 'sweetalert2';
 const token = sessionStorage.getItem("token");
 
 class filedetails extends Component {
@@ -78,9 +78,17 @@ class filedetails extends Component {
       .then(response => response.json())
       .then(parseJSON => {
         if (parseJSON.hasErrors) {
-          alert("Dział nie został dodany");
+          Swal.fire({
+            type: 'error',
+            title: 'Błąd',
+            text: 'Zmiany nie zostały wprowadzone',
+          })
         } else {
-          alert("Dział został dodany");
+          Swal.fire({
+            type: 'success',
+            title: 'Sukces',
+            text: 'Pomyślnie wprowadzono zmiany',
+          })
           this.props.history.push("/departments");
         }
       });
@@ -118,8 +126,9 @@ class filedetails extends Component {
                           <td>
                           <select value={this.state.userId} name="userId" onChange={(e) => this.setState({userId: e.target.value})}>
                             {this.state.users.map((item, i) => (
+                 console.log(i),
                  
-                            <option style = {{display : item.role !=='Admin' ? 'none' : 'block'}}  key={i}  value={item.id}  >{item.login} </option>
+                            <option style = {{display: item.role !=='Admin' ? 'none' : 'block'}}  key={i}  value={item.id}  >{item.login} </option>
                   
                               ))}
                             </select>

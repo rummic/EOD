@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
-import swal from "sweetalert";
+import swal from "sweetalert2";
 import { Dropdown, Table } from "react-bootstrap";
 import './changerole.css'
 const token = sessionStorage.getItem("token");
@@ -104,7 +104,7 @@ class changerole extends Component {
             if (parseJSON.hasErrors) {
               alert("Rola nie została zmieniona");
             } else {
-              alert("Poprawnie zmieniono dane");
+              alert("Poprawnie ??? zmieniono dane");
               this.props.history.push("/userslist");
             }
           });
