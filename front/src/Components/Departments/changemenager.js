@@ -128,7 +128,7 @@ class filedetails extends Component {
                             {this.state.users.map((item, i) => (
                  console.log(i),
                  
-                            <option style = {{display: item.role !=='Admin' ||  item.id === 1 ? 'none' : 'block'}}  key={i}  value={item.id}  >{item.login} </option>
+                            <option style = {{display: item.role !=='Admin' ? 'none' : 'block'}}  key={i}  value={item.id}  >{item.login} </option>
                   
                               ))}
                             </select>
