@@ -3,9 +3,16 @@ import Sidebar from "../Navbar/sidebar";
 import { Redirect } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import "./filedetails.css";
+import Swal from 'sweetalert2';
 
 const token = sessionStorage.getItem("token");
-
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false,
+})
 class filedetails extends Component {
   componentDidMount() {
     document.title = 'Szczegóły ' + this.state.title;
@@ -118,8 +125,19 @@ class filedetails extends Component {
   }
   
 
+
   acceptDocument(){
-    const obj = this.props.location.state;
+    swalWithBootstrapButtons.fire({
+      title: 'Czy chcesz zaakceptować dokument',
+      text: "Tej czynności nie będzie można cofnąć!",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Akceptuj',
+      cancelButtonText: 'Cofnij',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        const obj = this.props.location.state;
     fetch("https://localhost:44388/api/Cases?id="+ obj.id +"&status=Accepted", {
       method: "PUT",
       headers: {
@@ -134,13 +152,38 @@ class filedetails extends Component {
       .then(parseJSON => {
         console.log(obj.status)
         if (parseJSON.hasErrors) {
-          alert("nie działa")
+          Swal.fire({
+            type: 'error',
+            title: 'Błąd',
+            text: 'Plik nie został zaakceptowany',
+          })
         } else {
-          alert("Zaakceptowano");
           this.props.history.push("/showfiles");
-        }
+          Swal.fire({
+          type: 'success',
+          title: 'Sukces!',
+          text: 'Plik został zaakceptowany',
+        });
+      
+                }
       });
   }
+       else if (
+        // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Anulowano zmiany',
+          'Plik nie został zaakceptowany',
+          'info'
+        )
+      }
+    })}
+
+
+
+
+    
 
   showInput() {
     document.getElementById("coment").style.display = "inline";
@@ -154,6 +197,16 @@ class filedetails extends Component {
   }
 
   rejectedDocument(){
+    swalWithBootstrapButtons.fire({
+      title: 'Czy chcesz odrzucić dokument',
+      text: "Tej czynności nie będzie można cofnąć!",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Akceptuj',
+      cancelButtonText: 'Cofnij',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
     const obj = this.props.location.state;
     fetch("https://localhost:44388/api/Cases?id="+ obj.id +"&status=Rejected&comment=" + this.state.comment,{
       method: "PUT",
@@ -170,13 +223,33 @@ class filedetails extends Component {
       .then(parseJSON => {
         console.log(obj.status)
         if (parseJSON.hasErrors) {
-          alert("nie działa")
+          Swal.fire({
+            type: 'error',
+            title: 'Błąd',
+            text: 'Plik nie został odrzucony',
+          })
         } else {
-          alert("Odrzucono");
-          this.props.history.push("/index");
-        }
+          this.props.history.push("/showfiles");
+          Swal.fire({
+          type: 'success',
+          title: 'Sukces!',
+          text: 'Plik został odrzucony',
+        });
+      
+                }
       });
   }
+       else if (
+        // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Anulowano zmiany',
+          'Plik nie został odrzucony',
+          'info'
+        )
+      }
+    })}
 
 //    console.log(this.state.documents[0].path)
   render() {
