@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
+import Swal from 'sweetalert2';
 
 const token = sessionStorage.getItem("token");
 
@@ -73,7 +74,11 @@ class adduser extends Component {
             value: parseJSON.value
           });
         if (parseJSON.hasErrors) {
-          alert("Dział nie został dodany");
+          Swal.fire({
+            type: 'error',
+            title: 'Błąd',
+            text: 'Dział nie został dodany',
+          })
         } else {
           fetch(
             "http://localhost:60148/api/Departments?id=" + this.state.value +"&userId=" + this.state.userId ,{
@@ -87,9 +92,17 @@ class adduser extends Component {
             .then(response => response.json())
             .then(parseJSON => {
               if (parseJSON.hasErrors) {
-                alert("Dział nie został dodany");
+                Swal.fire({
+                  type: 'error',
+                  title: 'Błąd',
+                  text: 'Dział nie został dodany',
+                })
               } else {
-                alert("Dział został dodany");
+                Swal.fire({
+                  type: 'success',
+                  title: 'Sukces',
+                  text: 'Dział został dodany pomyślnie',
+                })
                 this.props.history.push("/departments");
               }
             });

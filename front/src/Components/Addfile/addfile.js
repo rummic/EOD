@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./addfile.css";
 import { Breadcrumb } from 'react-bootstrap';
-import { exportDefaultSpecifier } from "@babel/types";
+
  
 const token = sessionStorage.getItem("token");
  
@@ -128,7 +128,7 @@ class addfile extends Component {
  
  
   render() {
-    const { formErrors } = this.state;
+
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/login"} />;
     }

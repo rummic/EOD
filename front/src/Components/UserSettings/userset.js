@@ -3,7 +3,15 @@ import { Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
 import "./userset.css";
 import { Breadcrumb } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false,
+})
 
 const token = sessionStorage.getItem("token");
 
@@ -48,6 +56,16 @@ class userset extends Component {
   }
 
   update() {
+        swalWithBootstrapButtons.fire({
+      title: 'Czy chcesz zaakceptować dokument',
+      text: "Tej czynności nie będzie można cofnąć!",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Akceptuj',
+      cancelButtonText: 'Cofnij',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
     fetch("https://localhost:44388/api/Users/" + sessionStorage.getItem("id"), {
       method: "PUT",
       headers: {
@@ -55,13 +73,7 @@ class userset extends Component {
         Authorization: `bearer ${token}`
       },
       body: JSON.stringify({
-        login: sessionStorage.getItem("login"),
         password: this.state.password,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        phoneNumber: this.state.phoneNumber,
-        role: this.state.role
       })
     })
       .then(response => response.json())
@@ -74,7 +86,18 @@ class userset extends Component {
           this.props.history.push("/index");
         }
       });
-  }
+    
+    } else if (
+      // Read more about handling dismissals
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelled',
+        'Your imaginary file is safe :)',
+        'error'
+      )
+    }
+  })}
 
   showInput() {
     document.getElementById("password").style.display = "inline";
@@ -94,37 +117,7 @@ class userset extends Component {
               <Breadcrumb.Item active>Ustawienia konta</Breadcrumb.Item>
             </Breadcrumb>
             <div className="UsersetBox-form-content">
-              <label>Imie :</label>
-              <input
-                type="text"
-                disabled
-                value={this.state.firstName}
-                name="firstName"
-                onChange={this.onChange}
-              />
-              <label>Nazwisko :</label>
-              <input
-                type="text"
-                disabled
-                value={this.state.lastName}
-                name="lastName"
-                onChange={this.onChange}
-              />
-              <label>Nick :</label>
-              <input
-                type="text"
-                disabled
-                value={sessionStorage.getItem("login")}
-                name="login"
-                onChange={this.onChange}
-              />
-              <label>Email :</label>
-              <input
-                type="text"
-                value={this.state.email}
-                name="email"
-                onChange={this.onChange}
-              />
+              
               <label>Hasło :</label>
               <button
                 id="hideButton"
