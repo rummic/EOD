@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
+<<<<<<< HEAD
 import Swal from 'sweetalert2';
+=======
+
+>>>>>>> fb10e6bba2f898c060ab3c8a551549a303413376
 const token = sessionStorage.getItem("token");
 
 class adduser extends Component {
@@ -59,18 +63,18 @@ class adduser extends Component {
       .then(response => response.json())
       .then(parseJSON => {
         if (parseJSON.hasErrors) {
+<<<<<<< HEAD
           Swal.fire({
             type: 'error',
             title: 'Coś poszło nie tak',
             text: 'Sprawdź dane i spróbuj ponownie',
             showConfirmButton: true,
           })
+=======
+          
+>>>>>>> fb10e6bba2f898c060ab3c8a551549a303413376
         } else {
-          Swal.fire({
-            type: 'success',
-            title: 'Użytkownik dodany pomyślnie',
-            showConfirmButton: true,
-          })
+          
           this.props.history.push("/usersList");
         }
 
