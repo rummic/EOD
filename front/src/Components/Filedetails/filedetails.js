@@ -3,7 +3,7 @@ import Sidebar from "../Navbar/sidebar";
 import { Redirect } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import "./filedetails.css";
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert';
 
 const token = sessionStorage.getItem("token");
 const swalWithBootstrapButtons = Swal.mixin({

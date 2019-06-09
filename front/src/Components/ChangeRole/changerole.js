@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
-import swal from "sweetalert";
+import swal from "sweetalert2";
 import { Dropdown, Table } from "react-bootstrap";
 import './changerole.css'
 const token = sessionStorage.getItem("token");

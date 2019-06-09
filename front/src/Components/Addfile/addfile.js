@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./addfile.css";
 import { Breadcrumb } from 'react-bootstrap';
+
  
 const token = sessionStorage.getItem("token");
  
@@ -19,13 +20,16 @@ class addfile extends Component {
       documentsType: [],
       documentsTypename: "",
       departments: [],
-      value: ""
+      value: "",
+
     };
     this.onChange = this.onChange.bind(this);
   }
+  
  
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+
   }
  
   fileSelectedHandler = event => {
@@ -33,7 +37,9 @@ class addfile extends Component {
       selectedFile: event.target.files[0]
     })
   }
- 
+
+  
+
   componentDidMount() {
       document.title = 'Dodawanie dokumentu';
     fetch("https://localhost:44388/api/Departments")
@@ -76,10 +82,8 @@ class addfile extends Component {
           value: parseJSON.value
         });
         if (!parseJSON.hasErrors) {
-          
           const fd = new FormData();
           fd.append('document', this.state.selectedFile, this.state.selectedFile.name)
-          
              axios.post('https://localhost:44388/api/Documents/'+this.state.value, fd,{
               headers: {
                 "Content-Type": "aplication/json",
@@ -106,9 +110,12 @@ class addfile extends Component {
           
         
           alert("Plik został porpawnie dodany");
-          this.props.history.push("/userdocument");
-        } else {
-          alert("Niestety plik nie został dodany");
+          this.props.history.push("/index");
+        } else{
+          console.log(parseJSON.errors)
+          document.getElementById("badtitle").innerHTML = parseJSON.errors;
+          document.getElementById("badtitle").style.color = "red";
+          
         }
       },
       () => this.addFiles());
@@ -121,6 +128,7 @@ class addfile extends Component {
  
  
   render() {
+
     if (!sessionStorage.getItem("token")) {
       return <Redirect to={"/login"} />;
     }
@@ -134,14 +142,18 @@ class addfile extends Component {
               <Breadcrumb.Item active>Dodaj Dokument</Breadcrumb.Item>
             </Breadcrumb>
             <div className="AddfileBox-form-content">
+              <div>
               <label>Tytuł :</label>
-              <input
+              <input 
+              className="form-control"
                 type="text"
                 placeholder="Podaj tytuł"
-                required
                 name="title"
+                required
                 onChange={this.onChange}
               />
+              <p id="badtitle" style={{fontSize:'20px', marginLeft: '30%' } } />
+              </div>
               <div className="AddfileBox-form-content-select">
               <label>Dział :</label>
               <select value={this.state.departmentsId} name="departmentsId" onChange={(e) => this.setState({departmentId: e.target.value})} >
@@ -154,14 +166,15 @@ class addfile extends Component {
               
             </div>
             <div className="AddfileBox-form-files">
-              <input type="file"  onChange={this.fileSelectedHandler}  />
+              <input type="file" onChange={this.fileSelectedHandler}  />
+              <p id="badtitle2" style={{fontSize:'20px', marginLeft: '30%' } } />
             </div>
           </div>
           <div className="addButton">
               <button
                 type="button"
                 id="add"
-                 onClick={this.fileUploadHandler}
+                 onClick={this.fileUploadHandler.bind(this)}
                 data-type="plus"
                 data-field="quant[2]"
               >

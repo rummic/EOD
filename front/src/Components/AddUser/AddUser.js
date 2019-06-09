@@ -59,7 +59,9 @@ class adduser extends Component {
       .then(response => response.json())
       .then(parseJSON => {
         if (parseJSON.hasErrors) {
-
+          console.log(parseJSON.errors)
+          document.getElementById("badtitle").innerHTML = parseJSON.errors[0];
+          document.getElementById("badtitle").style.color = "red";
         } else {
           
           this.props.history.push("/usersList");
@@ -125,6 +127,7 @@ class adduser extends Component {
                 <option name="role" onChange={this.onChange}>User</option>
               </select>
             </div>
+            <p id="badtitle" style={{fontSize:'20px', marginLeft: '30%' } } />
             <button
               className="UsersetBox-form-button"
               onClick={this.addU.bind(this)}
