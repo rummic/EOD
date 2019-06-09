@@ -70,9 +70,7 @@ body{
     color:white;
 }
 
-#password{
-    display: none;
-}
+
 
 .password-button{
     border: 4px solid rgb(0, 168, 114);
