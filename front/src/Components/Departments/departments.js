@@ -3,8 +3,15 @@ import { Redirect,Link } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
 import { Breadcrumb, Table } from "react-bootstrap";
 
+import Search from '@material-ui/icons/Search';
+
+import MaterialTable from 'material-table';
 const token = sessionStorage.getItem("token");
 
+
+const tableIcons = {
+  Search: Search
+}
 class departments extends Component {
   constructor(props) {
     super(props);
@@ -69,36 +76,34 @@ class departments extends Component {
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
                 <div>
-                <button>
-                    <Link to={{ pathname: "./adddepartment" }}>
+                
+                  <MaterialTable
+        icons = {tableIcons}
+          columns={[
+            { title: "ID", field: "dId" },
+            { title: "Nazwa", field: "name" },
+            {title: "", field:"buttonek"}
+            
+          ]}
+         
+           data={this.state.departments.map((item, i) => ({ 
+              
+            dId:  item.id,
+            name: item.name,
+          
+           buttonek:<Link to={{pathname:"./changemenager", state: item}}> <button>Ustawienia </button></Link>
+           
+        
+            
+})) }
+
+          title="Lista użytkowników"
+          />
+               
+                    <Link to={{ pathname: "./adddepartment" }}><button>
                       Dodaj dział
-                    </Link>
-                  </button>
-                <Table striped bordered hover size="sm">
-                    <thead>
-                      <tr>
-                        <th>Id</th>
-                        <th>Nazwa</th>
-                      </tr>
-                    </thead>
-                    {this.state.departments.map((item, i) => (
-                      <tbody key={i}>
-                        <tr>
-                          <td>{item.id}</td>
-                          <td>{item.name}</td>
-                          <td>
-                            <button>
-                            <Link
-                                to={{ pathname: "./changemenager", state: item }}
-                              >
-                                Ustawienia
-                              </Link>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
-                  </Table>
+                      </button></Link>
+                  
                   </div>
                   </div>
                   </div>
