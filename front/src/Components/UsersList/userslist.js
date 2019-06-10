@@ -103,10 +103,16 @@ class UserList extends Component {
            nick: item.login,
            mail: item.email,
            userRole: item.role,
+           buttonek:<Link to={{pathname:"./changerole", state: item}}> <button>Ustawienia </button></Link>
            
         
             
 })) }
+onRowClicked= {<Link to={{ pathname: "./changerole" }}>
+Dodaj użytkownika
+</Link>
+
+}
           title="Lista użytkowników"
           />
               </div>
