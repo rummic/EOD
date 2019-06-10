@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`departments Rendering adddepartment component 1`] = `ShallowWrapper {}`;
+
+exports[`departments Rendering changemenager component 1`] = `ShallowWrapper {}`;
+
+exports[`departments Rendering departments component 1`] = `ShallowWrapper {}`;
+
+exports[`departments Rendering departments component 2`] = `ShallowWrapper {}`;

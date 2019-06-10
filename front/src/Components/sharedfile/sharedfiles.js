@@ -1,9 +1,5 @@
 import { Component } from "react";
 
-
-
-
-
 class sharedfiles extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +21,6 @@ class sharedfiles extends Component {
                 value: parseJSON.value
               });
           });
-
       }
     render() {
         console.log(window.location.search)

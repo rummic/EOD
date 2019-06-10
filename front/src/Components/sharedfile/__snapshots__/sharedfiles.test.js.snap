@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sharedfiles Rendering shaderfiles component 1`] = `ShallowWrapper {}`;

@@ -3,7 +3,6 @@ import { Redirect, Link } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
 import "./userslist.css";
 import Search from '@material-ui/icons/Search';
-import Icon from 'material-icons';
 import { Breadcrumb } from "react-bootstrap";
 
 import MaterialTable from 'material-table';
