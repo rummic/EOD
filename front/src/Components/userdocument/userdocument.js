@@ -76,7 +76,7 @@ class showfiles extends Component {
             
 })) }
 
-          title="Lista użytkowników"
+          title="Lista Dokumentów"
           />
                 </div>
               </div>

@@ -97,7 +97,7 @@ class departments extends Component {
             
 })) }
 
-          title="Lista użytkowników"
+          title="Lista działów"
           />
                
                     <Link to={{ pathname: "./adddepartment" }}><button>
