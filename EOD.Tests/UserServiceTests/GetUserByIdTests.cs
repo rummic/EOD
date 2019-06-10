@@ -1,17 +1,13 @@
-﻿namespace EOD.Tests
+﻿using System.Threading.Tasks;
+using EOD.BL.Dtos.UserDtos;
+using EOD.BL.Services;
+using EOD.Commons.ErrorMessages;
+using EOD.DAL.Model;
+using Moq;
+using NUnit.Framework;
+
+namespace EOD.Tests.UserServiceTests
 {
-    using System.Threading.Tasks;
-
-    using EOD.BL.Dtos.UserDtos;
-    using EOD.BL.Services;
-    using EOD.Commons.ErrorMessages;
-    using EOD.DAL.Model;
-    using EOD.Tests.UserServiceTests;
-
-    using Moq;
-
-    using NUnit.Framework;
-
     public class GetUserByIdTests : UserServiceTestsSetup
     {
 
