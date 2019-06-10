@@ -3,8 +3,13 @@ import Sidebar from "../Navbar/sidebar";
 import { Redirect, Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 
-const token = sessionStorage.getItem("token");
+import Search from '@material-ui/icons/Search';
+import MaterialTable from "material-table";
 
+const token = sessionStorage.getItem("token");
+const tableIcons = {
+  Search: Search
+}
 class showfiles extends Component {
   constructor(props) {
     super(props);
@@ -47,49 +52,38 @@ class showfiles extends Component {
           <div className="UsersetBox-form">
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
-                <div><Link to={{ pathname: "./adddoctype" }}>
-                <button>
-                    
-                      Dodaj typ dokumentu
-                    
-                  </button></Link>
-                  <Table striped bordered hover size="sm">
-                    <thead>
-                      <tr>
-                        <th>Id</th>
-                        <th>Tytuł</th>
-                        <th>Dział</th>
-                        <th>Status</th>
-                        <th>Data otrzymania</th>
-                      </tr>
-                    </thead>
-                    {this.state.cases.map((item, i) => (
-                      <tbody key={i}>
-                        <tr>
-                          <td>{item.id}</td>
-                          <td>{item.title}</td>
-                          <td>{item.departmentName}</td>
-                          <td>{item.status}</td>
-                          <td>{item.sendDate}</td>
-                          <td>
-                            <button>
-                              <Link
-                                to={{ pathname: "./filedetails", state: item }}
-                              >
-                                Szczegóły
-                              </Link>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
-                  </Table>
+                
+                  <MaterialTable
+        icons = {tableIcons}
+          columns={[
+            { title: "Tytuł", field: "title" },
+            { title: "Dzial", field: "departmentName" },
+            {title: "Status", field: "state"},
+            {title: "Data wysłania", field: "sendDate"},
+            
+            {title: "", field:"buttonek"}
+            
+          ]}
+         
+           data={this.state.cases.map((item, i) => ({ 
+              
+           title:  item.title,
+           departmentName: item.departmentName,
+           state: item.status,
+           sendDate: item.sendDate,
+           buttonek:<Link to={{pathname:"./filedetails", state: item}}> <button>Ustawienia </button></Link>
+           
+        
+            
+})) }
+
+          title="Lista Dokumentów"
+          />
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }
