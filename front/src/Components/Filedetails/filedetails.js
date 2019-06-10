@@ -193,7 +193,7 @@ class filedetails extends Component {
 
   showMail(){
     document.getElementById("recepient").style.display = "inline";
-    document.getElementById("showButton").style.display = "none";
+    document.getElementById("showButtonelo").style.display = "none";
   }
 
   rejectedDocument(){
@@ -362,7 +362,7 @@ class filedetails extends Component {
                   </button>
                   </div>
                   </div>
-                  <button  id="showButton" onClick={this.showMail}>
+                  <button  id="showButtonelo" onClick={this.showMail}>
                       Udostępnij dokument
                   </button>
                   <div id="recepient">
