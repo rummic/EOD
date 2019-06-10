@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
 import "./userslist.css";
+import Search from '@material-ui/icons/Search';
+import Icon from 'material-icons';
 import { Breadcrumb } from "react-bootstrap";
 
 import MaterialTable from 'material-table';
 
-
+const tableIcons = {
+  Search: Search
+}
 const token = sessionStorage.getItem("token");
 
 class UserList extends Component {
@@ -73,11 +77,7 @@ class UserList extends Component {
             <div className="UsersetBox-form-content">
               <div className="UsersetBox">
                 <div>
-                  <button>
-                    <Link to={{ pathname: "./adduser" }}>
-                      Dodaj użytkownika
-                    </Link>
-                  </button>
+                  
                  
                 </div>
               </div>
@@ -85,7 +85,7 @@ class UserList extends Component {
             <div style={{ maxWidth: "100%" }}> 
             
         <MaterialTable
-        
+        icons = {tableIcons}
           columns={[
             { title: "Imię", field: "name" },
             { title: "Nazwisko", field: "surname" },
@@ -108,13 +108,14 @@ class UserList extends Component {
         
             
 })) }
-onRowClicked= {<Link to={{ pathname: "./changerole" }}>
-Dodaj użytkownika
-</Link>
 
-}
           title="Lista użytkowników"
           />
+          <button>
+                    <Link to={{ pathname: "./adduser" }}>
+                      Dodaj użytkownika
+                    </Link>
+                  </button>
               </div>
           </div>
         </div>
