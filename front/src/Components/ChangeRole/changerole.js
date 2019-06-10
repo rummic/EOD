@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Sidebar from "../Navbar/sidebar";
-import swal from "sweetalert2";
+import swal from "sweetalert";
 import { Dropdown, Table } from "react-bootstrap";
 import './changerole.css'
 const token = sessionStorage.getItem("token");
@@ -76,10 +76,11 @@ class changerole extends Component {
       .then(parseJSON => {
         console.log(parseJSON);
         if (parseJSON.hasErrors) {
-          swal("Udana zmiana")
+          swal("Błąd")
         } else {
-          swal("Poprawnie zmieniono dane");
-          window.location.reload(true);
+          
+          swal("Poprawnie zmieniono dane",window.location.reload(true));
+          
         }
       });
   }
@@ -102,9 +103,10 @@ class changerole extends Component {
           .then(response => response.json())
           .then(parseJSON => {
             if (parseJSON.hasErrors) {
+            
               alert("Rola nie została zmieniona");
             } else {
-              alert("Poprawnie ??? zmieniono dane");
+              alert("Poprawnie zmieniono rolę");
               this.props.history.push("/userslist");
             }
           });
@@ -134,7 +136,8 @@ class changerole extends Component {
   showRoleSelect() {
     document.getElementById("currentRole").style.display = "none";
     document.getElementById("roleButton").style.display = "none";
-    document.getElementById("showRoleSelect").style.display = "inline";
+    document.getElementById("showRole").style.display = "inline";
+    document.getElementById("showButton").style.display = "inline";
     
   }
   render() {
@@ -176,7 +179,7 @@ class changerole extends Component {
                       id="changeFirstNameButton"
                       className="password-button"
                       variant="primary"
-                      onClick={() => this.update(obj.id)}
+                      onClick={() => this.updateData()}
                       >
                         Zmień imię
                       </button>
@@ -241,7 +244,7 @@ class changerole extends Component {
                         variant="primary"
                         onClick={this.showEmailInput}
                       >
-                        Zmień umię użytkownika
+                        Zmień mail użytkownika
                       </button><div id="showEmailInput">
                       <input
                         type="text"
@@ -275,9 +278,9 @@ class changerole extends Component {
                         onClick={this.showRoleSelect}
                       >
                         Zmień rolę użytkownika
-                      </button><div id="showRoleSelect">
+                      </button>
                       
-                      <select  name="role" onChange={this.onChange} placeholder="Rola użytkownika">
+                      <select  id="showRole" name="role" onChange={this.onChange} placeholder="Rola użytkownika">
                 <option selected disabled>Zmień rolę</option>
                 <option name="role" onChange={this.onChange}>
                   Admin
@@ -285,17 +288,17 @@ class changerole extends Component {
                 <option name="role" onChange={this.onChange}>
                   User
                 </option>
-                      
+                </select>
                       <button
-                      id="changeEmail"
+                      id="showButton"
                       className="password-button"
                       variant="primary"
-                      onClick={() => this.update()}
+                      onClick={() => this.update(obj.id)}
                       >
-                        Zmień email
+                        Zmień rolę
                       </button>
-                      </select>
-                      </div>
+                      
+                      
                       </td>
                   </tr>
                 </tbody>
